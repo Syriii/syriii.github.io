@@ -2,23 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>mlzy.github.io/en/sitemap.xml</loc>
-    
-      <lastmod>2020-10-09T00:00:00+00:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>mlzy.github.io/zh-cn/sitemap.xml</loc>
+    <loc>syriii.github.io/zh-cn/sitemap.xml</loc>
     
       <lastmod>2020-09-09T00:00:00+00:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>mlzy.github.io/ar/sitemap.xml</loc>
-    
-      <lastmod>2019-03-09T00:00:00+00:00</lastmod>
+    <loc>syriii.github.io/en/sitemap.xml</loc>
     
   </sitemap>
   
