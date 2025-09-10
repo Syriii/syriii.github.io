@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>教程 on 纸箱子</title>
+    <link>https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/</link>
+    <description>Recent content in 教程 on 纸箱子</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>Syriii</copyright>
+    <lastBuildDate>Tue, 09 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>新建一个hugo博客站</title>
+      <link>https://syriii.github.io/p/new_hugo_blog/</link>
+      <pubDate>Tue, 09 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://syriii.github.io/p/new_hugo_blog/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo_blog/pic/hugo-logo-wide.svg&#34; alt=&#34;hugo-logo&#34;&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;新建一个hugo博客站&#34;&gt;新建一个Hugo博客站&lt;/h1&gt;&#xA;&lt;p&gt;Hugo是Go语言实现的博客工具，使用Markdown进行文章编辑，使用hugo基础命令就可以生成静态网页。支持主题配置，也支持js自定义。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
