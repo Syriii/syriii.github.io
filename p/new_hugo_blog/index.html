@@ -266,58 +266,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#安装hugo">安装Hugo</a>
-      <ol>
-        <li><a href="#macos">macOS</a></li>
-        <li><a href="#windows">windows</a></li>
-        <li><a href="#版本确认和验证">版本确认和验证：</a></li>
-      </ol>
-    </li>
-    <li><a href="#创建一个空的博客">创建一个空的博客</a></li>
-    <li><a href="#配置主题">配置主题</a>
-      <ol>
-        <li><a href="#关联主题仓库">关联主题仓库</a></li>
-        <li><a href="#添加hugo模组">添加Hugo模组</a></li>
-      </ol>
-    </li>
-    <li><a href="#生成网页与本地部署">生成网页与本地部署</a></li>
-    <li><a href="#github-pages部署">Github Pages部署</a>
-      <ol>
-        <li><a href="#常规部署">常规部署</a></li>
-        <li><a href="#自动部署">自动部署</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -381,7 +330,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 6 分钟
                 </time>
             </div>
         
@@ -406,290 +355,10 @@
 	
 	
 ></p>
-<h1 id="新建一个hugo博客站">新建一个Hugo博客站
-</h1><p>Hugo是Go语言实现的博客工具，使用Markdown进行文章编辑，使用hugo基础命令就可以生成静态网页。支持主题配置，也支持js自定义。</p>
-<h2 id="安装hugo">安装Hugo
-</h2><h3 id="macos">macOS
-</h3><p>我其中一台电脑是macOS，使用官方推荐的homebrew方式来进行hugo的安装。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install hugo
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="windows">windows
-</h3><p>家用电脑是windows，因此也补充一下windows的安装方式。
-前往<a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack/releases"  target="_blank" rel="noopener"
-    >Hugo Release</a>，选择对应版本的下载。
-<img src="/p/new_hugo_blog/pic/hugo_release_download.png"
-	width="1239"
-	height="796"
-	srcset="/p/new_hugo_blog/pic/hugo_release_download_hu_fee37e29614909d1.png 480w, /p/new_hugo_blog/pic/hugo_release_download_hu_b7f5b8a1ee9776e0.png 1024w"
-	loading="lazy"
-	
-		alt="hugo_release_page"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="155"
-		data-flex-basis="373px"
-	
->
-解压后,使用PowerShell或cmd执行 <code>.\hugo</code> 启动hugo.exe就可以启动hugo了。</p>
-<h3 id="版本确认和验证">版本确认和验证：
-</h3><p>完成后使用 <code>hugo version</code> 命令来验证即可。</p>
-<h2 id="创建一个空的博客">创建一个空的博客
-</h2><p>在安装hugo成功后，就可以通过 <code>hugo new site</code> 命令来进行网站的创建了</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo new site hugo-test
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Congratulations! Your new Hugo site was created in D:\code\personal\hugo-test.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Just a few more steps...</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. Change the current directory to D:\code\personal\hugo-test.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 2. Create or install a theme:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    - Create a new theme with the command &#34;hugo new theme &lt;THEMENAME&gt;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    - Or, install a theme from https://themes.gohugo.io/</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 3. Edit hugo.toml, setting the &#34;theme&#34; property to the theme name.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 4. Create new content with the command &#34;hugo new content &lt;SECTIONNAME&gt;\&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 5. Start the embedded web server with the command &#34;hugo server --buildDrafts&#34;.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># See documentation at https://gohugo.io/.</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>对于hugo的项目接口，简单解释一下各个目录的作用吧。</p>
-<ul>
-<li>archetypes：存放的default.md是生成博客文章的模板</li>
-<li>assets：存放被hugo pipes处理的文件</li>
-<li>content：存放展示的博客文章相关的markdown文件</li>
-<li>data：存放hugo处理的数据</li>
-<li>layouts：存放布局文件</li>
-<li>static：存放静态文件</li>
-<li>themes：存放主题</li>
-<li>hugo.yaml/hugo.toml: 存放博客的配置文件</li>
-</ul>
-<h2 id="配置主题">配置主题
-</h2><p>前往 <a class="link" href="https://themes.gohugo.io/"  target="_blank" rel="noopener"
-    >Hugo Themes</a> 可以查找并下载自己喜欢的主题，hugo社区提供了可观数量的主题。选择主题后进入主题仓库，一般会有很详细的安装和配置说明。这里就简单说几种可行的安装方法。</p>
-<h3 id="关联主题仓库">关联主题仓库
-</h3><p>用户可以直接通过clone或者从github网页上下载zip包的方式直接获取hugo主题所需的代码，将主题放到themes目录下即可。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git clone https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当然，已经在使用git的情况下，可以使用submodule方式来添加主题，在网页的根目录下执行<code>git submodule</code>命令来添加子模块。对于后续需要定制化开发的用户，建议将原主题<code>fork</code>到自己账户中，再使用<code>git submodule</code>方式添加子模块到个人项目中，方便对于代码的单独维护。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果需要同步仓库的最新更改，则运行以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git submodule update --remote
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="添加hugo模组">添加Hugo模组
-</h3><p>用户也可以通过直接向代码里添加Hugo模组的方式来配置主题。</p>
-<ol>
-<li>首先将自己的项目转化为hugo模组</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo mod init hugo-test
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>在自己项目中配置主题，将主题作为项目依赖导入</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># config.yaml</span>
-</span></span><span class="line"><span class="cl">module:
-</span></span><span class="line"><span class="cl">  imports:
-</span></span><span class="line"><span class="cl">    - path: github.com/CaiJimmy/hugo-theme-stack/v3
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
-<li>如果需要更新主题版本的时候，执行以下命令</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo mod get -u github.com/CaiJimmy/hugo-theme-stack/v3
-</span></span><span class="line"><span class="cl">hugo mod tidy
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>上述命令是针对主题的小版本更新，如果主题发生了大版本更新，比如v3升级到v4后，那么就需要更新配置文件的<code>path</code>中的版本号。</p>
-<h2 id="生成网页与本地部署">生成网页与本地部署
-</h2><p>想要查看生成的博客的效果，执行<code>hugo server</code>命令就可以进行本地实时预览，由于是热部署，因此无需重复生成，任何修改都会直接体现在预览网页中。预览页面的默认地址为<code>http://localhost:1313</code>，部署后直接访问就可以看到。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo server -D
-</span></span><span class="line"><span class="cl"><span class="c1"># -D 的含义是buildDrafts，也就是构建网站时，内容包括草稿</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>执行hugo命令的同时，还会生成一个public文件夹。这个文件夹中的内容就是用于发布在github pages上，或者其他类似功能的网站上，详细内容会在下一部分介绍。</p>
-<h2 id="github-pages部署">Github Pages部署
-</h2><blockquote>
-<p><strong>Github Pages是什么？</strong></p>
-<p>Github Pages是一个静态网站托管系统，简单的理解就是它可以部署你的静态网页，并提供网页入口供用户浏览访问。</p></blockquote>
-<h3 id="常规部署">常规部署
-</h3><ol>
-<li>在 <a class="link" href="github.com" >Github官网</a> 新建一个仓库，仓库名为 <code>[githu的用户名].githubo.io</code></li>
-</ol>
-<p><img src="/p/new_hugo_blog/pic/new-repo.png"
-	width="1464"
-	height="536"
-	srcset="/p/new_hugo_blog/pic/new-repo_hu_c43a9e220d223a14.png 480w, /p/new_hugo_blog/pic/new-repo_hu_725a3251438c52f6.png 1024w"
-	loading="lazy"
-	
-		alt="new-repo"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="273"
-		data-flex-basis="655px"
-	
-></p>
-<p>实际上，仓库名是可以起其他方式的，但是对于个人账号的静态页面域名是固定的，是<code>[githu的用户名].githubo.io</code>。如果你起了一个自定义的仓库名，此时的静态页面的域名就会变成<code>[githu的用户名].githubo.io/[仓库名]</code></p>
-<ol start="2">
-<li>前往<code>Setting -&gt; Pages</code>，并在Build and deployment中选择要部署的分支。</li>
-</ol>
-<p><img src="/p/new_hugo_blog/pic/setting-pages.png"
-	width="2214"
-	height="1192"
-	srcset="/p/new_hugo_blog/pic/setting-pages_hu_a8cf95bc8f00a28e.png 480w, /p/new_hugo_blog/pic/setting-pages_hu_c7b70a8e86e84986.png 1024w"
-	loading="lazy"
-	
-		alt="setting-pages"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="185"
-		data-flex-basis="445px"
-	
-></p>
-<ol start="3">
-<li>修改配置文件</li>
-</ol>
-<p>站点目录中的<strong>hugo.yaml</strong>的<code>baseurl</code>要替换成自己的域名，也就是前两步使用的<code>[githu的用户名].githubo.io</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseurl</span><span class="p">:</span><span class="w"> </span><span class="l">https://syriii.github.io/</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="4">
-<li>进入hugo根目录，生成静态页面</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>执行hugo后，会生成<strong>public</strong>文件夹，文件夹内的文件是hugo生成的整个静态网站。我们只需要将这个文件夹里的所有内容push到这个创建好的github仓库就即可。</p>
-<ol start="5">
-<li>初始化仓库，上传代码</li>
-</ol>
-<p>在进入<strong>public</strong>目录后，将目录关联到github远程残酷，提交修改后并推送到远程仓库中。首次上传还需要配置你的用户名、邮箱并输入密码。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> public
-</span></span><span class="line"><span class="cl">git init
-</span></span><span class="line"><span class="cl">git remote add origin <span class="o">[</span>github仓库地址<span class="o">]</span> <span class="c1"># 将本地目录链接到远程服务器的代码仓库</span>
-</span></span><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;[这次提交的描述]&#34;</span>
-</span></span><span class="line"><span class="cl">git push -u origin master
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>以后每次提交，只需要重复add、commit和push三步就可以更新代码仓库。</p>
-<h3 id="自动部署">自动部署
-</h3><p>我们的Hugo项目涉及了三个github仓库：</p>
-<ul>
-<li>根目录对应的Hugo项目源文件仓库</li>
-<li>主题对应的themes仓库</li>
-<li>静态页面对应的github pages仓库</li>
-</ul>
-<p>根据上文的介绍，已经能够手动推送静态文件，但是步骤相对繁琐。仍然需要进入**/public**目录，重复进行提交和推送。因此，基于Github和Github Pages，可以使用官方提供的Github Action来实现CI/CD。</p>
-<ol>
-<li>申请token</li>
-</ol>
-<p>前往<code>Setting -&gt; Developer Setting -&gt; Personal access tokens</code>创建一个个人的token(classic)，并授予repo和workflow的权限。</p>
-<ol start="2">
-<li>保存为仓库的secrets变量</li>
-</ol>
-<p>在需要使用该token的仓库中，前往<code>Setting -&gt; Secrets and variables -&gt; Action</code>选择<strong>New repository secret</strong>新建一个secret变量，后续在配置文件中使用该变量就等于使用了token</p>
-<ol start="3">
-<li>在根目录创建一个<code>.github/workflow/[部署文件名称].yaml</code>文件，可以参考以下配置：</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"></code></pre></td></tr></table>
-</div>
-</div>
+<h1 id="自定义你的hugo页面">自定义你的Hugo页面
+</h1><p>虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。</p>
+<h2 id="">
+</h2>
 </section>
 
 
@@ -717,6 +386,28 @@
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/new_hugo_blog/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">新建一个hugo博客站</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     
