@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Pages on Syriii的纸箱子</title>
+        <title>Pages on 纸箱子 | Syriii的藏身处</title>
         <link>https://syriii.github.io/page/</link>
-        <description>Recent content in Pages on Syriii的纸箱子</description>
+        <description>Recent content in Pages on 纸箱子 | Syriii的藏身处</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright>
@@ -13,6 +13,14 @@
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>分类</title>
+        <link>https://syriii.github.io/%E5%88%86%E7%B1%BB/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/%E5%88%86%E7%B1%BB/</guid>
         <description></description>
         </item>
         <item>
