@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="读书人的事情，拿到手一定要改成自己的">
-<title>自定义你的Hugo页面</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="改造你的markdown文章">
+<title>自定义Hugo简码</title>
 
-<link rel='canonical' href='https://syriii.github.io/p/customize_hugo_blog/'>
+<link rel='canonical' href='https://syriii.github.io/p/shortcode_hugo_blog/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="自定义你的Hugo页面">
-<meta property='og:description' content="读书人的事情，拿到手一定要改成自己的">
-<meta property='og:url' content='https://syriii.github.io/p/customize_hugo_blog/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="自定义Hugo简码">
+<meta property='og:description' content="改造你的markdown文章">
+<meta property='og:url' content='https://syriii.github.io/p/shortcode_hugo_blog/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-09-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-11T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="自定义你的Hugo页面">
-<meta name="twitter:description" content="读书人的事情，拿到手一定要改成自己的">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-09-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="自定义Hugo简码">
+<meta name="twitter:description" content="改造你的markdown文章">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -323,14 +323,7 @@ unicode: "f6d2"
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#自定义菜单">自定义菜单</a>
-      <ol>
-        <li><a href="#图标菜单更改">图标菜单更改</a></li>
-        <li><a href="#页面菜单更改">页面菜单更改</a></li>
-        <li><a href="#头像更改">头像更改</a></li>
-        <li><a href="#网站标签页图标">网站标签页图标</a></li>
-      </ol>
-    </li>
+    <li><a href="#shortcode的使用">Shortcode的使用</a></li>
     <li><a href="#致谢">致谢</a></li>
   </ol>
 </nav>
@@ -363,12 +356,12 @@ unicode: "f6d2"
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/customize_hugo_blog/">自定义你的Hugo页面</a>
+            <a href="/p/shortcode_hugo_blog/">自定义Hugo简码</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            读书人的事情，拿到手一定要改成自己的
+            改造你的markdown文章
         </h3>
         
     </div>
@@ -389,7 +382,7 @@ unicode: "f6d2"
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Sep 11, 2025</time>
+                <time class="article-time--published">Sep 12, 2025</time>
             </div>
         
 
@@ -404,7 +397,7 @@ unicode: "f6d2"
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 1 分钟
                 </time>
             </div>
         
@@ -419,7 +412,7 @@ unicode: "f6d2"
     <section class="article-content">
     
     
-    <p><img src="/p/customize_hugo_blog/pic/hugo-logo-wide.svg"
+    <p><img src="/p/shortcode_hugo_blog/pic/hugo-logo-wide.svg"
 	
 	
 	
@@ -429,88 +422,43 @@ unicode: "f6d2"
 	
 	
 ></p>
-<h1 id="自定义你的hugo页面">自定义你的Hugo页面
-</h1><p>虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。里面会汇总一些搜罗到的我比较喜欢的改动和一些我自己额外的改动。</p>
-<h2 id="自定义菜单">自定义菜单
-</h2><h3 id="图标菜单更改">图标菜单更改
-</h3><p>在根目录下的<code>hugo.yaml</code>中配置menu即可，图标文件存放在目录<code>assets/icons</code>下。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">menu</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">main</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l">home   	# 菜单id</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Home					# 菜单显示的文本</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">/							# 菜单链接</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span>-<span class="m">100</span><span class="w">				</span><span class="c"># 菜单权重，数值越低优先级越高</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">home				# 指定的svg图标</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">newTab</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">			</span><span class="c"># 在新标签页打开这个菜单</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="页面菜单更改">页面菜单更改
-</h3><p>对于页面菜单，直接将配置信息添加到菜单页面的前文中。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">menu</span><span class="p">:</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">main</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">title (optional) 	# 菜单名称，如果不填则直接使用页面的title</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span>-<span class="m">90</span><span class="w">							</span><span class="c"># 菜单权重，数值越低优先级越高</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">icon-name			# 指定的svg图标</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="头像更改">头像更改
-</h3><p>把头像文件放在<code>assets/img</code>下，在<code>hugo.ymal</code>里修改配置。注意此处的头像文件路径是<strong>assets</strong>目录下的相对路径。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sidebar</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># emoji: 🍥</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">subtitle</span><span class="p">:</span><span class="w"> </span><span class="l">subtitle and description</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">avatar</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">local</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l">img/avatar.png</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="网站标签页图标">网站标签页图标
-</h3><p>标签页的图标存放在<code>static</code>目录下，也就是实际文件为<code>static/favicon.ico</code>，此处的配置与其他地方不同。主题提供的默认配置会有注释提醒；另外，图片路径中<code>/</code>是必填的。</p>
+<h1 id="自定义hugo简码">自定义Hugo简码
+</h1><p>Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：<a class="link" href="https://stack.jimmycai.com/writing/shortcodes"  target="_blank" rel="noopener"
+    >Stack提供的简码</a>，<a class="link" href="https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes"  target="_blank" rel="noopener"
+    >Hugo官方文档</a>。</p>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<p>由于shortcode会被hugo</p></blockquote>
+<h2 id="shortcode的使用">Shortcode的使用
+</h2><p>以stack提供的为样例，如果我们想要插入一段b站视频：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">favicon</span><span class="p">:</span><span class="w"> </span><span class="l">/favicon.png </span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{\{&lt; bilibili VIDEO_ID PART_NUMBER &gt;}}
+</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="致谢">致谢
+</div>
+
+
+
+
+
+    
+
+
+<div class="video-wrapper">
+    <iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;high_quality=1&amp;page=1&bvid=BV1ama5zbEWc"
+            scrolling="no"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true"
+    >
+    </iframe>
+</div>
+
+<h2 id="致谢">致谢
 </h2>
 </section>
 
@@ -547,12 +495,12 @@ unicode: "f6d2"
             
                 
 <article class="">
-    <a href="/p/shortcode_hugo_blog/">
+    <a href="/p/customize_hugo_blog/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">自定义Hugo简码</h2>
+            <h2 class="article-title">自定义你的Hugo页面</h2>
         </div>
     </a>
 </article>
