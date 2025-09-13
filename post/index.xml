@@ -27,10 +27,9 @@
 &lt;/h1&gt;&lt;p&gt;Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/writing/shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Stack提供的简码&lt;/a&gt;，&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hugo官方文档&lt;/a&gt;。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!IMPORTANT]&lt;/p&gt;
-&lt;p&gt;由于shortcode会被hugo&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;shortcode的使用&#34;&gt;Shortcode的使用
+&lt;blockquote class=&#34;alert alert-important&#34;&gt;
+    &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;important&lt;/div&gt;
+    &lt;p&gt;由于shortcode会被hugo&lt;/p&gt;&lt;/blockquote&gt;&lt;h2 id=&#34;shortcode的使用&#34;&gt;Shortcode的使用
 &lt;/h2&gt;&lt;p&gt;以stack提供的为样例，如果我们想要插入一段b站视频：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -60,106 +59,6 @@
 &lt;/div&gt;
 
 &lt;h2 id=&#34;致谢&#34;&gt;致谢
-&lt;/h2&gt;</description>
-        </item>
-        <item>
-        <title>自定义你的Hugo页面</title>
-        <link>https://syriii.github.io/p/customize_hugo_blog/</link>
-        <pubDate>Thu, 11 Sep 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/p/customize_hugo_blog/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/customize_hugo_blog/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;自定义你的hugo页面&#34;&gt;自定义你的Hugo页面
-&lt;/h1&gt;&lt;p&gt;虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。里面会汇总一些搜罗到的我比较喜欢的改动和一些我自己额外的改动。&lt;/p&gt;
-&lt;h2 id=&#34;自定义菜单&#34;&gt;自定义菜单
-&lt;/h2&gt;&lt;h3 id=&#34;图标菜单更改&#34;&gt;图标菜单更改
-&lt;/h3&gt;&lt;p&gt;在根目录下的&lt;code&gt;hugo.yaml&lt;/code&gt;中配置menu即可，图标文件存放在目录&lt;code&gt;assets/icons&lt;/code&gt;下。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;menu&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;identifier&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;home   	# 菜单id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Home					# 菜单显示的文本&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;/							# 菜单链接&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;weight&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&lt;span class=&#34;m&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;				&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 菜单权重，数值越低优先级越高&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;icon&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;home				# 指定的svg图标&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;newTab&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;			&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 在新标签页打开这个菜单&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;页面菜单更改&#34;&gt;页面菜单更改
-&lt;/h3&gt;&lt;p&gt;对于页面菜单，直接将配置信息添加到菜单页面的前文中。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;menu&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;title (optional) 	# 菜单名称，如果不填则直接使用页面的title&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;weight&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&lt;span class=&#34;m&#34;&gt;90&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;							&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 菜单权重，数值越低优先级越高&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;icon&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;icon-name			# 指定的svg图标&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;头像更改&#34;&gt;头像更改
-&lt;/h3&gt;&lt;p&gt;把头像文件放在&lt;code&gt;assets/img&lt;/code&gt;下，在&lt;code&gt;hugo.ymal&lt;/code&gt;里修改配置。注意此处的头像文件路径是&lt;strong&gt;assets&lt;/strong&gt;目录下的相对路径。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;sidebar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# emoji: 🍥&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;subtitle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;subtitle and description&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;avatar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;enabled&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;img/avatar.png&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;网站标签页图标&#34;&gt;网站标签页图标
-&lt;/h3&gt;&lt;p&gt;标签页的图标存放在&lt;code&gt;static&lt;/code&gt;目录下，也就是实际文件为&lt;code&gt;static/favicon.ico&lt;/code&gt;，此处的配置与其他地方不同。主题提供的默认配置会有注释提醒；另外，图片路径中&lt;code&gt;/&lt;/code&gt;是必填的。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;favicon&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;/favicon.png &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;致谢&#34;&gt;致谢
 &lt;/h2&gt;</description>
         </item>
         <item>
@@ -979,6 +878,241 @@ $$</description>
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://syriii.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/</guid>
+        <description>&lt;!-- ---
+title: 自定义你的Hugo页面
+description: 读书人的事情，拿到手一定要改成自己的
+date: 2025-09-11
+slug: customize_hugo_blog
+image: 
+categories:
+    - Hugo
+    - 教程
+---
+![hugo-logo](pic/hugo-logo-wide.svg)
+# 自定义你的Hugo页面
+虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。里面会汇总一些搜罗到的我比较喜欢的改动和一些我自己额外的改动。
+
+
+
+## 自定义菜单
+
+### 图标菜单更改
+
+在根目录下的`hugo.yaml`中配置menu即可，图标文件存放在目录`assets/icons`下。
+
+```yaml
+menu:
+    main:
+        - identifier: home   	# 菜单id
+          name: Home					# 菜单显示的文本
+          url: /							# 菜单链接
+          weight: -100				# 菜单权重，数值越低优先级越高
+          params:
+            icon: home				# 指定的svg图标
+            newTab: true			# 在新标签页打开这个菜单
+```
+
+### 页面菜单更改
+
+对于页面菜单，直接将配置信息添加到菜单页面的前文中。
+
+```yaml
+menu: 
+    main:
+        name: title (optional) 	# 菜单名称，如果不填则直接使用页面的title
+        weight: -90							# 菜单权重，数值越低优先级越高
+        params:
+            icon: icon-name			# 指定的svg图标
+```
+
+### 头像更改
+
+把头像文件放在`assets/img`下，在`hugo.ymal`里修改配置。注意此处的头像文件路径是**assets**目录下的相对路径。
+
+```yaml
+    sidebar:
+        # emoji: 🍥
+        subtitle: subtitle and description
+        avatar:
+            enabled: true
+            local: true
+            src: img/avatar.png
+```
+
+### 网站标签页图标
+
+标签页的图标存放在`static`目录下，也就是实际文件为`static/favicon.ico`，此处的配置与其他地方不同。主题提供的默认配置会有注释提醒；另外，图片路径中`/`是必填的。
+
+```yaml
+favicon: /favicon.png 
+```
+
+
+
+## 添加Markdown引用标签的支持
+
+对于原生的Hugo和Stack，他们并不支持markdown的引用标签。但是github风格的引用标签被广泛应用在各种markdown文本中，包括Note, Tip, Important, Warning, Caution。因此，我需要添加相应的引用标签支持，添加相应的html和css代码。
+
+### 基本原理
+
+&lt;blockquote&gt;
+    &lt;p&gt;&lt;p&gt;添加块引用（Blockquotes）标记的 Hooks，可以自定义渲染内容。在 Hugo 中，标记（Markups）的 Hook 模板以 &lt;code&gt;render-&lt;/code&gt; 开头，后接标记的名称，如 &lt;code&gt;render-blockquote.html&lt;/code&gt; 就是块引用的自定义渲染模板。&lt;/p&gt;
+&lt;p&gt;模板文件要放在 &lt;code&gt;layouts/_default/_markup&lt;/code&gt; 目录中。当 Hugo 渲染 Markdown 的特定标记时，就会调用我们自己的模板，所以它们被称作 Hooks。&lt;/p&gt;
+&lt;p&gt;如果你只想单独渲染有 Alerts 的块引用，就创建 &lt;code&gt;render-blockquote-alert.html&lt;/code&gt; 模板。这时候普通的块引用就和你的 Hooks 无关了。如果你想兼容 GitHub 的风格，我建议这样做，因为 GitHub 的两种块引用风格完全不同。&lt;/p&gt;
+&lt;/p&gt;&lt;span class=&#34;cite&#34;&gt;&lt;span&gt;― &lt;/span&gt;&lt;span&gt;来源, &lt;/span&gt;&lt;a href=&#34;https://blog.hentioe.dev/posts/hugo-support-blockquote-alerts.html&#34;&gt;&lt;cite&gt;让 Hugo 支持 GitHub 风格的块引用 Alerts&lt;/cite&gt;&lt;/a&gt;&lt;/span&gt;&lt;/blockquote&gt;
+
+### 操作步骤
+
+创建 `layouts/_default/_markup/render-blockquote-alert.html` 文件，内容如下：
+
+```html
+&lt;blockquote class=&#34;alert alert-{{ .AlertType }}&#34;&gt;
+    &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;{{ .AlertType }}&lt;/div&gt;
+    {{ .Text | safeHTML -}}
+&lt;/blockquote&gt;
+```
+
+创建`layouts/partials/head/custom.html`文件，内容如下：
+
+```html
+&lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
+```
+
+创建`assets/scss/custom.scss`文件，内容如下：
+
+```scss
+[data-scheme=&#34;light&#34;] {
+  .alert-note {
+    --card-separator-color: #4d7eda;
+    --blockquote-background-color: #edf2fa;
+  }
+  .alert-tip {
+    --card-separator-color: #428646;
+    --blockquote-background-color: #edf4ee;
+  }
+  .alert-important {
+    --card-separator-color: #8f6cdd;
+    --blockquote-background-color: #f4f0fa;
+  }
+  .alert-warning {
+    --card-separator-color: #936921;
+    --blockquote-background-color: #f4f1eb;
+  }
+  .alert-caution {
+    --card-separator-color: #be3536;
+    --blockquote-background-color: #faeced;
+  }
+}
+
+[data-scheme=&#34;dark&#34;] {
+  .alert-note {
+    --card-separator-color: #4d7eda;
+    --blockquote-background-color: #1a2133;
+  }
+  .alert-tip {
+    --card-separator-color: #428646;
+    --blockquote-background-color: #1a2320;
+  }
+  .alert-important {
+    --card-separator-color: #8f6cdd;
+    --blockquote-background-color: #201a26;
+  }
+  .alert-warning {
+    --card-separator-color: #d4a149;
+    --blockquote-background-color: #262016;
+  }
+  .alert-caution {
+    --card-separator-color: #be3536;
+    --blockquote-background-color: #2d1a1a;
+  }
+}
+.alert {
+  position: relative;
+  
+  .alert-prefix {
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+
+    color: var(--card-separator-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;       
+    
+    i {
+        margin-right: 1rem;
+      font-size: 1.5rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &amp;.alert-note .alert-prefix i::before {
+    content: &#34;\f19b&#34;;
+  }
+
+  &amp;.alert-tip .alert-prefix i::before {
+    content: &#34;\eea9&#34;; 
+  }
+
+  &amp;.alert-important .alert-prefix i::before {
+    content: &#34;\ed19&#34;;  
+  }
+  &amp;.alert-warning .alert-prefix i::before {
+    content: &#34;\ea21&#34;;  
+  }
+
+  &amp;.alert-caution .alert-prefix i::before {
+    content: &#34;\eca1&#34;; 
+  }
+}
+```
+
+### 实际效果
+
+&gt; [!NOTE]
+&gt;
+&gt; 这是Note
+
+&gt; [!TIP]
+&gt;
+&gt; 这是Tip
+
+&gt; [!IMPORTANT]
+&gt;
+&gt; 这是Important
+
+&gt; [!WARNING]
+&gt;
+&gt; 这是Warning
+
+&gt; [!CAUTION]
+&gt;
+&gt; 这是Caution
+
+
+
+
+
+
+
+## 致谢
+
+[让 Hugo 支持 GitHub 风格的块引用 Alerts](https://blog.hentioe.dev/posts/hugo-support-blockquote-alerts.html)
+
+
+
+
+ --&gt;
+</description>
         </item>
         
     </channel>
