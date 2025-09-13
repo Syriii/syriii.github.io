@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://syriii.github.io/categories/themes/'>
 
-<link rel="stylesheet" href="/scss/style.min.ebdee955d921dcc0684d89c8f47f541284c092c66943197df3f4d3dec5e5920d.css"><meta property='og:title' content="Category: Themes - 纸箱子 | Syriii的藏身处">
+<link rel="stylesheet" href="/scss/style.min.a293eec49df12d4976617f2e5dcfbbb8b6ddee70054c1cf9d9d40b74cbdf82e3.css"><meta property='og:title' content="Category: Themes - 纸箱子 | Syriii的藏身处">
 <meta property='og:description' content="保存一些东西，遗忘一些东西">
 <meta property='og:url' content='https://syriii.github.io/categories/themes/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-09-12T00:00:00&#43;00:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-09-13T15:50:56&#43;08:00 '/>
 <meta name="twitter:title" content="Category: Themes - 纸箱子 | Syriii的藏身处">
 <meta name="twitter:description" content="保存一些东西，遗忘一些东西"><link rel="alternate" type="application/rss&#43;xml" href="https://syriii.github.io/categories/themes/index.xml">
     <link rel="shortcut icon" href="/favicon.png" />
@@ -553,6 +553,92 @@ unicode: "f6d2"
         document.head.appendChild(customFont);
     }());
 </script>
+
+
+
+  
+  <script>
+    const arrowIconBase64 = "iVBORw0KGgoAAAANSUhEUgAAABYAAAAWBAMAAAA2mnEIAAAAGFBMVEUAAABgYGBoaGhlZWVnZ2dmZmZmZmZmZmb\u002bi0kUAAAAB3RSTlMAICBvb3DfipQdkQAAAFRJREFUeJxioAlggtIKDAwM4QJgJmMxAwMDWxKYY5YAItNBbMY0sKxaIlgWzGZOAwkbQEwQS2BgS4SZWsaYpgCzQi0tCW4dM0w1CCiS5WJAAAAA\/\/\/GVAhdRZFiWgAAAABJRU5ErkJggg==";
+    
+    
+    const createButton = (className, isCollapse = false) => {
+      const template = `
+        <div class="${className}">
+          <span class="${isCollapse ? 'collapse-btn-inner' : 'code-more-btn'}">
+            <img 
+              class="${isCollapse ? 'code-collapse-img' : 'code-more-img'}"
+              src="data:image/png;base64,${arrowIconBase64}"
+              alt="${isCollapse ? '收起' : '展开'}"
+            >
+          </span>
+        </div>
+      `;
+      const div = document.createElement('div');
+      div.innerHTML = template.trim();
+      return div.firstElementChild;
+    };
+
+    
+    const scrollToBlock = (element, offset = 100) => {
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset + rect.top - offset;
+      window.scrollTo({
+        top: scrollTop,
+        behavior: 'smooth'
+      });
+    };
+
+    
+    function initCodeMoreBox() {
+      try {
+        const codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks?.length) {
+          console.log('No code blocks found');
+          return;
+        }
+
+        codeBlocks.forEach(codeBlock => {
+          
+          if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+            return;
+          }
+
+          
+          const expandBox = createButton('code-more-box');
+          const collapseBox = createButton('code-collapse-btn', true);
+
+          
+          expandBox.querySelector('.code-more-btn').addEventListener('click', () => {
+            codeBlock.classList.add('code-show');
+            expandBox.style.display = 'none';
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          collapseBox.querySelector('.collapse-btn-inner').addEventListener('click', () => {
+            codeBlock.classList.remove('code-show');
+            expandBox.style.display = 'block';
+            
+            
+            requestAnimationFrame(() => scrollToBlock(codeBlock));
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          codeBlock.appendChild(expandBox);
+          codeBlock.appendChild(collapseBox);
+        });
+      } catch (error) {
+        console.error('Error initializing code more box:', error);
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+  </script>
+
+
+
 
     </body>
 </html>

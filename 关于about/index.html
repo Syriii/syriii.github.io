@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://syriii.github.io/%E5%85%B3%E4%BA%8Eabout/'>
 
-<link rel="stylesheet" href="/scss/style.min.ebdee955d921dcc0684d89c8f47f541284c092c66943197df3f4d3dec5e5920d.css"><meta property='og:title' content="关于｜About">
+<link rel="stylesheet" href="/scss/style.min.a293eec49df12d4976617f2e5dcfbbb8b6ddee70054c1cf9d9d40b74cbdf82e3.css"><meta property='og:title' content="关于｜About">
 <meta property='og:description' content="Hugo, the world's fastest framework for building websites">
 <meta property='og:url' content='https://syriii.github.io/%E5%85%B3%E4%BA%8Eabout/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:published_time' content='2019-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-10-09T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:published_time' content='2019-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-11T18:25:00&#43;08:00'/>
 <meta name="twitter:title" content="关于｜About">
 <meta name="twitter:description" content="Hugo, the world's fastest framework for building websites">
     <link rel="shortcut icon" href="/favicon.png" />
@@ -417,7 +417,7 @@ unicode: "f6d2"
 
 
         <span>
-            最后更新于 Oct 09, 2020 00:00 UTC
+            最后更新于 Sep 11, 2025 18:25 &#43;0800
         </span>
     </section></footer>
 
@@ -588,6 +588,92 @@ unicode: "f6d2"
         document.head.appendChild(customFont);
     }());
 </script>
+
+
+
+  
+  <script>
+    const arrowIconBase64 = "iVBORw0KGgoAAAANSUhEUgAAABYAAAAWBAMAAAA2mnEIAAAAGFBMVEUAAABgYGBoaGhlZWVnZ2dmZmZmZmZmZmb\u002bi0kUAAAAB3RSTlMAICBvb3DfipQdkQAAAFRJREFUeJxioAlggtIKDAwM4QJgJmMxAwMDWxKYY5YAItNBbMY0sKxaIlgWzGZOAwkbQEwQS2BgS4SZWsaYpgCzQi0tCW4dM0w1CCiS5WJAAAAA\/\/\/GVAhdRZFiWgAAAABJRU5ErkJggg==";
+    
+    
+    const createButton = (className, isCollapse = false) => {
+      const template = `
+        <div class="${className}">
+          <span class="${isCollapse ? 'collapse-btn-inner' : 'code-more-btn'}">
+            <img 
+              class="${isCollapse ? 'code-collapse-img' : 'code-more-img'}"
+              src="data:image/png;base64,${arrowIconBase64}"
+              alt="${isCollapse ? '收起' : '展开'}"
+            >
+          </span>
+        </div>
+      `;
+      const div = document.createElement('div');
+      div.innerHTML = template.trim();
+      return div.firstElementChild;
+    };
+
+    
+    const scrollToBlock = (element, offset = 100) => {
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset + rect.top - offset;
+      window.scrollTo({
+        top: scrollTop,
+        behavior: 'smooth'
+      });
+    };
+
+    
+    function initCodeMoreBox() {
+      try {
+        const codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks?.length) {
+          console.log('No code blocks found');
+          return;
+        }
+
+        codeBlocks.forEach(codeBlock => {
+          
+          if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+            return;
+          }
+
+          
+          const expandBox = createButton('code-more-box');
+          const collapseBox = createButton('code-collapse-btn', true);
+
+          
+          expandBox.querySelector('.code-more-btn').addEventListener('click', () => {
+            codeBlock.classList.add('code-show');
+            expandBox.style.display = 'none';
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          collapseBox.querySelector('.collapse-btn-inner').addEventListener('click', () => {
+            codeBlock.classList.remove('code-show');
+            expandBox.style.display = 'block';
+            
+            
+            requestAnimationFrame(() => scrollToBlock(codeBlock));
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          codeBlock.appendChild(expandBox);
+          codeBlock.appendChild(collapseBox);
+        });
+      } catch (error) {
+        console.error('Error initializing code more box:', error);
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+  </script>
+
+
+
 
     </body>
 </html>
