@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://syriii.github.io/tags/css/'>
 
-<link rel="stylesheet" href="/scss/style.min.96e5ee046414c207f54ad147e2b1bb0117c3d8c179d875c4b5947cbd44134b0f.css"><meta property='og:title' content="Tag: Css - 纸箱子 | Syriii的藏身处">
+<link rel="stylesheet" href="/scss/style.min.03f10a1a1e5d2bcb449b67254b9b42545f9d44b72722072d7c48661075e60da5.css"><meta property='og:title' content="Tag: Css - 纸箱子 | Syriii的藏身处">
 <meta property='og:description' content="把记忆压在箱底，再忘掉他们">
 <meta property='og:url' content='https://syriii.github.io/tags/css/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-09-13T17:48:49&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-09-13T18:23:23&#43;08:00 '/>
 <meta name="twitter:title" content="Tag: Css - 纸箱子 | Syriii的藏身处">
 <meta name="twitter:description" content="把记忆压在箱底，再忘掉他们"><link rel="alternate" type="application/rss&#43;xml" href="https://syriii.github.io/tags/css/index.xml">
     <link rel="shortcut icon" href="/favicon.png" />
@@ -637,6 +637,52 @@ unicode: "f6d2"
     document.addEventListener('DOMContentLoaded', initCodeMoreBox);
   </script>
 
+
+
+<script>
+  
+  const backToTop = () => {
+    document.documentElement.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
+  
+  function initBackToTopBtn() {
+    try {
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (!backToTopBtn) {
+        console.log('Back to top button not found');
+        return;
+      }
+
+      
+      backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        backToTop();
+      });
+
+      
+      const toggleButtonVisibility = () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        backToTopBtn.style.display = scrollTop > 200 ? 'inline' : 'none';
+      };
+
+      
+      toggleButtonVisibility();
+
+      
+      window.addEventListener('scroll', toggleButtonVisibility);
+    } catch (error) {
+      console.error('Error initializing back to top button:', error);
+    }
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', initBackToTopBtn);
+</script>
+
+<a href="#" id="back-to-top" title="返回顶部"></a>
 
 
 
