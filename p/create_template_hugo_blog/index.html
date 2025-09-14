@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="总之就是创建里一个hugo项目">
-<title>新建一个hugo博客站</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="做一些更加疯狂的魔改吧">
+<title>创建一个新的Hugo页面类型</title>
 
-<link rel='canonical' href='https://syriii.github.io/p/new_hugo_blog/'>
+<link rel='canonical' href='https://syriii.github.io/p/create_template_hugo_blog/'>
 
-<link rel="stylesheet" href="/scss/style.min.dfc6b9316a870671c5256f1c75196c12107ffbaab193a8f4957b3c987ef7da47.css"><meta property='og:title' content="新建一个hugo博客站">
-<meta property='og:description' content="总之就是创建里一个hugo项目">
-<meta property='og:url' content='https://syriii.github.io/p/new_hugo_blog/'>
+<link rel="stylesheet" href="/scss/style.min.dfc6b9316a870671c5256f1c75196c12107ffbaab193a8f4957b3c987ef7da47.css"><meta property='og:title' content="创建一个新的Hugo页面类型">
+<meta property='og:description' content="做一些更加疯狂的魔改吧">
+<meta property='og:url' content='https://syriii.github.io/p/create_template_hugo_blog/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-09-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-14T16:56:08&#43;08:00'/>
-<meta name="twitter:title" content="新建一个hugo博客站">
-<meta name="twitter:description" content="总之就是创建里一个hugo项目">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-09-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-14T16:56:08&#43;08:00'/>
+<meta name="twitter:title" content="创建一个新的Hugo页面类型">
+<meta name="twitter:description" content="做一些更加疯狂的魔改吧">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -323,27 +323,16 @@ unicode: "f6d2"
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#安装hugo">安装Hugo</a>
+    <li><a href="#archives-modify">归档样式调整 </a>
       <ol>
-        <li><a href="#macos">macOS</a></li>
-        <li><a href="#windows">windows</a></li>
-        <li><a href="#版本确认和验证">版本确认和验证：</a></li>
+        <li><a href="#补充一些基本的语法">补充一些基本的语法</a></li>
+        <li><a href="#解读archiveshtml">解读archives.html</a></li>
+        <li><a href="#修改archiveshtml">修改archives.html</a></li>
       </ol>
     </li>
-    <li><a href="#创建一个空的博客">创建一个空的博客</a></li>
-    <li><a href="#配置主题">配置主题</a>
-      <ol>
-        <li><a href="#关联主题仓库">关联主题仓库</a></li>
-        <li><a href="#添加hugo模组">添加Hugo模组</a></li>
-      </ol>
-    </li>
-    <li><a href="#生成网页与本地部署">生成网页与本地部署</a></li>
-    <li><a href="#github-pages部署">Github Pages部署</a>
-      <ol>
-        <li><a href="#常规部署">常规部署</a></li>
-        <li><a href="#自动部署">自动部署</a></li>
-      </ol>
-    </li>
+    <li><a href="#将tag和分类都移到分类页中">将tag和分类都移到分类页中</a></li>
+    <li><a href="#关于页面编辑和热力图等">关于页面编辑和热力图等</a></li>
+    <li><a href="#致谢">致谢</a></li>
   </ol>
 </nav>
         </div>
@@ -375,12 +364,12 @@ unicode: "f6d2"
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/new_hugo_blog/">新建一个hugo博客站</a>
+            <a href="/p/create_template_hugo_blog/">创建一个新的Hugo页面类型</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            总之就是创建里一个hugo项目
+            做一些更加疯狂的魔改吧
         </h3>
         
     </div>
@@ -423,7 +412,7 @@ unicode: "fd2f"
 </svg>
 
                 <time class="article-time--published">
-                    发布时间: 2023-09-09
+                    发布时间: 2025-09-14
                 </time>
             </div>
         
@@ -498,7 +487,7 @@ unicode: "f549"
     <section class="article-content">
     
     
-    <p><img src="/p/new_hugo_blog/pic/hugo-logo-wide.svg"
+    <p><img src="/p/create_template_hugo_blog/pic/hugo-logo-wide.svg"
 	
 	
 	
@@ -508,42 +497,69 @@ unicode: "f549"
 	
 	
 ></p>
-<h1 id="新建一个hugo博客站">新建一个Hugo博客站
-</h1><p>Hugo是Go语言实现的博客工具，使用Markdown进行文章编辑，使用hugo基础命令就可以生成静态网页。支持主题配置，也支持js自定义。</p>
-<h2 id="安装hugo">安装Hugo
-</h2><h3 id="macos">macOS
-</h3><p>我其中一台电脑是macOS，使用官方推荐的homebrew方式来进行hugo的安装。</p>
+<h1 id="创建一个新的hugo页面类型">创建一个新的Hugo页面类型
+</h1><p>想了想还是单开一偏文章记录一下这部分内容，毕竟读完再写完这部分内容后，个人感觉对于hugo的一些修改已经做到了入门。</p>
+<blockquote class="alert alert-warning">
+    <div class="alert-prefix"><i class="ri-alert-prefix-icon"></i>warning</div>
+    <p>个人前端能力有限，部分代码为ai生成。</p></blockquote>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<h2 id="archives-modify">归档样式调整 
+</h2><p>对于归档，我期望是仅按照时间线保留我的文章，因此需要对归档的整体页面进行大改造。</p>
+<p>首先我们找到归档的菜单配置<code>content/page/archives/index.md</code>，可以看到归档的layout模板是<code>layout: &quot;archives&quot;</code>。通过进一步查询，可以找到归档页面的模板在<code>layouts/_default/archives.html</code>这个目录下。</p>
+<blockquote class="alert alert-note">
+    <div class="alert-prefix"><i class="ri-alert-prefix-icon"></i>note</div>
+    <p>归档这个模板是主题已经提供的，我们可以在根目录新建同名文件来覆盖掉主题的配置，也可以在主题内找到同名文件进行修改。</p></blockquote>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<p>既然我们要写一个新的归档页面，那么就需要了解原本的归档页面是怎么实现的。首先来简单的阅读一下archives这个模板：<em>archives.html</em>，对于内容不感兴趣的可以直接跳过。</p>
+<h3 id="补充一些基本的语法">补充一些基本的语法
+</h3><p>由于Hugo是使用Go语言编写的，因此除了正常的html之外，Hugo提供了一些来自于Go语言的语法规则，比如在Hugo的html文件中随处可见的<code>{{}}</code>语法。Hugo使用的<code> {{}}</code> 语法来自Go语言的 text/template 和 html/template 包，这是Go标准库提供的模板系统。</p>
+<ul>
+<li>数据访问</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install hugo
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ .Title }}           <span class="c">&lt;!-- 当前页面标题 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ .Site.Title }}      <span class="c">&lt;!-- 网站标题 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ .Params.author }}   <span class="c">&lt;!-- 页面参数中的作者 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ $.Site.BaseURL }}   <span class="c">&lt;!-- 根上下文的网站基础URL --&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="windows">windows
-</h3><p>家用电脑是windows，因此也补充一下windows的安装方式。
-前往<a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack/releases"  target="_blank" rel="noopener"
-    >Hugo Release</a>，选择对应版本的下载。
-<img src="/p/new_hugo_blog/pic/hugo_release_download.png"
-	width="1239"
-	height="796"
-	srcset="/p/new_hugo_blog/pic/hugo_release_download_hu_fee37e29614909d1.png 480w, /p/new_hugo_blog/pic/hugo_release_download_hu_b7f5b8a1ee9776e0.png 1024w"
-	loading="lazy"
-	
-		alt="hugo_release_page"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="155"
-		data-flex-basis="373px"
-	
->
-解压后,使用PowerShell或cmd执行 <code>.\hugo</code> 启动hugo.exe就可以启动hugo了。</p>
-<h3 id="版本确认和验证">版本确认和验证：
-</h3><p>完成后使用 <code>hugo version</code> 命令来验证即可。</p>
-<h2 id="创建一个空的博客">创建一个空的博客
-</h2><p>在安装hugo成功后，就可以通过 <code>hugo new site</code> 命令来进行网站的创建了</p>
+</div><ul>
+<li>变量操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 变量定义 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ $title := .Title }}
+</span></span><span class="line"><span class="cl">{{ $posts := .Site.RegularPages }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 变量使用 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ $title }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>共有 {{ len $posts }} 篇文章<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>条件控制</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -561,230 +577,34 @@ unicode: "f549"
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo new site hugo-test
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 基本条件 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ if .Params.featured }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;badge&#34;</span><span class="p">&gt;</span>精选<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Congratulations! Your new Hugo site was created in D:\code\personal\hugo-test.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Just a few more steps...</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># </span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. Change the current directory to D:\code\personal\hugo-test.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 2. Create or install a theme:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    - Create a new theme with the command &#34;hugo new theme &lt;THEMENAME&gt;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    - Or, install a theme from https://themes.gohugo.io/</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 3. Edit hugo.toml, setting the &#34;theme&#34; property to the theme name.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 4. Create new content with the command &#34;hugo new content &lt;SECTIONNAME&gt;\&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;.</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 5. Start the embedded web server with the command &#34;hugo server --buildDrafts&#34;.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># See documentation at https://gohugo.io/.</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 条件分支 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ if eq .Type &#34;post&#34; }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">article</span><span class="p">&gt;</span>文章内容<span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ else if eq .Type &#34;page&#34; }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>页面内容<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ else }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>其他内容<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 条件判断函数 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ if and .Params.date (not .Params.hidden) }}
+</span></span><span class="line"><span class="cl">    显示日期
+</span></span><span class="line"><span class="cl">{{ end }}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>对于hugo的项目接口，简单解释一下各个目录的作用吧。</p>
-<ul>
-<li>archetypes：存放的default.md是生成博客文章的模板</li>
-<li>assets：存放被hugo pipes处理的文件</li>
-<li>content：存放展示的博客文章相关的markdown文件</li>
-<li>data：存放hugo处理的数据</li>
-<li>layouts：存放布局文件</li>
-<li>static：存放静态文件</li>
-<li>themes：存放主题</li>
-<li>hugo.yaml/hugo.toml: 存放博客的配置文件</li>
+</div><ul>
+<li>循环控制</li>
 </ul>
-<h2 id="配置主题">配置主题
-</h2><p>前往 <a class="link" href="https://themes.gohugo.io/"  target="_blank" rel="noopener"
-    >Hugo Themes</a> 可以查找并下载自己喜欢的主题，hugo社区提供了可观数量的主题。选择主题后进入主题仓库，一般会有很详细的安装和配置说明。这里就简单说几种可行的安装方法。</p>
-<h3 id="关联主题仓库">关联主题仓库
-</h3><p>用户可以直接通过clone或者从github网页上下载zip包的方式直接获取hugo主题所需的代码，将主题放到themes目录下即可。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git clone https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当然，已经在使用git的情况下，可以使用submodule方式来添加主题，在网页的根目录下执行<code>git submodule</code>命令来添加子模块。对于后续需要定制化开发的用户，建议将原主题<code>fork</code>到自己账户中，再使用<code>git submodule</code>方式添加子模块到个人项目中，方便对于代码的单独维护。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果需要同步仓库的最新更改，则运行以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git submodule update --remote
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="添加hugo模组">添加Hugo模组
-</h3><p>用户也可以通过直接向代码里添加Hugo模组的方式来配置主题。</p>
-<ol>
-<li>首先将自己的项目转化为hugo模组</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo mod init hugo-test
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
-<li>在自己项目中配置主题，将主题作为项目依赖导入</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># config.yaml</span>
-</span></span><span class="line"><span class="cl">module:
-</span></span><span class="line"><span class="cl">  imports:
-</span></span><span class="line"><span class="cl">    - path: github.com/CaiJimmy/hugo-theme-stack/v3
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
-<li>如果需要更新主题版本的时候，执行以下命令</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo mod get -u github.com/CaiJimmy/hugo-theme-stack/v3
-</span></span><span class="line"><span class="cl">hugo mod tidy
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>上述命令是针对主题的小版本更新，如果主题发生了大版本更新，比如v3升级到v4后，那么就需要更新配置文件的<code>path</code>中的版本号。</p>
-<h2 id="生成网页与本地部署">生成网页与本地部署
-</h2><p>想要查看生成的博客的效果，执行<code>hugo server</code>命令就可以进行本地实时预览，由于是热部署，因此无需重复生成，任何修改都会直接体现在预览网页中。预览页面的默认地址为<code>http://localhost:1313</code>，部署后直接访问就可以看到。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo server -D
-</span></span><span class="line"><span class="cl"><span class="c1"># -D 的含义是buildDrafts，也就是构建网站时，内容包括草稿</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>执行hugo命令的同时，还会生成一个public文件夹。这个文件夹中的内容就是用于发布在github pages上，或者其他类似功能的网站上，详细内容会在下一部分介绍。</p>
-<h2 id="github-pages部署">Github Pages部署
-</h2><blockquote>
-<p><strong>Github Pages是什么？</strong></p>
-<p>Github Pages是一个静态网站托管系统，简单的理解就是它可以部署你的静态网页，并提供网页入口供用户浏览访问。</p></blockquote>
-<h3 id="常规部署">常规部署
-</h3><ol>
-<li>在 <a class="link" href="github.com" >Github官网</a> 新建一个仓库，仓库名为 <code>[githu的用户名].githubo.io</code></li>
-</ol>
-<p><img src="/p/new_hugo_blog/pic/new-repo.png"
-	width="1464"
-	height="536"
-	srcset="/p/new_hugo_blog/pic/new-repo_hu_c43a9e220d223a14.png 480w, /p/new_hugo_blog/pic/new-repo_hu_725a3251438c52f6.png 1024w"
-	loading="lazy"
-	
-		alt="new-repo"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="273"
-		data-flex-basis="655px"
-	
-></p>
-<p>实际上，仓库名是可以起其他方式的，但是对于个人账号的静态页面域名是固定的，是<code>[githu的用户名].githubo.io</code>。如果你起了一个自定义的仓库名，此时的静态页面的域名就会变成<code>[githu的用户名].githubo.io/[仓库名]</code></p>
-<ol start="2">
-<li>前往<code>Setting -&gt; Pages</code>，并在Build and deployment中选择要部署的分支。</li>
-</ol>
-<p><img src="/p/new_hugo_blog/pic/setting-pages.png"
-	width="2214"
-	height="1192"
-	srcset="/p/new_hugo_blog/pic/setting-pages_hu_a8cf95bc8f00a28e.png 480w, /p/new_hugo_blog/pic/setting-pages_hu_c7b70a8e86e84986.png 1024w"
-	loading="lazy"
-	
-		alt="setting-pages"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="185"
-		data-flex-basis="445px"
-	
-></p>
-<ol start="3">
-<li>修改配置文件</li>
-</ol>
-<p>站点目录中的<strong>hugo.yaml</strong>的<code>baseurl</code>要替换成自己的域名，也就是前两步使用的<code>[githu的用户名].githubo.io</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseurl</span><span class="p">:</span><span class="w"> </span><span class="l">https://syriii.github.io/</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="4">
-<li>进入hugo根目录，生成静态页面</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hugo
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>执行hugo后，会生成<strong>public</strong>文件夹，文件夹内的文件是hugo生成的整个静态网站。我们只需要将这个文件夹里的所有内容push到这个创建好的github仓库就即可。</p>
-<ol start="5">
-<li>初始化仓库，上传代码</li>
-</ol>
-<p>在进入<strong>public</strong>目录后，将目录关联到github远程残酷，提交修改后并推送到远程仓库中。首次上传还需要配置你的用户名、邮箱并输入密码。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> public
-</span></span><span class="line"><span class="cl">git init
-</span></span><span class="line"><span class="cl">git remote add origin <span class="o">[</span>github仓库地址<span class="o">]</span> <span class="c1"># 将本地目录链接到远程服务器的代码仓库</span>
-</span></span><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;[这次提交的描述]&#34;</span>
-</span></span><span class="line"><span class="cl">git push -u origin master
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>以后每次提交，只需要重复add、commit和push三步就可以更新代码仓库。</p>
-<h3 id="自动部署">自动部署
-</h3><p>我们的Hugo项目涉及了三个github仓库：</p>
-<ul>
-<li>根目录对应的Hugo项目源文件仓库</li>
-<li>主题对应的themes仓库</li>
-<li>静态页面对应的github pages仓库</li>
-</ul>
-<p>根据上文的介绍，已经能够手动推送静态文件，但是步骤相对繁琐。仍然需要进入**/public**目录，重复进行提交和推送。因此，基于Github和Github Pages，可以使用官方提供的Github Action来实现CI/CD。</p>
-<ol>
-<li>申请token</li>
-</ol>
-<p>前往<code>Setting -&gt; Developer Setting -&gt; Personal access tokens</code>创建一个个人的token(classic)，并授予repo和workflow的权限。</p>
-<ol start="2">
-<li>保存为仓库的secrets变量</li>
-</ol>
-<p>在需要使用该token的仓库中，前往<code>Setting -&gt; Secrets and variables -&gt; Action</code>选择<strong>New repository secret</strong>新建一个secret变量，后续在配置文件中使用该变量就等于使用了token</p>
-<ol start="3">
-<li>在根目录创建一个<code>.github/workflows/[部署文件名称].yaml</code>文件，可以参考以下配置：</li>
-</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -808,66 +628,306 @@ unicode: "f549"
 </span><span class="lnt">19
 </span><span class="lnt">20
 </span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hugo-deploy</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># schedule:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#   - cron: &#39;0 0 * * *&#39; # every day at midnight</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 如果使用submodules，则需要设置为true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v3</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;latest&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Web</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo -D</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy Web</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">PERSONAL_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.PERSIONAL_SECRET_TOKEN }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">EXTERNAL_REPOSITORY</span><span class="p">:</span><span class="w"> </span><span class="l">Syriii/syriii.github.io</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">PUBLISH_BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">PUBLISH_DIR</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">commit_message</span><span class="p">:</span><span class="w"> </span><span class="l">auto deploy - ${{ github.event.head_commit.message }}</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 基本循环 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ range .Pages }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{ .Title }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 带索引的循环 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ range $index, $page := .Pages }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;item-{{ $index }}&#34;</span><span class="p">&gt;</span>{{ $page.Title }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 带键值的循环 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ range $key, $value := .Params.tags }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;tag-{{ $key }}&#34;</span><span class="p">&gt;</span>{{ $value }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 空值处理 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ range .Pages }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ .Title }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ else }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>暂无内容<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span></code></pre></td></tr></table>
 </div>
-</div><p>配置完成后，提交代码后就会触发部署流程，自动完成静态页面部署。</p>
-<hr>
-<p>至此，已经完成了你的第一个Hugo页面博客，开始发表内容吧。</p>
+</div><ul>
+<li>函数调用</li>
+</ul>
+<p>函数创建这里就先跳过，简单的修改暂时用不到创建，只要能看懂代码就足够了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 内置函数 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ len .Pages }}                    <span class="c">&lt;!-- 获取长度 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ add 1 2 }}                      <span class="c">&lt;!-- 数学运算 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ printf &#34;Hello %s&#34; .Title }}     <span class="c">&lt;!-- 格式化字符串 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ now.Format &#34;2006-01-02&#34; }}      <span class="c">&lt;!-- 日期格式化 --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 字符串处理 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ upper .Title }}                 <span class="c">&lt;!-- 转大写 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ lower .Title }}                 <span class="c">&lt;!-- 转小写 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ replace .Title &#34; &#34; &#34;-&#34; }}       <span class="c">&lt;!-- 字符串替换 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ truncate 100 .Summary }}        <span class="c">&lt;!-- 截断文本 --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 集合操作 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ where .Pages &#34;Type&#34; &#34;post&#34; }}   <span class="c">&lt;!-- 过滤 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ first 5 .Pages }}               <span class="c">&lt;!-- 取前5个 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ sort .Pages &#34;Date&#34; &#34;desc&#34; }}    <span class="c">&lt;!-- 排序 --&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>管道操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 链式操作 --&gt;</span>
+</span></span><span class="line"><span class="cl">{{ .Title | upper | printf &#34;标题：%s&#34; }}
+</span></span><span class="line"><span class="cl">{{ .Pages | where &#34;Type&#34; &#34;post&#34; | first 3 }}
+</span></span><span class="line"><span class="cl">{{ .Date | dateFormat &#34;2006年01月02日&#34; }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>特殊符号说明
+<ul>
+<li>空白控制
+<ul>
+<li><code>{{-</code>：  去除左侧空白</li>
+<li><code>-}}</code>： 去除右侧空白</li>
+<li><code>{{- .Title -}} </code>：去除两侧空白</li>
+</ul>
+</li>
+<li>上下文访问
+<ul>
+<li><code>.</code> ：当前上下文</li>
+<li><code>$.</code> ： 根上下文（页面级别）</li>
+<li><code>.Site</code> ： 网站级别数据</li>
+<li><code>.Params</code> ： 页面参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>常用内置变量
+<ul>
+<li>页面级别
+<ul>
+<li><code>.Title</code> ： 页面标题</li>
+<li><code>.Content</code> ： 页面内容</li>
+<li><code>.Date</code> ： 页面日期</li>
+<li><code>.Params</code> ： 前置参数</li>
+</ul>
+</li>
+<li>网站级别
+<ul>
+<li><code>.Site.Title</code>：- 网站标题</li>
+<li><code>.Site.Pages</code> ：所有页面</li>
+<li><code>.Site.RegularPages</code>：常规页面</li>
+<li><code>.Site.Params</code> ： 网站配置参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="解读archiveshtml">解读archives.html
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ define &#34;body-class&#34; }}template-archives{{ end }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这行代码为页面的body元素添加了CSS类名 template-archives ，用于归档页面的特定样式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ define &#34;main&#34; }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里定义了主要内容区域的模板块，我们的内容也都是在这个区域中修改和展示的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{- $taxonomy := $.Site.GetPage &#34;taxonomyTerm&#34; &#34;categories&#34; -}}
+</span></span><span class="line"><span class="cl">    {{- $terms := $taxonomy.Pages -}}
+</span></span><span class="line"><span class="cl">    {{ if $terms }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;section-title&#34;</span><span class="p">&gt;</span>{{ $taxonomy.Title }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;subsection-list&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;article-list--tile&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            {{ range $terms }}
+</span></span><span class="line"><span class="cl">                {{ partial &#34;article-list/tile&#34; (dict &#34;context&#34; . &#34;size&#34; &#34;250x150&#34; &#34;Type&#34; &#34;taxonomy&#34;) }}
+</span></span><span class="line"><span class="cl">            {{ end }}
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    {{ end }}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>定义了一个变量<code>$taxonomy</code>，它的值是该站点叫作<code>categories</code>的<code>taxonomyTerm</code>页面。之后定义了另一个变量<code>$term</code>，值是这个categories下所有的页面。</p>
+<p>实际上我们可以简单的把taxonomyTerm和term理解成上下两个层级的文件目录，下面展示的这个目录结构就可以很简单的看出<code>taxonomyTerm</code>和<code>term</code>是一个什么样的关系。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">网站根目录
+</span></span><span class="line"><span class="cl">└── categories/ (taxonomyTerm页面)
+</span></span><span class="line"><span class="cl">    ├── hugo/ (term页面)
+</span></span><span class="line"><span class="cl">    ├── hexo/ (term页面)
+</span></span><span class="line"><span class="cl">    └── 前端/ (term页面)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们也可以在生成的public的目录下直观的看到页面的实际结构：</p>
+<p><img src="/p/create_template_hugo_blog/pic/taxonomy-categories.png"
+	width="630"
+	height="814"
+	srcset="/p/create_template_hugo_blog/pic/taxonomy-categories_hu_de2bd3a1e3ea072a.png 480w, /p/create_template_hugo_blog/pic/taxonomy-categories_hu_a98a4b3566d67d89.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="185px"
+	
+></p>
+<p>后面的内容就很简单了，如果term存在，就遍历它并展示在页面中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ $pages := where .Site.RegularPages &#34;Type&#34; &#34;in&#34; .Site.Params.mainSections }}
+</span></span><span class="line"><span class="cl">{{ $notHidden := where .Site.RegularPages &#34;Params.hidden&#34; &#34;!=&#34; true }}
+</span></span><span class="line"><span class="cl">{{ $filtered := ($pages | intersect $notHidden) }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有了前面了解categories的基础，这里定义的三个变量就很好读懂了。</p>
+<p><code>$pages</code>是从所有常规页面中，筛选出类型是主要栏目配置的页面，也就是我们写的那些能够在首页展示的博客文章。</p>
+<p><code>$notHidden</code>则是从所有页面中筛选出所有被隐藏的博客文章页面。</p>
+<p>最后<code>$filtered</code>是取了上述两个变量的交集，也就是所有没有被隐藏的博客文章。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ range $filtered.GroupByDate &#34;2006&#34; }}
+</span></span><span class="line"><span class="cl">{{ $id := lower (replace .Key &#34; &#34; &#34;-&#34;) }}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;archives-group&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;{{ $id }}&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;archives-date section-title&#34;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ $.RelPermalink }}#{{ $id }}&#34;</span><span class="p">&gt;</span>{{ .Key }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;article-list--compact&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        {{ range .Pages }}
+</span></span><span class="line"><span class="cl">            {{ partial &#34;article-list/compact&#34; . }}
+</span></span><span class="line"><span class="cl">        {{ end }}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{{ end }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这部分内容是一个循环，它会遍历所有能看到的博客文章页面的年份分组。其中<code>GroupByDate &quot;2006&quot;</code>的含义是按照年份分组，并且<strong>这个2006不能修改！！</strong></p>
+<blockquote class="alert alert-important">
+    <div class="alert-prefix"><i class="ri-alert-prefix-icon"></i>important</div>
+    <p>Hugo使用Go语言的时间格式系统，它基于一个 固定的参考时间 ：<code>Mon Jan 2 15:04:05 MST 2006</code></p>
+<p>这个参考时间的各个部分都有特定含义：</p>
+<ul>
+<li>2006 = 年份</li>
+<li>01 = 月份</li>
+<li>02 = 日期</li>
+<li>15 = 小时（24小时制）</li>
+<li>04 = 分钟</li>
+<li>05 = 秒钟</li>
+</ul>
+<p>也就是说，当我们使用2006-01-02的时候，就相当于其他语言使用 yyyy-MM-dd。</p></blockquote>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<p><code>GroupByDate</code>会返回两个值，分别是<code>.Key</code>和<code>.Pages</code>。获取了我们需要的时间之后，就可以配置页面的锚点id了，也就是<code>$id</code>。对id赋值的这行代码就是将<code>.Key</code>的值做规范化处理，将空格替换成成短横杠，并全部设置为小写。需要这么做的原因依然时候go的时间格式问题，比如按照<code>Jan 2026</code>这样的月份分组格式，就会产生空格。</p>
+<p>后续会创建已有年份的div容器，并将各个年份的文章配置成链接并放置到相应的年份容器中。</p>
+<p>年份容器的id就是前面获取的<code>$id</code>，并且对这些容器创建用于跳转的锚点链接<code> &lt;a href=&quot;{{ $.RelPermalink }}#{{ $id }}&quot;&gt;{{ .Key }}&lt;/a&gt;</code>。</p>
+<blockquote class="alert alert-note">
+    <div class="alert-prefix"><i class="ri-alert-prefix-icon"></i>note</div>
+    <p><code>$.RelPermalink</code>指当前页面的相对永久链接，#{{ $id }}`指锚点片段。</p></blockquote>
+
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<p>最后，循环当前年份的<code>.Pages</code>也就是当前年份的所有博客页面。以<code>article-list/compact</code>这个模板渲染出当前博客的文章列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ partialCached &#34;footer/footer&#34; . }}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在页面的最后，使用缓存的<code>footer/footer</code>模板作为页脚。</p>
+<h3 id="修改archiveshtml">修改archives.html
+</h3><h2 id="将tag和分类都移到分类页中">将tag和分类都移到分类页中
+</h2><h2 id="关于页面编辑和热力图等">关于页面编辑和热力图等
+</h2><h2 id="致谢">致谢
+</h2><p><a class="link" href="https://blog.hentioe.dev/posts/hugo-support-blockquote-alerts.html"  target="_blank" rel="noopener"
+    >让 Hugo 支持 GitHub 风格的块引用 Alerts</a></p>
+<p><a class="link" href="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-stack-theme/"  target="_blank" rel="noopener"
+    >【Hugo】Stack主题自定义修改</a></p>
+<p><a class="link" href="https://blog.echosec.top/p/custom-hugo-theme-styles/"  target="_blank" rel="noopener"
+    >『Hugo』Hugo Styles</a></p>
 
 </section>
 
@@ -907,12 +967,12 @@ unicode: "f549"
             
                 
 <article class="">
-    <a href="/p/create_template_hugo_blog/">
+    <a href="/p/customize_hugo_blog/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">创建一个新的Hugo页面类型</h2>
+            <h2 class="article-title">自定义你的Hugo页面</h2>
         </div>
     </a>
 </article>
@@ -920,12 +980,12 @@ unicode: "f549"
             
                 
 <article class="">
-    <a href="/p/customize_hugo_blog/">
+    <a href="/p/new_hugo_blog/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">自定义你的Hugo页面</h2>
+            <h2 class="article-title">新建一个hugo博客站</h2>
         </div>
     </a>
 </article>
