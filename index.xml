@@ -1772,7 +1772,7 @@
         <item>
         <title>新建一个hugo博客站</title>
         <link>https://syriii.github.io/p/new_hugo_blog/</link>
-        <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/new_hugo_blog/</guid>
         <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo_blog/pic/hugo-logo-wide.svg&#34;
@@ -2148,19 +2148,19 @@
 </description>
         </item>
         <item>
-        <title>Archives</title>
-        <link>https://syriii.github.io/archives/</link>
-        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/archives/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>分类</title>
         <link>https://syriii.github.io/categories/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/categories/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>归档｜Archives</title>
+        <link>https://syriii.github.io/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/archives/</guid>
         <description></description>
         </item>
         <item>

@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 19:26:56 +0800</lastBuildDate><atom:link href="https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 20:52:41 +0800</lastBuildDate><atom:link href="https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>创建一个新的Hugo页面类型</title>
         <link>https://syriii.github.io/p/create_template_hugo_blog/</link>
         <pubDate>Sun, 14 Sep 2025 00:00:00 +0000</pubDate>
@@ -1773,7 +1773,7 @@
         <item>
         <title>新建一个hugo博客站</title>
         <link>https://syriii.github.io/p/new_hugo_blog/</link>
-        <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 09 Aug 2021 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/new_hugo_blog/</guid>
         <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo_blog/pic/hugo-logo-wide.svg&#34;
