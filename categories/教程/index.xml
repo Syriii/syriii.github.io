@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright>
-        <lastBuildDate>Sun, 14 Sep 2025 16:56:08 +0800</lastBuildDate><atom:link href="https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 19:26:56 +0800</lastBuildDate><atom:link href="https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>创建一个新的Hugo页面类型</title>
         <link>https://syriii.github.io/p/create_template_hugo_blog/</link>
         <pubDate>Sun, 14 Sep 2025 00:00:00 +0000</pubDate>
@@ -1713,9 +1713,67 @@
 </description>
         </item>
         <item>
+        <title>自定义Hugo简码</title>
+        <link>https://syriii.github.io/p/shortcode_hugo_blog/</link>
+        <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/shortcode_hugo_blog/</guid>
+        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/shortcode_hugo_blog/pic/hugo-logo-wide.svg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;hugo-logo&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;自定义hugo简码&#34;&gt;自定义Hugo简码
+&lt;/h1&gt;&lt;p&gt;Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/writing/shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Stack提供的简码&lt;/a&gt;，&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo官方文档&lt;/a&gt;。&lt;/p&gt;
+&lt;blockquote class=&#34;alert alert-important&#34;&gt;
+    &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;important&lt;/div&gt;
+    &lt;p&gt;由于shortcode会被hugo&lt;/p&gt;&lt;/blockquote&gt;
+
+
+&lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;h2 id=&#34;shortcode的使用&#34;&gt;Shortcode的使用
+&lt;/h2&gt;&lt;p&gt;以stack提供的为样例，如果我们想要插入一段b站视频：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{\{&amp;lt; bilibili VIDEO_ID PART_NUMBER &amp;gt;}}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+
+    
+
+
+&lt;div class=&#34;video-wrapper&#34;&gt;
+    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1ama5zbEWc&#34;
+            scrolling=&#34;no&#34;
+            frameborder=&#34;no&#34;
+            framespacing=&#34;0&#34;
+            allowfullscreen=&#34;true&#34;
+    &gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;致谢&#34;&gt;致谢
+&lt;/h2&gt;</description>
+        </item>
+        <item>
         <title>新建一个hugo博客站</title>
         <link>https://syriii.github.io/p/new_hugo_blog/</link>
-        <pubDate>Sat, 09 Sep 2023 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 09 Sep 2021 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/new_hugo_blog/</guid>
         <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo_blog/pic/hugo-logo-wide.svg&#34;
@@ -2089,64 +2147,6 @@
 &lt;hr&gt;
 &lt;p&gt;至此，已经完成了你的第一个Hugo页面博客，开始发表内容吧。&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>自定义Hugo简码</title>
-        <link>https://syriii.github.io/p/shortcode_hugo_blog/</link>
-        <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/p/shortcode_hugo_blog/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/shortcode_hugo_blog/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;自定义hugo简码&#34;&gt;自定义Hugo简码
-&lt;/h1&gt;&lt;p&gt;Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/writing/shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Stack提供的简码&lt;/a&gt;，&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Hugo官方文档&lt;/a&gt;。&lt;/p&gt;
-&lt;blockquote class=&#34;alert alert-important&#34;&gt;
-    &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;important&lt;/div&gt;
-    &lt;p&gt;由于shortcode会被hugo&lt;/p&gt;&lt;/blockquote&gt;
-
-
-&lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
-&lt;h2 id=&#34;shortcode的使用&#34;&gt;Shortcode的使用
-&lt;/h2&gt;&lt;p&gt;以stack提供的为样例，如果我们想要插入一段b站视频：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{\{&amp;lt; bilibili VIDEO_ID PART_NUMBER &amp;gt;}}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-
-
-
-
-    
-
-
-&lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1ama5zbEWc&#34;
-            scrolling=&#34;no&#34;
-            frameborder=&#34;no&#34;
-            framespacing=&#34;0&#34;
-            allowfullscreen=&#34;true&#34;
-    &gt;
-    &lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&#34;致谢&#34;&gt;致谢
-&lt;/h2&gt;</description>
         </item>
         
     </channel>
