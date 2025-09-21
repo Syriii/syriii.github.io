@@ -2,61 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://syriii.github.io/page/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
+  </url><url>
     <loc>https://syriii.github.io/categories/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
-    <loc>https://syriii.github.io/categories/hugo/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/post/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-09-21T10:41:22+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/p/shortcode_hugo_blog/</loc>
-    <lastmod>2025-09-21T10:41:22+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/p/customize_hugo_blog/</loc>
-    <lastmod>2025-09-21T10:41:22+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/p/new_hugo_blog/</loc>
-    <lastmod>2025-09-21T10:41:22+08:00</lastmod>
+    <loc>https://syriii.github.io/categories/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/tags/hugo/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
+  </url><url>
+    <loc>https://syriii.github.io/post/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/tags/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
-    <loc>https://syriii.github.io/p/create_template_hugo_blog/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <loc>https://syriii.github.io/p/create_template_hugo/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
-    <loc>https://syriii.github.io/tags/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <loc>https://syriii.github.io/categories/%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
+  </url><url>
+    <loc>https://syriii.github.io/p/shortcode_hugo/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
+  </url><url>
+    <loc>https://syriii.github.io/p/new_hugo/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
+  </url><url>
+    <loc>https://syriii.github.io/p/customize_hugo/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/archives/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
-    <loc>https://syriii.github.io/categories/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/page/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/about/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
+    <loc>https://syriii.github.io/%E5%85%B3%E4%BA%8Eabout/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/</loc>
     <lastmod>2025-09-11T18:25:00+08:00</lastmod>
-  </url><url>
-    <loc>https://syriii.github.io/links/</loc>
-    <lastmod>2025-09-21T17:27:27+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/search/</loc>
     <lastmod>2025-09-11T18:25:00+08:00</lastmod>
   </url><url>
     <loc>https://syriii.github.io/categories/test/</loc>
     <lastmod>2025-09-09T16:43:48+08:00</lastmod>
+  </url><url>
+    <loc>https://syriii.github.io/links/</loc>
+    <lastmod>2025-09-21T18:12:08+08:00</lastmod>
   </url>
 </urlset>
