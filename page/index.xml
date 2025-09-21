@@ -7,16 +7,8 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 20:52:41 +0800</lastBuildDate><atom:link href="https://syriii.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>分类</title>
-        <link>https://syriii.github.io/categories/</link>
-        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/categories/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>归档｜Archives</title>
+        <lastBuildDate>Sun, 21 Sep 2025 17:27:27 +0800</lastBuildDate><atom:link href="https://syriii.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Archives</title>
         <link>https://syriii.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
@@ -24,11 +16,19 @@
         <description></description>
         </item>
         <item>
-        <title>关于｜About</title>
-        <link>https://syriii.github.io/%E5%85%B3%E4%BA%8Eabout/</link>
+        <title>Categories</title>
+        <link>https://syriii.github.io/categories/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/categories/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>About</title>
+        <link>https://syriii.github.io/about/</link>
         <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://syriii.github.io/%E5%85%B3%E4%BA%8Eabout/</guid>
+        <guid>https://syriii.github.io/about/</guid>
         <description>&lt;p&gt;Written in Go, Hugo is an open source static site generator available under the &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio/hugo/blob/master/LICENSE&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Apache License 2.0.&lt;/a&gt; Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.&lt;/p&gt;
 &lt;p&gt;Hugo makes use of a variety of open source projects including:&lt;/p&gt;
@@ -52,22 +52,22 @@
 </description>
         </item>
         <item>
+        <title>Links</title>
+        <link>https://syriii.github.io/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/links/</guid>
+        <description>&lt;p&gt;这里记录了一些曾经到箱子里翻过东西的人。&lt;/p&gt;
+&lt;p&gt;但是到目前为止，还没有人到箱子里翻找过，只是留下了一点页面修改过的证据。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Search</title>
         <link>https://syriii.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/search/</guid>
         <description></description>
-        </item>
-        <item>
-        <title>友链｜Links</title>
-        <link>https://syriii.github.io/%E5%8F%8B%E9%93%BElinks/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/%E5%8F%8B%E9%93%BElinks/</guid>
-        <description>&lt;p&gt;这里记录了一些曾经到箱子里翻过东西的人。&lt;/p&gt;
-&lt;p&gt;但是到目前为止，还没有人到箱子里翻找过，只是留下了一点页面修改过的证据。&lt;/p&gt;
-</description>
         </item>
         
     </channel>
