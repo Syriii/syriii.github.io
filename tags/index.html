@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://syriii.github.io/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.ff05bc362138a4f4f3734fc5c1d5d9e27a7b59a788e88d1e911e09b3d0b108cc.css"><meta property='og:title' content="Tags">
+<link rel="stylesheet" href="/scss/style.min.4da4801c32a2375d58f783c911142614d87db373bfb1c4e879f2770eb7b855c8.css"><meta property='og:title' content="Tags">
 <meta property='og:description' content="把记忆压在箱底，再忘掉他们">
 <meta property='og:url' content='https://syriii.github.io/tags/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
@@ -303,48 +303,255 @@ unicode: "f6d2"
         
             
                 <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
 </svg>
 
 
 
-        </div>
-        <h2 class="widget-title section-title">归档</h2>
+    </div>
+    <h2 class="widget-title section-title">归档</h2>
 
-        
-        
-        
-        
-        
-        <div class="widget-archive--list">
-            <a href="/archives/#2025" class="archives-year">
-                    
-                        <span class="year">2025</span>
-                        <span class="count">(2)</span>
-                    
-                </a>
-            <a href="/archives/#2024" class="archives-year">
-                    
-                        <span class="year">2024</span>
-                        <span class="count">(1)</span>
-                    
-                </a>
-            <a href="/archives/#2023" class="archives-year">
-                    
-                        <span class="year">2023</span>
-                        <span class="count">(1)</span>
-                    
-                </a>
+    
+    
+    
+    
+
+    <div class="widget-archive--list">
+        <a href="/archives/#2025" class="archives-year">
             
-        </div>
+            <span class="year">2025</span>
+            <span class="count">(2)</span>
+            
+        </a>
+        <a href="/archives/#2024" class="archives-year">
+            
+            <span class="year">2024</span>
+            <span class="count">(1)</span>
+            
+        </a>
+        <a href="/archives/#2023" class="archives-year">
+            
+            <span class="year">2023</span>
+            <span class="count">(1)</span>
+            
+        </a>
         
-        
+    </div>
+
+    <div id="heatmap" style="
+        max-width: 600px;
+        height: 120px;
+        padding: 2px;
+        text-align: center;">
+    </div>
 
 
-    </section>
+</section><script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+<script type="text/javascript">
+  var chartDom = document.getElementById('heatmap');
+  var myChart = echarts.init(chartDom, null, {
+          locale: 'EN'  
+        });
+  window.onresize = function() {
+      myChart.resize();
+  };
+  var option;
+
+  
+  
+  
+  
+  
+  
+  var dataMap = new Map();
+  
+  
+  async function loadPostsData() {
+    try {
+      
+      const response = await fetch('/post/index.xml');
+      const xmlText = await response.text();
+      
+      
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+      
+      
+      const items = xmlDoc.querySelectorAll('item');
+      
+      items.forEach(item => {
+        const title = item.querySelector('title')?.textContent || 'Untitled';
+        const link = item.querySelector('link')?.textContent || '#';
+        const pubDate = item.querySelector('pubDate')?.textContent;
+        const description = item.querySelector('description')?.textContent || '';
+        
+        
+        let key = '';
+        if (pubDate) {
+          const date = new Date(pubDate);
+          key = date.toISOString().split('T')[0];
+        }
+        
+        
+        const wordCount = description ? description.replace(/<[^>]*>/g, '').split(/\s+/).length : 0;
+        
+        
+        const cleanLink = link.replace(window.location.origin, '');
+        
+        if (key) {
+          var value = dataMap.get(key);
+          
+          
+          if (value == null) {
+            dataMap.set(key, [{wordCount, link: cleanLink, title}]);
+          } else {
+            value.push({wordCount, link: cleanLink, title});
+          }
+        }
+      });
+      
+      
+      initializeChart();
+    } catch (error) {
+      console.error('Failed to load posts data:', error);
+      
+      initializeChart();
+    }
+  }
+  
+  function initializeChart() {
+    var data = [];
+    
+    for (const [key, value] of dataMap.entries()) {
+      var sum = 0;
+      for (const v of value) {
+        sum += v.wordCount;
+      }
+      data.push([key, (sum / 1000).toFixed(1)]);
+    }
+    
+    var startDate = new Date();
+    var year_Mill = startDate.setFullYear((startDate.getFullYear() - 1));
+    var startDate = +new Date(year_Mill);
+    var endDate = +new Date();
+
+    var dayTime = 3600 * 24 * 1000;
+    startDate = echarts.format.formatTime('yyyy-MM-dd', startDate);
+    endDate = echarts.format.formatTime('yyyy-MM-dd', endDate);
+
+    
+    function heatmap_width(months){             
+      var startDate = new Date();
+      var mill = startDate.setMonth((startDate.getMonth() - months));
+      var endDate = +new Date();
+      startDate = +new Date(mill);
+
+      endDate = echarts.format.formatTime('yyyy-MM-dd', endDate);
+      startDate = echarts.format.formatTime('yyyy-MM-dd', startDate);
+
+      var showmonth = [];
+      showmonth.push([
+          startDate,
+          endDate
+      ]);
+      return showmonth
+    };
+
+    function getRangeArr() {
+      const heatmapDiv = document.getElementById('heatmap');
+      const heatmapWidth = heatmapDiv ? heatmapDiv.offsetWidth : window.innerWidth;
+      if (heatmapWidth >= 600) {
+        return heatmap_width(12);
+      } else if (heatmapWidth >= 400) {
+        return heatmap_width(9);
+      } else {
+        return heatmap_width(6);
+      }
+    }
+
+    option = {
+      title: {
+          show: false
+      },
+      tooltip: {
+        hideDelay: 1000,
+        enterable: true,
+        formatter: function (p) {
+          const date = p.data[0];
+          const posts = dataMap.get(date);
+          if (!posts) return date;
+          var content = `${date}`;
+          for (const [i, post] of posts.entries()) {
+              content += "<br>";
+              var link = post.link;
+              var title = post.title;
+              var wordCount = (post.wordCount / 1000).toFixed(1);
+              content += `<a href="${link}" target="_blank">${title} | ${wordCount} 千字</a>`
+          }
+          return content;
+        }
+      },
+      visualMap: {
+          show: false,
+          min: 0,
+          max: 10,
+          type: 'piecewise',
+          
+          inRange: {   
+            
+            color: ['#7aa8744c', '#7AA874' ] 
+          },
+          splitNumber: 4
+      },
+      calendar: {
+          top: 20,
+          left: 20,
+          right: 4,
+          cellSize: ['auto', 12],
+          range: getRangeArr(),
+          itemStyle: {
+              color: '#F1F1F1',
+              borderWidth: 1,
+              borderColor: '#fff',
+          },
+          yearLabel: { show: false },
+          
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(0, 0, 0, 0.0)',
+              
+              
+              
+              
+            }
+          }
+      },
+      series: {
+          type: 'heatmap',
+          coordinateSystem: 'calendar',
+          data: data,
+      }
+    };
+    myChart.setOption(option);
+    myChart.on('click', function(params) {
+      if (params.componentType === 'series') {
+        
+        const posts = dataMap.get(params.data[0]);
+        if (posts && posts.length > 0) {
+          const post = posts[0];
+          const link = window.location.origin + post.link;
+          window.open(link, '_blank').focus();
+        }
+      }
+    });
+  }
+  
+  
+  loadPostsData();
+</script>
             
         
             
