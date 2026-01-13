@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Python on 纸箱子 | Syriii的藏身处</title>
+        <link>https://syriii.github.io/tags/python/</link>
+        <description>Recent content in Python on 纸箱子 | Syriii的藏身处</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Syriii</copyright>
+        <lastBuildDate>Tue, 13 Jan 2026 12:59:37 +0800</lastBuildDate><atom:link href="https://syriii.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>以flask为基础接入一个RAG系统</title>
+        <link>https://syriii.github.io/p/rag_flask/</link>
+        <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/rag_flask/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

@@ -7,6 +7,556 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright><atom:link href="https://syriii.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>由卡顿投诉工单引发的二分类问题</title>
+        <link>https://syriii.github.io/p/lag-ticket-binary-clf/</link>
+        <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/lag-ticket-binary-clf/</guid>
+        <description>&lt;h1 id=&#34;由卡顿投诉工单引发的二分类问题&#34;&gt;由卡顿投诉工单引发的二分类问题
+&lt;/h1&gt;&lt;p&gt;毕业后东西都忘光了，简单回顾一下以前学的东西，以及总结一下怎么糊弄过领导的办法。&lt;/p&gt;
+&lt;h2 id=&#34;指标复习&#34;&gt;指标复习
+&lt;/h2&gt;&lt;h4 id=&#34;混淆矩阵&#34;&gt;混淆矩阵
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        实际
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      ┌--------+--------┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 预测  │  + (P) │  - (N) │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   		├--------+--------┤
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  +   │   TP   │   FP   │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  -   │   FN   │   TN   │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      └--------+--------┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;总样本 N = TP+TN+FP+FN
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;以投诉为例子的话，这些指标的含义如下&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;符号&lt;/th&gt;
+          &lt;th&gt;英文&lt;/th&gt;
+          &lt;th&gt;含义&lt;/th&gt;
+          &lt;th&gt;以投诉为例子&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;TP&lt;/td&gt;
+          &lt;td&gt;True Positive&lt;/td&gt;
+          &lt;td&gt;预测为正且实际为正&lt;/td&gt;
+          &lt;td&gt;预测为投诉且真的投诉&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FP&lt;/td&gt;
+          &lt;td&gt;False Positive&lt;/td&gt;
+          &lt;td&gt;预测为正但实际为负&lt;/td&gt;
+          &lt;td&gt;预测为投诉但实际没投诉（误杀）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;FN&lt;/td&gt;
+          &lt;td&gt;False Negative&lt;/td&gt;
+          &lt;td&gt;预测为负但实际为正&lt;/td&gt;
+          &lt;td&gt;预测为不投诉但真实投诉（漏网）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;TN&lt;/td&gt;
+          &lt;td&gt;True Negative&lt;/td&gt;
+          &lt;td&gt;预测为负且实际为负&lt;/td&gt;
+          &lt;td&gt;预测为不投诉且确实没投诉&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;引申指标介绍&#34;&gt;引申指标介绍
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;指标&lt;/th&gt;
+          &lt;th&gt;英文/同义词&lt;/th&gt;
+          &lt;th&gt;公式&lt;/th&gt;
+          &lt;th&gt;业务一句话解释&lt;/th&gt;
+          &lt;th&gt;阈值↓&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Threshold&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;决策阈值&lt;/td&gt;
+          &lt;td&gt;用户自定义&lt;/td&gt;
+          &lt;td&gt;概率≥该值则判为正例&lt;/td&gt;
+          &lt;td&gt;—（自变量）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Accuracy&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;准确率&lt;/td&gt;
+          &lt;td&gt;(TP+TN)/N&lt;/td&gt;
+          &lt;td&gt;全体样本里判对的比例&lt;/td&gt;
+          &lt;td&gt;先↑后↓（不平衡时骤降）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Error Rate&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;错误率&lt;/td&gt;
+          &lt;td&gt;1−Accuracy&lt;/td&gt;
+          &lt;td&gt;全体样本里判错的比例&lt;/td&gt;
+          &lt;td&gt;先↓后↑&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Precision&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;查准率&lt;/td&gt;
+          &lt;td&gt;TP/(TP+FP)&lt;/td&gt;
+          &lt;td&gt;“预测为正”里真正正例的比例&lt;/td&gt;
+          &lt;td&gt;↓（FP↑更快）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Recall&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;召回率/TPR/Sensitivity&lt;/td&gt;
+          &lt;td&gt;TP/(TP+FN)&lt;/td&gt;
+          &lt;td&gt;所有真实正例里找回的比例&lt;/td&gt;
+          &lt;td&gt;↑（FN↓）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;F1&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;2·P·R/(P+R)&lt;/td&gt;
+          &lt;td&gt;精确与召回的调和平均&lt;/td&gt;
+          &lt;td&gt;先↑后降（存在峰值）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;FPR&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;假正率&lt;/td&gt;
+          &lt;td&gt;FP/(FP+TN)&lt;/td&gt;
+          &lt;td&gt;所有真实负例里被误杀的比例&lt;/td&gt;
+          &lt;td&gt;↑（FP↑）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Specificity&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;特异度/真负率&lt;/td&gt;
+          &lt;td&gt;TN/(TN+FP)&lt;/td&gt;
+          &lt;td&gt;所有真实负例里被正确保护的比例&lt;/td&gt;
+          &lt;td&gt;↓（TN↓）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Prevalence&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;患病率/先验&lt;/td&gt;
+          &lt;td&gt;(TP+FN)/N&lt;/td&gt;
+          &lt;td&gt;总体里真实正例的占比&lt;/td&gt;
+          &lt;td&gt;不变（与阈值无关）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;roc-pr&#34;&gt;ROC-PR
+&lt;/h4&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;曲线&lt;/th&gt;
+          &lt;th&gt;横轴 (X)&lt;/th&gt;
+          &lt;th&gt;纵轴 (Y)&lt;/th&gt;
+          &lt;th&gt;面积名称&lt;/th&gt;
+          &lt;th&gt;基线值&lt;/th&gt;
+          &lt;th&gt;对类别不平衡敏感?&lt;/th&gt;
+          &lt;th&gt;业务一句话解释&lt;/th&gt;
+          &lt;th&gt;实际用处&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;ROC&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;FPR&lt;/td&gt;
+          &lt;td&gt;TPR&lt;/td&gt;
+          &lt;td&gt;AUC-ROC&lt;/td&gt;
+          &lt;td&gt;0.5 (对角线)&lt;/td&gt;
+          &lt;td&gt;不敏感&lt;/td&gt;
+          &lt;td&gt;随机抽一正一负，正样本得分更高的概率&lt;/td&gt;
+          &lt;td&gt;• 快速筛模型：AUC&amp;lt;0.7 基本不可用&lt;br&gt;• 平衡数据下跨模型对比&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;PR&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;Recall&lt;/td&gt;
+          &lt;td&gt;Precision&lt;/td&gt;
+          &lt;td&gt;AUC-PR (=AP)&lt;/td&gt;
+          &lt;td&gt;π = Prevalence (正例占比)&lt;/td&gt;
+          &lt;td&gt;极敏感&lt;/td&gt;
+          &lt;td&gt;随机抽一个正例，它比随机负例排名靠前的平均精确度&lt;/td&gt;
+          &lt;td&gt;• 不平衡场景首选：投诉/欺诈/疾病&lt;br&gt;• 同模型不同阈值选优&lt;br&gt;• 基线=π，远离π才真提升&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;补充指标&#34;&gt;补充指标
+&lt;/h4&gt;&lt;p&gt;阈值下降：放松，抓更多正例；阈值上升：收紧，少报正例&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;指标&lt;/th&gt;
+          &lt;th&gt;公式&lt;/th&gt;
+          &lt;th&gt;阈值↓&lt;/th&gt;
+          &lt;th&gt;阈值↑&lt;/th&gt;
+          &lt;th&gt;业务一句话解释&lt;/th&gt;
+          &lt;th&gt;实战用处&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;MCC&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;(TP·TN - FP·FN) / √[(TP+FP)(TP+FN)(TN+FP)(TN+FN)]&lt;/td&gt;
+          &lt;td&gt;先↑后↓（存在峰值）&lt;/td&gt;
+          &lt;td&gt;先↑后↓（同峰值）&lt;/td&gt;
+          &lt;td&gt;四格表全考虑的综合相关系数，+1 完美，0 随机，-1 完全反向&lt;/td&gt;
+          &lt;td&gt;• 极度不平衡时代替 Accuracy 做模型初选&lt;br&gt;• 跨数据集比较更稳健&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Fβ&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;(1+β²)·(P·R) / (β²·P + R)&lt;/td&gt;
+          &lt;td&gt;峰值位置随β左移（β&amp;gt;1 重 Recall）&lt;/td&gt;
+          &lt;td&gt;峰值位置随β右移（β&amp;lt;1 重 Precision）&lt;/td&gt;
+          &lt;td&gt;加权 F1：β&amp;gt;1 更怕漏，β&amp;lt;1 更怕误报&lt;/td&gt;
+          &lt;td&gt;• 业务给代价即可反推β&lt;br&gt;• 选β=2 常用在“漏报损失大”场景（医疗、投诉）&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;阈值滑动时，可以考虑F1, MCC. Fβ 这三个值，这三个值的峰值对应如下解释：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;F1 峰值 ≈ 精确率与召回率“折中”最优点；&lt;/li&gt;
+&lt;li&gt;MCC 峰值 ≈ 整体四格表“最协调”点；&lt;/li&gt;
+&lt;li&gt;Fβ 峰值 ≈ 按业务代价（β）加权后的“最划算”点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对应到业务逻辑上：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果代价表明确实“漏报更贵”，就直接用 &lt;strong&gt;Fβ 峰值&lt;/strong&gt;的阈值；&lt;/li&gt;
+&lt;li&gt;若只想纯粹综合性能，可用 &lt;strong&gt;MCC 峰值&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;没有额外偏好，用 &lt;strong&gt;F1 峰值&lt;/strong&gt;也不会错。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;del&gt;因此，对于大部分情况而言F1值就够&lt;strong&gt;应付任务&lt;/strong&gt;。&lt;/del&gt;&lt;/p&gt;
+&lt;h4 id=&#34;概率校准指标&#34;&gt;概率校准指标
+&lt;/h4&gt;&lt;p&gt;暂时没用到，但是有用，总之先记着&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;指标&lt;/th&gt;
+          &lt;th&gt;公式&lt;/th&gt;
+          &lt;th&gt;业务解释&lt;/th&gt;
+          &lt;th&gt;判断好坏&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Brier Score&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;mean( (p − y)² )&lt;/td&gt;
+          &lt;td&gt;“预测概率”与真实 0/1 标签的均方误差&lt;/td&gt;
+          &lt;td&gt;0 完美，上限 1 越差&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;LogLoss&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;−mean[ y·log p + (1−y)·log(1−p) ]&lt;/td&gt;
+          &lt;td&gt;对数似然惩罚，极端概率（0.001/0.999）错一点就爆炸&lt;/td&gt;
+          &lt;td&gt;0 完美，+∞ 最差&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;投诉工单数据分析&#34;&gt;投诉工单数据分析
+&lt;/h2&gt;&lt;p&gt;步骤：原始字段 → 数据清洗 → 探索性分析(EDA) → 特征构造 → 特征选择 → 特征变换 → 评估与优化&lt;/p&gt;
+&lt;h4 id=&#34;原始字段&#34;&gt;原始字段
+&lt;/h4&gt;&lt;p&gt;理解业务含义，确定数据类型。需要创建数据字典，标注出字段角色，比如确定用户表中的最后登陆时间。&lt;/p&gt;
+&lt;h4 id=&#34;数据清洗&#34;&gt;数据清洗
+&lt;/h4&gt;&lt;p&gt;处理缺失、异常、重复等数据，但是不进行统计分析。&lt;/p&gt;
+&lt;h4 id=&#34;探索性数据分析eda&#34;&gt;探索性数据分析（EDA）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;形状和字段类型：行数、列数、类型比例&lt;/li&gt;
+&lt;li&gt;缺失：缺失率、缺失模式&lt;/li&gt;
+&lt;li&gt;重复和异常：重复行占比、异常占比&lt;/li&gt;
+&lt;li&gt;分布形态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;进行可视化图表绘制，对特征进行初步筛选，只进行观察和分析。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/428937690&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;探索性数据分析|Exploratory Data Analysis|EDA 入门（基本概念、流程、工具及资源）&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;note&lt;/div&gt;
+    &lt;p&gt;特征工程（Feature Engineering）就是从原始数据中提取特征并将其转换为适合机器学习的格式，即将原始的“脏数据”通过清洗和整合，转化为适合机器学习模型的特征，从而改善机器学习性能，提高预测准确度，同时节省运行时间。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/94994902&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;特征工程完全手册 - 从预处理、构造、选择、降维、不平衡处理，到放弃&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+
+
+&lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/Pysamlam/Tips-of-Feature-engineering&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;特征工程技巧练习&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/665664325&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;特征工程入门与实践&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;特征构造&#34;&gt;特征构造
+&lt;/h4&gt;&lt;p&gt;剔除冗余、噪声、无关特征，降低维度和过拟合风险。&lt;/p&gt;
+&lt;h4 id=&#34;特征选择&#34;&gt;特征选择
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;特征选择&lt;/code&gt;是&lt;code&gt;特征工程&lt;/code&gt;里的一个重要问题，其目标是&lt;strong&gt;寻找最优特征子集&lt;/strong&gt;。特征选择能剔除不相关(irrelevant)或冗余(redundant )的特征，从而达到减少特征个数，&lt;strong&gt;提高模型精确度，减少运行时间的目的&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/74198735&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;【机器学习】特征选择(Feature Selection)方法汇总&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;&#34;&gt;
+&lt;/h4&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/270458779&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;二分类、多分类、多标签分类的基础、原理、算法和工具&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>《牧场物语：来吧风之集市》赚钱思路的分享</title>
+        <link>https://syriii.github.io/p/storyofseasons_grandbazaar/</link>
+        <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/storyofseasons_grandbazaar/</guid>
+        <description>&lt;img src="https://syriii.github.io/p/storyofseasons_grandbazaar/pic/FE51789B0A70917ECB072554AEF411D1.png" alt="Featured image of post 《牧场物语：来吧风之集市》赚钱思路的分享" /&gt;&lt;p&gt;牧场物语这个系列已经和我一样老了，虽然我玩的很早，从GBA时代就已经玩了牧场物语2和3，但是后续作品中也只体验了矿石镇。小时候没有渠道和资源去买nds和3ds，倒是很幸运的避开了Marvelous的很多摆烂作品。相比于M社的风评，风之集市这座的质量确实还能称得上优良，算是一个瑕不掩瑜的重制作品了。&lt;/p&gt;
+&lt;h2 id=&#34;继承与瑕疵&#34;&gt;继承与瑕疵
+&lt;/h2&gt;&lt;p&gt;// 开场动画截图&lt;/p&gt;
+&lt;p&gt;牧场物语虽然开创了这种“继承牧场后，种田养殖谈恋爱走向人生巅峰”的游戏模式，但是实际上牧场物语类的游戏一直都是小众品类。唯一将这个类型发扬光大的反而是一个人开发完成的《星露谷物语》，持续不断的更新和优质的社区不断的为这个游戏注入新鲜血液，但是作为一个怀旧的老逼，这里就暂时不谈星露谷的优秀。&lt;/p&gt;
+&lt;p&gt;牧场物语这个类型实际上没有什么目标，简单的来说，这个游戏就是塞给你一个农场，你在里面想做什么都可以。你可以种地养殖，也可以谈恋爱结婚，没有任何任务目标，只有作为玩家自己给自己的目标。因此，这个游戏的玩家会相对更极端一些，喜欢玩的会感觉这个游戏非常忙，这里要种田养殖，那里要钓鱼下矿，还需要给村民送礼物，每天的时间都不够用；而不喜欢玩的会感觉每天都无所事事，这田种不种好像都没什么区别。&lt;/p&gt;
+&lt;p&gt;回归牧场物语的游戏本身，游戏的机制其实还是比较简单的：采集、种植、养殖来获取资源；烹饪、加工来生产半成品和成品；将这些资源出售转化为金钱，或是作为礼物获取好感度。底层逻辑很简单，但是在游戏体验中并不是很好。&lt;/p&gt;
+&lt;h3 id=&#34;无法满足的种田基因&#34;&gt;无法满足的种田基因
+&lt;/h3&gt;&lt;p&gt;风之集市这作的种田体验是比较差的，土地开满之后，总共只有4 * 6 * 9块地。其中有一块在地下室，季节是由放置的太阳来决定的，但是太阳又无法取下。最受影响的就是&lt;code&gt;茶叶&lt;/code&gt;，根据季节的不同，茶叶的产物是不同的，因此有春茶、夏茶、秋茶之分，而玩家期望的一般只有收益最高的秋茶。在地下室里有多个太阳的情况下，茶叶的产出是随机的，不能保证稳定的秋茶收益。&lt;/p&gt;
+&lt;p&gt;田地的数量也不太够，风集这作的种子数量相当多。除去6种蘑菇和4种牧草，每个季节都有大约20种左右的作物和果树需要种植。果树和农作物都需要占用耕地，哪怕仅仅只是为了收藏，每小块地只种一种作物，也只是勉强够用，更不用说要赚钱或者一些大需求量的产品而进行大批量的种植了。&lt;/p&gt;
+&lt;p&gt;// 农场截图&lt;/p&gt;
+&lt;p&gt;风集在农场整体环境的设计上还是非常棒的，超大的牧场，一直在运转的风车和旁边的梯田都很让人喜欢。但是在游戏性上就差了一些，特别突出的一点就是两个动物小屋距离超级远，分别在草场的两侧，每天去捡鸡蛋都需要跑很远，再配上那不同星级的鸡蛋和有限的背包，来回两趟相当折磨。农田也是一样的问题，为了方便剧情的拓展和美观将田地划分成了多个小块，导致每块田都偏小，导致种田的过程非常“不爽”。&lt;/p&gt;
+&lt;h3 id=&#34;重复劳作的养殖问题&#34;&gt;重复劳作的养殖问题
+&lt;/h3&gt;&lt;p&gt;虽然牧场物语系列中的鸡牛羊都很可爱，但是M社对于动物养殖这部分的内容有着让人很难以理解的固执，比如每一作都有并且几乎是强制的”抚摸动物“。游戏中，抚摸动物会让动物提升好感值，进而产出更优质的产品。&lt;/p&gt;
+&lt;p&gt;在旧作中，好感度高的动物可以产生更高级的产品，比如小瓶牛奶，中瓶牛奶和大瓶牛奶。而本作中，好感度高的动物产生的产品星级会更高，抚摸也会提升特殊产品的产出概率，配合&lt;code&gt;芝士大蛋糕&lt;/code&gt;的&lt;code&gt;抚摸提升稀有副产品出现概率 lv4&lt;/code&gt;，几乎可以做到每天一份黄金产物。&lt;/p&gt;
+&lt;p&gt;// 芝士大蛋糕截图&lt;/p&gt;
+&lt;p&gt;这个设计本身其实还挺不错的，但是问题在于&lt;code&gt;抚摸动物&lt;/code&gt;这个操作重复次数太多了，并且这个动作并没有进行后续的优化。游戏总共可以养9只宠物，10只鸡，10只牛/羊/羊驼，也就是你每天需要至少抚摸29次。这还不包括这些动物需要的额外的拥抱和刷洗。&lt;/p&gt;
+&lt;p&gt;对比一下种植，种植每天需要的浇水可以通过升级水壶来增加范围，最高级的水壶可以通过一次跳跃浇54格的田地；如果不在意耕地占用和稀有副产品减少的问题，还可以使用自动洒水器变成完全的自动化。而养殖这块保留了M社的初心，从GBA开始就是这样，到现在仍然是这样。唯一进步的点就是你的宠物会帮你放牧，然后就没了。&lt;/p&gt;
+&lt;h3 id=&#34;优秀的风车和集市&#34;&gt;优秀的风车和集市
+&lt;/h3&gt;&lt;p&gt;毕竟本作的名字就叫风之集市，核心自然是对应的风车和集市。风车的效率和风速挂钩，风量越大，风车运行效率越高。原作在NDS上时，还可以通过往麦克风吹气的方式，加速风车转动来提高运行效率。而集市是每周六才开始，配合上物品的新鲜度的设计，玩家需要更多的考虑金钱的流转周期，货物的储存等问题。相比于传统的成品丢到收货箱然后第二天领钱的设计，并不好判断孰优孰劣，但是风集的集市设定确实还算有趣。&lt;/p&gt;
+&lt;h2 id=&#34;关于赚钱&#34;&gt;关于赚钱
+&lt;/h2&gt;&lt;p&gt;模拟经营类游戏里最重要的一点就是赚钱。而这类游戏的通用思路都是：素材 -&amp;gt; 半成品 -&amp;gt; 成品，即购买素材，进行加工，然后再出售成品的思路。在这个思路下，玩家会支出两种成本，分别是金钱成本、时间成本和体力成本。金钱成本主要是原材料的购买，比如购买农作物的种子，荞麦粉需要先从商人那里购买荞麦等。而时间成本主要在于植物生长的周期，风车加工原材料耗费的时间。体力成本则是人物活动需要消耗的体力，因为在前中期的体力是有限的，即使有恢复体力的食物，也仍然需要消耗宝贵的素材来制作。实际游戏过程中，素材、半成品、成品都可以作为出售的商品，销售策略的选择还是要根据实际成本来决定。&lt;/p&gt;
+&lt;p&gt;另外值得一提的是，本作产品的价格和星级的关系并非直线，而是一个星级越高越陡峭的曲线。0.5星产品的价格为基准的的话，1星产品价格为105%，而6.5星产品价格是250%，7星产品的价格是300%。因此后期的赚钱流程中应当以提高星级作为目标。&lt;/p&gt;
+&lt;p&gt;除此之外，风集由于定期集市的特点，提供了热门趋势的词条，对应的产品售价会提高30%。而物品新鲜度的下降会导致价格下降；不过游戏流程体验下来，在赚钱的生产周期中，很少会出现物品新鲜度下降得非常多的情况。更多的是囤积给村民的好感度礼物，长期带在身上导致新鲜度下降。&lt;/p&gt;
+&lt;p&gt;个人是在第一年秋季的时候达成了世界级集市，这里也会按照我自己的流程经验来划分游戏的前中后期来描述。&lt;/p&gt;
+&lt;h3 id=&#34;前期赚钱的思路&#34;&gt;前期赚钱的思路
+&lt;/h3&gt;&lt;p&gt;游戏前期玩家拥有的金钱和资源都很少：田地数量较少所以应避免选择长周期的产品，比如果树；工具等级较低的情况下，不应该考虑星级带来的收益。因此前期赚钱的东西选择就比较简单了：能进行二次加工，获取周期短或是获取成本低的商品。&lt;/p&gt;
+&lt;p&gt;前期最容易获取的东西就是野花和野草了，并缺春季也是野花野草最多的时候。野花野草都可以做香水，但是野草可以做沙拉来弥补前期匮乏的体力。所以推荐是使用野花做香水、野草做沙拉恢复体力。&lt;/p&gt;
+&lt;p&gt;// 野花照片&lt;/p&gt;
+&lt;p&gt;在第一次正式的集市期间，就可以从商人那里购买鲜花种子。每个季节都有固定的三种鲜花用来做花束，花束的售价高达1000元，而鲜花的生长周期仅需要3天。所以囤积一笔启动资金购买鲜花种子做花束是一个相当优质的选择。&lt;/p&gt;
+&lt;p&gt;// 春季花束&lt;/p&gt;
+&lt;p&gt;另一个稳定的收益就是牧草种子，牧草在种植之后不需要浇水，生长后还会自动扩散。收割还有概率掉落种子，可以重复的种植。在前期也是一个非常不错的收入来源。&lt;/p&gt;
+&lt;p&gt;// 牧草&lt;/p&gt;
+&lt;p&gt;但是实际在这个游戏中，正常的种植都没有亏损一说。前期种萝卜之类的作物，然后直接到集市上售卖也完全没有问题。只是类似果树这样的，生长周期长，回本缓慢，会让前期变得更加折磨。&lt;/p&gt;
+&lt;h3 id=&#34;中期赚钱的思路&#34;&gt;中期赚钱的思路
+&lt;/h3&gt;&lt;p&gt;中期也就是有一定的经济基础的时期。田地没开满但是也够用，动物能保证少量的牛奶、鸡蛋产出，风车也都已经全部解锁。这个时候就可以按照”素材加工半成品，再生产成品后销售“的思路进行赚钱了。由于中期的仓库位置紧缺、菌种木桩和蜂场的扩展以及土地升级之类的大量消耗金币的支出，所以中期应该以成本为优先：保证每次集市后都有足够的资金进行上述的拓展操作。既然要节约成本，那么考虑的作物就应当是能连续采摘的作物、日常都能采集的采集物和每天稳定产出的牛奶、鸡蛋。&lt;/p&gt;
+&lt;p&gt;可以仍然延续前期的赚钱思路，继续使用香水、花束赚钱，这些都是相当稳定的收入来源，仅需要使用风车的加工就可以做到。但是由于逐渐要开始进行农具的升级，生产香水、花束的红色风车会被占用进行木材和石材的加工，所以需要考虑出售其他的商品，在风车的空档期进行销售。另外，牧草由于它几乎0成本的特性，可以一直销售。&lt;/p&gt;
+&lt;p&gt;蓝色风车有一个稳定的收益就是做年糕，餐厅直接购买米饭，然后丢到蓝色风车中加工成年糕，就是一个稳定的时间转化成金钱收益的流程。&lt;/p&gt;
+&lt;p&gt;// 年糕&lt;/p&gt;
+&lt;p&gt;其次就是做首饰，首饰的加工消耗的时间非常非常多，但是由此产生的收益也非常大。大部分首饰都可以做到成品是素材的两倍价格，而做首饰需要的素材都是日常挖矿的产物和副产物。当我升级到银农具时，铜矿就几乎没有什么用了，就可以全部制作成首饰进行售卖，后续的金农具、山铜农具也是类似的道理。&lt;/p&gt;
+&lt;p&gt;// 首饰&lt;/p&gt;
+&lt;p&gt;另外就是做料理，料理的加工是这个游戏中收益最大的环节，因为做料理的过程没有任何成本，即可以瞬间把素材变成成品并且升值。在中期这个阶段，考虑的仍然是节约成本，因此料理主要选择了以连续作物、牛奶鸡蛋为主的配方，比如蛋包饭，仅需要红色风车加工出黄油，配合做年糕富裕的米饭就可以完成。&lt;/p&gt;
+&lt;p&gt;// 蛋包饭&lt;/p&gt;
+&lt;p&gt;中期其实还有一些本身是很优质的料理，但是配方并不一定能在当时就解锁。比如赏月丸子和一些小麦粉相关的料理，需要通过集市解锁新的商店，再去商店购买对应的食物吃下去，之后才解锁配方。这些配方我都是在后期有更优质的赚钱手段后才获得。所以这里也不好去展开讲解&lt;/p&gt;
+&lt;p&gt;对于作物，夏季的水果和秋天的茶叶都是很不错的收益。但是由于当时我并没有注意到果茶这个选项，在夏季把水果都卖了或者做了种子，然后秋季仅做来一些普通的红茶，但是收益仍然比较可观。&lt;/p&gt;
+&lt;h3 id=&#34;后期的赚钱思路&#34;&gt;后期的赚钱思路
+&lt;/h3&gt;&lt;p&gt;后期的基本上就是料理配方基本上都解锁，农田拓展完毕，斧头到山铜级，也就是处于一个想做什么都能做的阶段。因此后期赚钱的思路主要在于两点，最大化利用素材的星级和减少时间成本。由于风集这作的农作物和畜牧产品想要到达7星必须经历两次评选冠军后才行，而售价更高的品牌化还需要更多一次，因此需要做相当程度的提前规划才可以。正常流程中前几个月都是处于一种摸索的状态，但是实际上这些赚钱的流程，并不是高星才能赚钱，而是高星赚钱更多。&lt;/p&gt;
+&lt;p&gt;首先是但凡了解过一点攻略都应该听说过的荞麦冷面和格雷麦饼。荞麦冷面的素材需求仅为小麦粉和荞麦粉，小麦粉是由种植获得的小麦再红色风车加工，荞麦粉则是从商人购买后再在蓝色风车加工获得。格雷麦饼的素材是土豆、荞麦粉和油，与荞麦冷面非常类似，区别就是土豆无需在红色风车加工，但是需要从商人额外购买油。&lt;/p&gt;
+&lt;p&gt;// 荞麦冷面 格雷麦饼&lt;/p&gt;
+&lt;p&gt;这两个商品的共同特征都是产出的星级仅和农产品的星级相关，因此提升非常容易。而风车加工的素材仅从商店购买，不会和农作物抢占田地空间；最后料理的制作无需消耗时间，有多少素材就有多少成品。因此，只要你能得到7星的小麦或是土豆，就可以获得7星的荞麦冷面或格雷麦饼。&lt;/p&gt;
+&lt;h4 id=&#34;基于荞麦冷面的思考&#34;&gt;基于荞麦冷面的思考
+&lt;/h4&gt;&lt;p&gt;从荞麦冷面和格雷麦饼中我们可以看到，风集这个游戏中获取素材其实是有几条并行的路线：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;种植&lt;/li&gt;
+&lt;li&gt;畜牧业养殖&lt;/li&gt;
+&lt;li&gt;周期收益，即采蘑菇和收蜂蜜&lt;/li&gt;
+&lt;li&gt;采集，包括钓鱼、采集野花野草、采矿、捕虫&lt;/li&gt;
+&lt;li&gt;商店购买，包括每天都可以购买的村里的商店和每周可以购买的集市商店&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而我们的目标是高星商品，那么就需要容易变成高星的素材。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;种植：7星作物至少需要获得两次冠军，多季度作物意味着至少两季度，而单季度作物更是需要两年的时间&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;畜牧业：不仅需要每天抚摸拥抱刷洗，还需要获得两次冠军，是我觉得最麻烦的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;周期收益：将产物直接喂给小矮人换星级，蜂蜜产出多所以提升非常快，后期会溢出大量，可以直接视作0成本素材。蘑菇虽然产出少一些，升星也慢一点，还需要占用一部分蓝色风车资源去做种子，但是也是后期也是溢出的，所以也可以看作0成本&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;采集：升星方法很简单，从矿物店老板那里买石头然后喂给小矮人，几十万就可以达到7星，素材需要每日采集，但是收益稳定。钓鱼的话只能慢慢钓鱼然后喂小矮人，会花很多时间。内部排序的话，采矿 &amp;raquo;&amp;raquo; 钓鱼 &amp;gt; 野花野草捕虫。采集里的东西只有采矿这部分内容是适合赚钱的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;商店购买：没有星级就跳过，可能会占用一些风车资源。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;风集中素材获取部分都是需要时间成本的，无论是种植——消耗大量时间成本后获取大量素材，还是其他的方式——消耗少量时间成本后获取少量素材。而把素材加工成成品只有两个方法，一个是风车，另一个是料理。其中风车是需要时间成本的，而料理不需要任何成本。因此，要获取更大的收益，就需要让这两个时间消耗并行的处理。&lt;/p&gt;
+&lt;p&gt;比如格雷麦饼：种植土豆期间，蓝色风车加工荞麦粉，商店购买并囤积油，就可以保证土豆产出的时候就可以直接销售格雷麦饼。所以格雷麦饼这样生产产品的形式非常适合中期时候，每个阶段都缺钱的阶段。但是格雷麦饼是在&lt;code&gt;地区级集市&lt;/code&gt;才解锁，也就是意味着解锁这样的产品的时候，玩家一般已经有一套自己习惯的赚钱流程，比如我已经用秋茶和首饰赚了一大笔。&lt;/p&gt;
+&lt;h4 id=&#34;荞麦冷面的反思&#34;&gt;荞麦冷面的反思
+&lt;/h4&gt;&lt;p&gt;上面说了这么多时间成本的事，还特意绕开了荞麦冷面只说了格雷麦饼，大家都会意识到一个问题：这个游戏并不是一个极度缺乏金钱的游戏，也不是一个有“还债”压力的游戏，完全没有必要压榨每个集市去赚很多钱，休闲一周并不会产生什么影响。&lt;/p&gt;
+&lt;p&gt;但是我们游玩的时候会发现，风车经常会出现加工栏位已满，导致我们不能推进其他的计划目标。也就是说，风车的时间成本，在游戏中是以风车的容量为体现的。由于本作中工具升级需要大量的木材，而木材不仅需要经过三个风车轮流加工，还耗费大量时间。而作物的种子、肥料，蜂蜜的加工等等，都是在占用风车的工作时间。因此我们的赚钱之路上，就需要更多的优化风车的利用率。&lt;/p&gt;
+&lt;p&gt;好在风集有宝珠，它的作用就是优化风车的使用体验。里面比较值得关注的是：&lt;/p&gt;
+&lt;p&gt;// 宝珠&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;蓝色：缩短加工时间&lt;/li&gt;
+&lt;li&gt;黄色：单次加工每生产5个就增加1个产出&lt;/li&gt;
+&lt;li&gt;橙色：单次加工的产品上限提升至30个&lt;/li&gt;
+&lt;li&gt;绿色：多6条生产线，总共变成12条&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;蓝色就是朴实无华的缩短时间，但是需要多跑几次风车，在有了飞行石之后是一个比较不错的选择。&lt;/p&gt;
+&lt;p&gt;黄色是增加产出，适合给种子加工、首饰加工和不当人的木材需求量来增加产出。&lt;/p&gt;
+&lt;p&gt;橙色适合收获周期长的产品，比如在红色风车里加工小麦粉。&lt;/p&gt;
+&lt;p&gt;绿色是最泛用的珠子，增加生产线也意味着不仅降低时间成本，还提供了更大的容量。&lt;/p&gt;
+&lt;p&gt;根据上面的珠子，我们就可以比较简单的拼凑出一个，红色风车使用橙色珠子加工小麦粉，蓝色风车使用绿色珠子的空余位置加工荞麦粉，进而就可以做到荞麦冷面。&lt;/p&gt;
+&lt;h4 id=&#34;红茶和果茶&#34;&gt;红茶和果茶
+&lt;/h4&gt;&lt;p&gt;三个风车之间的功能不同，因此使用率上也有非常大的差距。红色风车是最先解锁的，里面的产出也是最开始的基础作物的半成品；蓝色风车是第二个解锁的，里面是非常重要的种子加工、蜂蜜加工、还有荞麦粉；黄色风车是最后解锁的，里面的内容就比较高级和昂贵，比如茶叶、果茶之类。所以游戏在解锁这三个风车之后，我们对于风车的使用率是这样的：蓝色风车 &amp;raquo; 红色风车 &amp;gt; 黄色风车。这也是为什么我会吧绿色宝珠给蓝色风车的原因，因为它的使用率太高了。&lt;/p&gt;
+&lt;p&gt;一旦蓝色正在加工蜂蜜、种子和木材的时候，蓝色风车就只能提供很少的位置加工荞麦粉。因此我们可以把目光转移到另外两个风车。比如红色风车的小麦粉和黄色风车的茶叶。&lt;/p&gt;
+&lt;p&gt;// 果茶&lt;/p&gt;
+&lt;p&gt;其中黄色风车的果茶是很典型的长周期高利润产品。通过任意的水果和秋茶，在黄色风车加工出茶叶后再进行料理即可。水果可以是春季草莓、夏季西瓜、秋季蜜瓜，也可以是苹果、柠檬哪些书上长的，而秋茶是仅能在秋季生长的茶叶，茶叶是连续作物，一波种子可以产生非常非常非常多的秋茶。两者组合加工后，就可以产出高额利润的果茶了。更重要的是，在制作果茶的期间，红色风车和蓝色风车仍然可以制作荞麦粉、小麦粉等产物，不会影响到荞麦冷面的产出。&lt;/p&gt;
+&lt;h4 id=&#34;脱离农作物的首饰&#34;&gt;脱离农作物的首饰
+&lt;/h4&gt;&lt;p&gt;游戏的过程中并不一定能注意到这些收益非常高的商品，但是任何玩家都会有升级工具的目标，也就有采矿的需求，因此肯定能注意到风车里有几个经常亮起来，还特别昂贵的首饰商品。牧场物语类的玩家基本上都会有一定程度的挖矿习惯，特别是风集这作中，矿物的掉落是概率的，变相强迫玩家每天去挖矿获取升级素材。因此，将溢出的矿物在空闲的风车中加工成首饰，是一个很自然而然但是又达到了我们高收益目标的行为。&lt;/p&gt;
+&lt;p&gt;//首饰&lt;/p&gt;
+&lt;h4 id=&#34;脱离风车的矿产&#34;&gt;脱离风车的矿产
+&lt;/h4&gt;&lt;p&gt;很快我们就会发现，首饰的加工时间实在是太太太长了，动辄好几天的加工时间让我们在有了使用风车的需求的时候也无法使用风车。而矿石本身的售价就相当高，银矿基础售价是800，金矿的基础售价是2000，更重要的是&lt;code&gt;鸡蛋芝士面包船&lt;/code&gt;，食物效果是采集的数量翻倍。在山铜工具后，金矿的出率都非常高了；根据个人体感而言，配合食物buff每天仅采集两轮矿物，每周收获的金、银、铜矿都有小一组，也就是&lt;code&gt;(500+800+2000)*300%*99 = 980,100&lt;/code&gt;算上集市装扮和小矮人加成，以及山铜和首饰石头的掉落，每周稳定收入100万不是什么大问题，而面包船的基础售价是10000元左右，所以只要面包船期间额外掉了5个金矿就已经回本了，更不用说风集的物品刷新特性是5点和6点各一次：意思就是我们5点之前采完一轮矿、5-6点之间再采一轮、6点之后还能采一轮；一天三轮矿物肯定赚得盆满钵满。&lt;/p&gt;
+&lt;p&gt;// 鸡蛋芝士面包船&lt;/p&gt;
+&lt;p&gt;如此大量的矿物获取量，没必要为了首饰的额外收益去挤占风车的运行。而核心中的核心就是&lt;code&gt;鸡蛋芝士面包船&lt;/code&gt;，它的素材是小麦粉、极品芝士、极品酸奶、极品黄油。这三个极品素材，都是由普通牛和水牛概率产出的极品牛奶和极品水牛奶，在黄色风车中加工获得的，而提升星级所使用的可以是鸡蛋、米粉、砂糖、盐、橄榄、南瓜籽油，这里面的鸡蛋、砂糖之类都是非常好获得的东西。&lt;/p&gt;
+&lt;p&gt;所以难以获得的只有每天概率产生的极品牛奶和极品水牛奶。注意力惊人的我们可以注意到前文提到过的&lt;code&gt;芝士大蛋糕&lt;/code&gt;这个物品，有着&lt;code&gt;抚摸提升稀有副产品出现概率 lv4&lt;/code&gt;的优秀技能，并且这个物品在每周集市中可以买到3个。而4级的技能基本上能确保每次抚摸大概率产出极品牛奶和极品水牛奶，考虑到做衣服占用了两只羊和两只羊驼，所以6头牛（2普通牛和4水牛）的比例，保证了每周能够至少6桶极品牛奶和12桶极品水牛奶；6天需要消耗的6个面包船正好是需要6个极品牛奶的半成品和12个极品水牛奶的半成品。由于牛的产出数量是随机的，所以收获的牛奶基本上会大于消耗，也就意味着在获取量鸡蛋芝士面包船的配方后就可以开始进行双倍矿产采集。除此之外，小麦粉是我们前文提到过的荞麦冷面的必备素材，如果我们之前使用了荞麦冷面赚钱，那么这时候就可以顺手再做一些面包船。&lt;/p&gt;
+&lt;p&gt;而溢出的素材怎么办，&lt;code&gt;芝士大蛋糕&lt;/code&gt;的素材要求是小麦粉、极品鸡蛋、极品水牛奶、芝士。溢出的水牛奶和我们暂时用不到的鸡蛋就可以在这里进行制作，创新栏可以使用后期必定会溢出的蜂蜜进行加星。另外&lt;code&gt;巧克力大蛋糕&lt;/code&gt;也是同样的效果，素材不需要芝士而是替换成了巧克力。但是由于它是甜点大赛奖励，无法购买必须自己制作，我作为一个懒人还是选择了芝士大蛋糕。&lt;/p&gt;
+&lt;p&gt;到这里，我们的种植、畜牧、采集、加工这些本来本来没有什么交集的就汇聚到了一起：&lt;/p&gt;
+&lt;p&gt;小麦种植 -&amp;gt; 红色风车加工成小麦粉&lt;/p&gt;
+&lt;p&gt;购买荞麦 -&amp;gt; 蓝色风车加工成荞麦粉&lt;/p&gt;
+&lt;p&gt;畜牧养殖 -&amp;gt; 芝士大蛋糕获取稀有副产物 -&amp;gt; 黄色风车加工成极品芝士、酸奶、黄油 -&amp;gt; 制作鸡蛋芝士面包船 -&amp;gt; 挖矿&lt;/p&gt;
+&lt;h4 id=&#34;副产物进一步的优化&#34;&gt;副产物进一步的优化
+&lt;/h4&gt;&lt;p&gt;根据&lt;code&gt;鸡蛋芝士面包船&lt;/code&gt;的思路，我们可以看到我们还有鸡蛋、蜂蜜、蘑菇、普通牛奶这些都是还没用上的。而小麦和荞麦的思路确实会占用大量风车且收益有限。那么我们是否还可以继续优化它呢？&lt;/p&gt;
+&lt;h5 id=&#34;首先我们来梳理一下我们还富裕的产品&#34;&gt;首先我们来梳理一下我们还富裕的产品：
+&lt;/h5&gt;&lt;p&gt;小麦、鸡蛋、极品鸡蛋、普通牛奶、蜂蜜、松茸、大王菌菇。对于必要的&lt;code&gt;鸡蛋芝士面包船&lt;/code&gt;我们需要的小麦并没有很多，所以我们可以视作我们还溢出了大量农田可以任意由我们分配。&lt;/p&gt;
+&lt;h5 id=&#34;其次我们需要观察一下那些高价值的产品根据成品的基础售价减去素材的基础售价我们可以粗略的获得一些高利润的料理top10&#34;&gt;其次我们需要观察一下那些高价值的产品，根据成品的基础售价减去素材的基础售价，我们可以粗略的获得一些高利润的料理top10：
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;黄金特调茶（11879）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;黄金特调茶会抢占风车，性价比不如首饰。而不做首饰的话完全可以考虑按量取胜的果茶，所以不考虑&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;终极咖喱（9922）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;终极咖喱需要极品咖喱、巨大番茄、指甲辣椒、极品酸奶。种植里的稀有副产物并不像养殖那样容易获得，所以也不考虑&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;鸡蛋芝士面包船（8673）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;鸡蛋芝士面包船本来就是我们的目标，而且本身价值就非常高，溢出了直接售卖是完全没有问题的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;特调果汁（9511）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特调果汁非常值得一说，因为他的素材里只有草莓是需要种植的，其他的都是由果树获得。虽然我们的果树基本上都只能获得5星产出，但是春风、夏风、秋风果汁都可以通过蜂蜜作为配料来提星。最终产出的特调果汁也可以通过奢华的蜂蜜来提星，这些蜂蜜是我们溢出非常多的东西。所以特调果汁完全值得考虑制作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;农家早餐（5927）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;农家早餐的素材是马铃薯、洋葱、极品芝士和极品蛋黄酱，但是升星的配料是不太容易获取的各种油。它是一个比较好来消耗极品蛋黄酱的渠道，而且马铃薯和之前的格雷麦饼也很适配，但是问题在于我并不期望抚摸每一只动物，极品鸡蛋的获取量并不多。当积攒了一定量的鸡蛋后，可以再通过这个料理去消耗掉。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;水果蛋糕杯（4767）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;水果蛋糕杯的素材是古早蛋糕、极品乌骨鸡蛋、极品酸奶、水果。而古早蛋糕的素材是小麦粉、乌骨鸡蛋、蜂蜜。根据素材我们可以看得出来，水果蛋糕杯是很容易获得7星产品，它还消耗掉了我们溢出的鸡蛋和小麦粉，任意的水果也和前面的特调果汁很搭。只不过它值消耗了乌骨鸡蛋和并没有消耗普通鸡蛋。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;炒米粉（3599）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;炒米粉的素材是米粉、大王菌菇、卷心菜、胡萝卜还可以通过酱油、油来升星。在获得松茸后，大王菌菇就是稳定的素材来源，基本上可以保证每三天获得三个。如果我们按照炒米粉的需求来种植水稻、卷心菜和胡萝卜，那么炒米粉就是一个非常值得考虑的料理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;极品咖喱（2274）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;极品咖喱的问题和终极咖喱一样，都需要种植部分的稀有副产物。所以我们就直接跳过。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;芝士通心粉（2127）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;芝士通心粉的素材需求为小麦粉、芝士、黄油、蛋黄酱。完美的配方，一下子就把我们溢出的普通素材消耗了，还提供了非常高额的利润。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;凤梨派（1825）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;凤梨派的问题也在于种植的稀有副产品：宝石凤梨，所以也不考虑。&lt;/p&gt;
+&lt;p&gt;综上，我们期望的是&lt;/p&gt;
+&lt;p&gt;特调果汁：消耗水果和蜂蜜，无需浇水，占用蓝色风车&lt;/p&gt;
+&lt;p&gt;水果蛋糕杯：消耗乌骨鸡蛋、极品乌骨鸡蛋、水果&lt;/p&gt;
+&lt;p&gt;炒米粉：消耗大王菌菇，但是需要种植水稻、卷心菜、胡萝卜，占用红色风车&lt;/p&gt;
+&lt;p&gt;芝士通心粉：消耗普通牛奶、普通鸡蛋，占用红色风车&lt;/p&gt;
+&lt;h5 id=&#34;寻找剩下素材的成品我们还剩下极品鸡蛋和松茸&#34;&gt;寻找剩下素材的成品，我们还剩下极品鸡蛋和松茸。
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;松茸只有松茸饭和烤松茸两个料理可以制作。那么松茸饭就是最佳选项了，素材是米、松茸、酱油。此时它又正好契合了炒米粉需要额外种植的水稻。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;极品鸡蛋可以考虑两个消耗途径，一个是农家早餐，但是需要额外种植一点马铃薯和洋葱，另一个就是前文中提到过的&lt;code&gt;巧克力大蛋糕&lt;/code&gt;或者&lt;code&gt;芝士大蛋糕&lt;/code&gt;，也就是提升抚摸产生稀有副产品概率的那个。其中巧克力大蛋糕的利润较低只有871，还需要消耗极品牛奶；而芝士大蛋糕利润较高1651，但是消耗的是极品水牛奶和芝士，实际中完全可以考虑根据产品溢出情况来选择。我个人更喜欢制作蛋糕这作方式，因为对于特调果汁，他种植果树需要消耗相当大量的种植资源。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;进一步细分种植需求&#34;&gt;进一步细分种植需求
+&lt;/h5&gt;&lt;p&gt;到此我们把所有的素材都消耗完了，我们还需要进一步细分我们的种植需求，养殖可以按照我们之前的2牛4水牛，任意数量的鸡和乌骨鸡（乌骨鸡为主）来进行。&lt;/p&gt;
+&lt;p&gt;特调果汁是由春风、夏风、秋风果汁合成的，春风需要草莓、橙子、樱桃；夏风需要香蕉、桃子、柠檬；秋风需要蓝莓、葡萄、苹果。也就是9*9块地。由于草莓是需要春季种植的，所以需要放置在地下室中，而且溢出的草莓可以用在水果蛋糕杯上。&lt;/p&gt;
+&lt;p&gt;剩下的15块地，我们需要种植水稻、卷心菜、胡萝卜、小麦。由于大王菌菇收益虽然稳定但是数量不多，所以卷心菜和胡萝卜哪怕各自只种植一块地都大概率会溢出，所以我们将其视作一块地（实际上是应季种植一块地，供给一年使用），剩下14块地的分配就可以很随意了。小麦、水稻、水果、茶叶按需分配就好了。其中提到茶叶的原因是：西瓜茶的利润有1538，但是代价是抢占黄色风车做首饰的生产。&lt;/p&gt;
+&lt;h5 id=&#34;划分风车职责&#34;&gt;划分风车职责
+&lt;/h5&gt;&lt;p&gt;在新的计划中，我们需要制作芝士、黄油、蛋黄酱、小麦粉、米粉、酱油，这些都是红色风车的职责。风车需要加工的物品品类增加，因此更适合红色风车的宝珠就是绿色宝珠，增加到12条生产线。&lt;/p&gt;
+&lt;p&gt;新的规划中蓝色风车的使用量就大幅度减少了，主要是蜂蜜加工和反种。因此橙色宝珠（增加单挑产线到30个成品）或者黄色宝珠（单次加工5个多一个成品）两个宝珠都非常适合。橙色宝珠主要是用来加工蜂蜜，而黄色宝珠用来反种。&lt;/p&gt;
+&lt;p&gt;最后黄色风车的功能就是制作几个极品素材，可以安装紫色宝珠把溢出的产线用来制作最贵的首饰。平时售卖可以使用餐厅类型的集市装扮，待首饰攒够数量后就可以使用风车类型的装扮再集中售卖。&lt;/p&gt;
+&lt;h4 id=&#34;最终的赚钱思路&#34;&gt;最终的赚钱思路
+&lt;/h4&gt;&lt;p&gt;实际上说了这么多，最后赚钱的思路还是根据素材获取的短板来定的。资源获取中有两个比较明显的短板，一个是种植的稀有副产物，另一个是风车的加工生产线。而解决办法就是避免使用种植的稀有副产物，以及风车加工的产品尽量以高价值为主。&lt;/p&gt;
+&lt;p&gt;// 集市赚钱截图&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;要制作的内容：鸡蛋芝士面包船、特调果汁、水果蛋糕杯、炒米粉、芝士通心粉、松茸饭、巧克力大蛋糕&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要种植的内容：所有种植内容都不需要稀有副产物，可以使用洒水器自动进行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;水果：草莓、橙子、樱桃、香蕉、桃子、柠檬、蓝莓、葡萄、苹果&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;作物：水稻、卷心菜、胡萝卜、小麦&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要养殖的内容：2牛，4水牛，乌骨鸡为主，普通鸡为辅助。每天吃大蛋糕抚摸动物。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要采集的内容：固定的蜂蜜采集和松茸种植，每天下午3点进行面包船的双倍采矿&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要加工的内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;红色风车：芝士、黄油、蛋黄酱、小麦粉、米粉、酱油&lt;/li&gt;
+&lt;li&gt;蓝色风车：蜂蜜，种子&lt;/li&gt;
+&lt;li&gt;黄色风车：极品芝士、极品黄油、极品酸奶，首饰&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结
+&lt;/h2&gt;&lt;p&gt;赚钱其实就这些了，与其说是思路，不如说是玩这种类型的游戏的自然而然的习惯。基本上都是以摸清游戏中的素材获取和加工手段后，再查询资料找到个人认为的最优解。哪怕前文中提到了我自己特别讨厌每天抚摸动物这种操作，但是想要达到高利润后这种行为反而是必要的。&lt;/p&gt;
+&lt;p&gt;然而这个游戏是自由的，可以不去功利化的追求最高的收益，可以以任何自己喜欢的方式来游玩。我可以每个夏季种满西瓜，秋季种满秋茶，只做西瓜茶也完全可以完成目标，这也是牧场物语类型的游戏里最好的地方，每个玩家都可以享受属于自己的生活，可以繁忙，可以清闲，可以为了达成世界化集市的目标，也可以是看着周六集市结束后榭露芙提着裙摆跑回家的样子，或是香月离开寺庙回归尘世享受生活。&lt;/p&gt;
+&lt;p&gt;风集的终盘内容其实相当欠缺，以角色剧情为例，虽然子供向剧情并没有期待它能被写得很好，但是它应该是完整的。婚前婚后除了角色居住在农场之外毫无改变，并且角色之间互动也没有改变；你会看到你的妻子/丈夫和M社钦定的cp在每个节日的时候待在一起，而你是个为了节日冠军而放弃了一切的农场主。风集的地图很小，当你熟悉了一切内容的时候，游戏其实就已经没有新内容了，做的只是日复一日的赚钱。相比出圈的星露谷，这也是星露谷最大的优势，庞大的社区，自定义的mod，只要你想就总有东西可以完。&lt;/p&gt;
+&lt;p&gt;好像这个游戏也没什么可以说的了，毕竟牧场物语这个系列似乎也是这样。写着写着、玩着玩着突然感觉好像没有什么继续下去的必要，可以放下手柄出去转一转，steam库里还有很多好玩的。&lt;/p&gt;
+&lt;h2 id=&#34;致谢&#34;&gt;致谢
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.qq.com/sheet/DU3ZNTm9NQmNrVmVC?u=03fd6b670ff14bda9110fcb18cda38e4&amp;amp;tab=tk0arj&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;【牧场物语风之繁华集市】各项收集笔记&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>码丽斯的做场</title>
+        <link>https://syriii.github.io/p/masterduelaboutmaliss/</link>
+        <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/masterduelaboutmaliss/</guid>
+        <description>&lt;h2 id=&#34;码丽斯是什么&#34;&gt;码丽斯是什么
+&lt;/h2&gt;&lt;p&gt;码丽斯（M∀LICE）是一套以《爱丽丝梦游仙境》和其续作《镜中奇缘》为核心灵感，通过“符号隐喻“、”叙事重构“、”机制转化“的三重设计，将爱丽丝的荒诞童话转化为电子界族的虚拟网络犯罪的卡图故事而设计的一套卡组。爱丽丝梦游仙境因为其本身荒诞叙事的特性，&lt;/p&gt;
+&lt;p&gt;卡片由4张下级、3张上级、2张魔法、3张陷阱组成。算是除了珠泪哀歌之外最喜欢的系列了。&lt;/p&gt;
+&lt;h3 id=&#34;符号隐喻&#34;&gt;符号隐喻
+&lt;/h3&gt;&lt;p&gt;码丽斯系列的名称M∀LICE中可以很明显的看出是由Alice和Malice组成的。&lt;/p&gt;
+&lt;h2 id=&#34;码丽斯的展开&#34;&gt;码丽斯的展开
+&lt;/h2&gt;&lt;p&gt;码丽斯的攻略实在太多了，在ocg、tcg和md中都遭到了不同程度的禁限。ocg和md的做法都是限制了启动率，而tcg几乎把电子界族所有卡组都砍死了。这里好像也没什么必要再去说什么展开链之类的，毕竟现存的攻略实在是太多了。码丽斯的展开逻辑其实也很简单，用已有的资源做出展开的核心中转点——红心，然后再调度出所有上下级资源，然后通过这些资源做出一个尽可能大的场面，比如协码、神弓、暗流体、防火龙之类。&lt;/p&gt;
+&lt;h3 id=&#34;如何根据现有的资源做出最大场&#34;&gt;如何根据现有的资源做出最大场
+&lt;/h3&gt;&lt;p&gt;码丽斯的逻辑其实就是传统意义上的电子界族的攀link逻辑，只不过由于其除外回场的特性导致他的展开韧性要强得多，资源调度能力和资源回收能力都比大部分卡组要强。而码丽斯的隐性资源数量相比传统电子界族也要多，比如除外回场的三张上级怪也是其展开的资源，所以对于码丽斯的终场需要做一个提前的预估才能在md这个单回合300秒的短时间内完成展开，并给自己留下足够的时间去思考下一回合的交康顺序。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://bbs.nga.cn/read.php?tid=44712337&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;&lt;strong&gt;从连接卡组看码丽丝：展开、获胜、构筑的逻辑&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zh.moegirl.org.cn/%E7%A0%81%E4%B8%BD%E4%B8%9D&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;码丽斯萌百&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>以flask为基础接入一个RAG系统</title>
+        <link>https://syriii.github.io/p/rag_flask/</link>
+        <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/rag_flask/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>分类｜Categories</title>
         <link>https://syriii.github.io/categories/</link>
         <pubDate>Sun, 21 Sep 2025 00:00:00 +0000</pubDate>
@@ -38,7 +588,7 @@
 
 
 &lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
-&lt;h2 id=&#34;archives-modify&#34;&gt;归档样式调整 
+&lt;h2 id=&#34;archives-modify&#34;&gt;归档样式调整
 &lt;/h2&gt;&lt;p&gt;对于归档，我期望是仅按照时间线保留我的文章，因此需要对归档的整体页面进行大改造。&lt;/p&gt;
 &lt;p&gt;首先我们找到归档的菜单配置&lt;code&gt;content/page/archives/index.md&lt;/code&gt;，可以看到归档的layout模板是&lt;code&gt;layout: &amp;quot;archives&amp;quot;&lt;/code&gt;。通过进一步查询，可以找到归档页面的模板在&lt;code&gt;layouts/_default/archives.html&lt;/code&gt;这个目录下。&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-note&#34;&gt;
@@ -361,7 +911,7 @@
 &lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/create_template_hugo/pic/taxonomy-categories.png&#34;
 	width=&#34;630&#34;
 	height=&#34;814&#34;
-	srcset=&#34;https://syriii.github.io/p/create_template_hugo/pic/taxonomy-categories_hu_de2bd3a1e3ea072a.png 480w, https://syriii.github.io/p/create_template_hugo/pic/taxonomy-categories_hu_a98a4b3566d67d89.png 1024w&#34;
+	srcset=&#34;https://syriii.github.io/p/create_template_hugo/pic/taxonomy-categories_hu_8d22437e1b7241d.png 480w, https://syriii.github.io/p/create_template_hugo/pic/taxonomy-categories_hu_70d467da30212646.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -958,12 +1508,13 @@
     &gt;Hugo官方文档&lt;/a&gt;。&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-important&#34;&gt;
     &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;important&lt;/div&gt;
-    &lt;p&gt;由于shortcode会被hugo&lt;/p&gt;&lt;/blockquote&gt;
+    &lt;p&gt;由于shortcode会被hugo解析，所以在后续介绍中使用shortcode时，会在前标签页中加入一个&lt;code&gt;\&lt;/code&gt;，避免被解析后无法展示&lt;/p&gt;&lt;/blockquote&gt;
 
 
 &lt;link href=&#34;https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css&#34; rel=&#34;stylesheet&#34;&gt;
 &lt;h2 id=&#34;shortcode的使用&#34;&gt;Shortcode的使用
-&lt;/h2&gt;&lt;p&gt;以stack提供的为样例，如果我们想要插入一段b站视频：&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;在当前版本的hugo中，简码仅能在markdown文件中使用。在html中会有另一套使用双大括号的语法，就不在这里赘述了。&lt;/p&gt;
+&lt;p&gt;以stack主题提供的为样例，如果我们想要插入一段b站视频，只需要在markdown中添加如下内容：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -1431,7 +1982,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;arrowIconBase64&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;{{ $icon.Content | base64Encode }}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 创建按钮模板
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createButton&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;className&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;isCollapse&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createButton&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;className&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;isCollapse&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;template&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sb&#34;&gt;`
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;        &amp;lt;div class=&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;className&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;&amp;#34;&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;          &amp;lt;span class=&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;isCollapse&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;collapse-btn-inner&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;code-more-btn&amp;#39;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;&amp;#34;&amp;gt;
@@ -1449,7 +2000,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 处理滚动
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollToBlock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;offset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollToBlock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;offset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;rect&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBoundingClientRect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pageYOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;rect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;top&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollTo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
@@ -1459,7 +2010,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 初始化代码块展开/收起功能
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initCodeMoreBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initCodeMoreBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;codeBlocks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;querySelectorAll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;.highlight&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlocks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1469,33 +2020,33 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;codeBlocks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;forEach&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;c1&#34;&gt;// 检查是否需要展开/收起功能
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;          &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollHeight&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;clientHeight&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollHeight&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;clientHeight&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;c1&#34;&gt;// 创建按钮
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;          &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createButton&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code-more-box&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createButton&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code-more-box&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;collapseBox&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createButton&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code-collapse-btn&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;c1&#34;&gt;// 展开按钮点击事件
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;          &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;querySelector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;.code-more-btn&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;querySelector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;.code-more-btn&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;classList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code-show&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;dispatchEvent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;resize&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;c1&#34;&gt;// 收起按钮点击事件
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;          &lt;span class=&#34;nx&#34;&gt;collapseBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;querySelector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;.collapse-btn-inner&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;collapseBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;querySelector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;.collapse-btn-inner&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;classList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;remove&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code-show&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;block&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;c1&#34;&gt;// 使用 requestAnimationFrame 确保DOM更新后再滚动
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;nx&#34;&gt;requestAnimationFrame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollToBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nx&#34;&gt;requestAnimationFrame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollToBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;dispatchEvent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;resize&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;c1&#34;&gt;// 添加按钮到代码块
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;          &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;appendChild&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;appendChild&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;expandBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          &lt;span class=&#34;nx&#34;&gt;codeBlock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;appendChild&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;collapseBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1504,7 +2055,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 页面加载完成后初始化
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;DOMContentLoaded&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initCodeMoreBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;DOMContentLoaded&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initCodeMoreBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{ end }}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
@@ -1747,7 +2298,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;git&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;fileModTime&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;enableGitInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;enableGitInfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
@@ -1879,14 +2430,14 @@
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 返回顶部功能
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;backToTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;backToTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;documentElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollIntoView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nx&#34;&gt;behavior&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;smooth&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 初始化返回顶部按钮
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initBackToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initBackToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;backToTopBtn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getElementById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;back-to-top&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;backToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -1895,29 +2446,29 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c1&#34;&gt;// 绑定点击事件
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;nx&#34;&gt;backToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nx&#34;&gt;backToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;click&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;preventDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;backToTop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c1&#34;&gt;// 滚动显示/隐藏逻辑
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;documentElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;scrollTop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nx&#34;&gt;backToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;display&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;scrollTop&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;inline&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c1&#34;&gt;// 初始状态检查
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c1&#34;&gt;// 监听滚动事件
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;scroll&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nb&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;scroll&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;toggleButtonVisibility&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Error initializing back to top button:&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 页面加载完成后初始化
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;DOMContentLoaded&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initBackToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;DOMContentLoaded&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;initBackToTopBtn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;back-to-top&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;返回顶部&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -2030,7 +2581,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 响应式样式
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;@media&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;screen&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max-width&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;768&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;@media&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;screen&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max-width&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;768&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;bottom&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;container-padding&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;px&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -2079,11 +2630,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;stylesheet&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;crossorigin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;anonymous&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 配置并启动进度条
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;NProgress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;configure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;showSpinner&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;NProgress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;configure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;showSpinner&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nx&#34;&gt;NProgress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;// 监听页面加载状态
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;readystatechange&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;readystatechange&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;readyState&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;interactive&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NProgress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;inc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;readyState&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;complete&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NProgress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
@@ -2140,9 +2691,9 @@
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nd&#34;&gt;:root&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 行内代码背景色
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;--code-background-color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;#f8f8f8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;--code-background-color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;#f8f8f8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 行内代码前景色
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;--code-text-color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;#e96900&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;--code-text-color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;#e96900&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
@@ -2220,7 +2771,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nc&#34;&gt;.article-list--compact&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;grid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 目前是两列，如需三列，则后面再加一个1fr，以此类推
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;grid-template-columns&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;grid-template-columns&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;fr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;background&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;none&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;box-shadow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;none&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;gap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;rem&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -2286,7 +2837,7 @@
 &lt;img src=&#34;https://syriii.github.io/p/new_hugo/pic/hugo_release_download.png&#34;
 	width=&#34;1239&#34;
 	height=&#34;796&#34;
-	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/hugo_release_download_hu_fee37e29614909d1.png 480w, https://syriii.github.io/p/new_hugo/pic/hugo_release_download_hu_b7f5b8a1ee9776e0.png 1024w&#34;
+	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/hugo_release_download_hu_a16226b1435feaed.png 480w, https://syriii.github.io/p/new_hugo/pic/hugo_release_download_hu_b21b58b1364a07cb.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;hugo_release_page&#34;
@@ -2440,7 +2991,8 @@
 &lt;h2 id=&#34;github-pages部署&#34;&gt;Github Pages部署
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Github Pages是什么？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Github Pages是一个静态网站托管系统，简单的理解就是它可以部署你的静态网页，并提供网页入口供用户浏览访问。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Github Pages是一个静态网站托管系统，简单的理解就是它可以部署你的静态网页，并提供网页入口供用户浏览访问。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;常规部署&#34;&gt;常规部署
 &lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;在 &lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;Github官网&lt;/a&gt; 新建一个仓库，仓库名为 &lt;code&gt;[githu的用户名].githubo.io&lt;/code&gt;&lt;/li&gt;
@@ -2448,7 +3000,7 @@
 &lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo/pic/new-repo.png&#34;
 	width=&#34;1464&#34;
 	height=&#34;536&#34;
-	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/new-repo_hu_c43a9e220d223a14.png 480w, https://syriii.github.io/p/new_hugo/pic/new-repo_hu_725a3251438c52f6.png 1024w&#34;
+	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/new-repo_hu_47a473160aa1b822.png 480w, https://syriii.github.io/p/new_hugo/pic/new-repo_hu_82f00758b38cc942.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;new-repo&#34;
@@ -2466,7 +3018,7 @@
 &lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo/pic/setting-pages.png&#34;
 	width=&#34;2214&#34;
 	height=&#34;1192&#34;
-	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/setting-pages_hu_a8cf95bc8f00a28e.png 480w, https://syriii.github.io/p/new_hugo/pic/setting-pages_hu_c7b70a8e86e84986.png 1024w&#34;
+	srcset=&#34;https://syriii.github.io/p/new_hugo/pic/setting-pages_hu_982be57e3949720f.png 480w, https://syriii.github.io/p/new_hugo/pic/setting-pages_hu_a6dec5577c217575.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;setting-pages&#34;
@@ -2586,7 +3138,7 @@
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;hugo-deploy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;branches&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2594,7 +3146,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# schedule:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;#   - cron: &amp;#39;0 0 * * *&amp;#39; # every day at midnight&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;jobs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;jobs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;deploy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;runs-on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ubuntu-latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;steps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -2662,6 +3214,70 @@
 &lt;p&gt;Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.&lt;/p&gt;
 &lt;p&gt;Learn more and contribute on &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://syriii.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://syriii.github.io/p/</guid>
+        <description>&lt;p&gt;感知器：&lt;/p&gt;
+&lt;p&gt;第一具有完整算法描述的神经网络学习算法（PLA）&lt;/p&gt;
+&lt;p&gt;e.g.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/pic/image-20251005145703414.png&#34;
+	width=&#34;1086&#34;
+	height=&#34;770&#34;
+	srcset=&#34;https://syriii.github.io/p/pic/image-20251005145703414_hu_aa8d824174622858.png 480w, https://syriii.github.io/p/pic/image-20251005145703414_hu_e9738cafefa2a8b3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251005145703414&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;
+&lt;/p&gt;
+$$
+y = \omega_0 + \omega_1x_1 + \omega_2x_2
+$$&lt;p&gt;
+公式中所有变量和常量都可以为矢量值，也就是y为x的矢量内积。&lt;/p&gt;
+&lt;p&gt;signal function：&lt;/p&gt;
+&lt;p&gt;目前常用的是sigmoid函数:&lt;br&gt;
+&lt;/p&gt;
+$$
+f(y) = \frac {1}{1+{e^{-y}}}
+$$&lt;p&gt;
+感知器主要用于解决分类（classification）和回归（regression）问题&lt;/p&gt;
+&lt;p&gt;人工神经网络是一个多层感知器&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/pic/image-20251005150931961.png&#34;
+	width=&#34;1468&#34;
+	height=&#34;1074&#34;
+	srcset=&#34;https://syriii.github.io/p/pic/image-20251005150931961_hu_6cdbe29eee7d8e0e.png 480w, https://syriii.github.io/p/pic/image-20251005150931961_hu_3cb07c02a01dadf9.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251005150931961&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;136&#34;
+		data-flex-basis=&#34;328px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;前向运算：使用神经网络的过程，也就是从输入变量，经过神经网络计算，到输出结果的过程&lt;/p&gt;
+&lt;p&gt;监督学习 -&amp;gt; 弱人工智能：有数据，有结果&lt;/p&gt;
+&lt;p&gt;无监督学习：以人脑为例，少量数据获得大量结果，擅长举一反三&lt;/p&gt;
+&lt;p&gt;半监督学习：两边都想占&lt;/p&gt;
+&lt;p&gt;目前人工智能还是以监督学习为主，消费大量资源，根据大量数据来获取一小部分结果。&lt;/p&gt;
+&lt;p&gt;softmax
+&lt;/p&gt;
+$$
+f(x_i ) = \frac{e^{x_i}}{\sum_{i=1}^{n}e^{x_i}}
+$$&lt;p&gt;关于神经网路解决二分类问题：将一个线性不可分而折线可分的问题，通过sigmoid函数让他变成线形可分的问题。&lt;/p&gt;
+&lt;p&gt;矩阵乘法的几何意义： 平移，旋转和拉伸，不改变图的形状&lt;/p&gt;
+&lt;p&gt;隐藏层神经元的作用：为分类提供特征，隐层神经元越多，特征就越多&lt;/p&gt;
 </description>
         </item>
         <item>
