@@ -529,27 +529,6 @@
 </description>
         </item>
         <item>
-        <title>码丽斯的做场</title>
-        <link>https://syriii.github.io/p/masterduelaboutmaliss/</link>
-        <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
-        
-        <guid>https://syriii.github.io/p/masterduelaboutmaliss/</guid>
-        <description>&lt;h2 id=&#34;码丽斯是什么&#34;&gt;码丽斯是什么
-&lt;/h2&gt;&lt;p&gt;码丽斯（M∀LICE）是一套以《爱丽丝梦游仙境》和其续作《镜中奇缘》为核心灵感，通过“符号隐喻“、”叙事重构“、”机制转化“的三重设计，将爱丽丝的荒诞童话转化为电子界族的虚拟网络犯罪的卡图故事而设计的一套卡组。爱丽丝梦游仙境因为其本身荒诞叙事的特性，&lt;/p&gt;
-&lt;p&gt;卡片由4张下级、3张上级、2张魔法、3张陷阱组成。算是除了珠泪哀歌之外最喜欢的系列了。&lt;/p&gt;
-&lt;h3 id=&#34;符号隐喻&#34;&gt;符号隐喻
-&lt;/h3&gt;&lt;p&gt;码丽斯系列的名称M∀LICE中可以很明显的看出是由Alice和Malice组成的。&lt;/p&gt;
-&lt;h2 id=&#34;码丽斯的展开&#34;&gt;码丽斯的展开
-&lt;/h2&gt;&lt;p&gt;码丽斯的攻略实在太多了，在ocg、tcg和md中都遭到了不同程度的禁限。ocg和md的做法都是限制了启动率，而tcg几乎把电子界族所有卡组都砍死了。这里好像也没什么必要再去说什么展开链之类的，毕竟现存的攻略实在是太多了。码丽斯的展开逻辑其实也很简单，用已有的资源做出展开的核心中转点——红心，然后再调度出所有上下级资源，然后通过这些资源做出一个尽可能大的场面，比如协码、神弓、暗流体、防火龙之类。&lt;/p&gt;
-&lt;h3 id=&#34;如何根据现有的资源做出最大场&#34;&gt;如何根据现有的资源做出最大场
-&lt;/h3&gt;&lt;p&gt;码丽斯的逻辑其实就是传统意义上的电子界族的攀link逻辑，只不过由于其除外回场的特性导致他的展开韧性要强得多，资源调度能力和资源回收能力都比大部分卡组要强。而码丽斯的隐性资源数量相比传统电子界族也要多，比如除外回场的三张上级怪也是其展开的资源，所以对于码丽斯的终场需要做一个提前的预估才能在md这个单回合300秒的短时间内完成展开，并给自己留下足够的时间去思考下一回合的交康顺序。&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://bbs.nga.cn/read.php?tid=44712337&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;&lt;strong&gt;从连接卡组看码丽丝：展开、获胜、构筑的逻辑&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zh.moegirl.org.cn/%E7%A0%81%E4%B8%BD%E4%B8%9D&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;码丽斯萌百&lt;/a&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>以flask为基础接入一个RAG系统</title>
         <link>https://syriii.github.io/p/rag_flask/</link>
         <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
