@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="ICIO、CRISPE、BROKE、RASCEF 四个提示词框架">
+<title>记录一下LLM提示词工程框架</title>
+
+<link rel='canonical' href='https://syriii.github.io/p/llm-prompt-framework/'>
+
+<link rel="stylesheet" href="/scss/style.min.39ba21718664a904240e0e93d1d79884734946e2dd072f4de1e75ff144832926.css"><meta property='og:title' content="记录一下LLM提示词工程框架">
+<meta property='og:description' content="ICIO、CRISPE、BROKE、RASCEF 四个提示词框架">
+<meta property='og:url' content='https://syriii.github.io/p/llm-prompt-framework/'>
+<meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2026-01-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-14T20:30:42&#43;08:00'/>
+<meta name="twitter:title" content="记录一下LLM提示词工程框架">
+<meta name="twitter:description" content="ICIO、CRISPE、BROKE、RASCEF 四个提示词框架">
+    <link rel="shortcut icon" href="/favicon.png" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_1d6dfceea28e73d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">纸箱子 | Syriii的藏身处</a></h1>
+            <h2 class="site-description">把记忆压在箱底，再忘掉他们</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/752141'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [china, platform, streaming, video]
+category: Brand
+version: "2.1"
+unicode: "f6d2"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#000000"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z" />
+  <path d="M8 3l2 3" />
+  <path d="M16 3l-2 3" />
+  <path d="M9 13v-2" />
+  <path d="M15 11v2" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Syriii'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href=''
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页｜Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/categories/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
+  <circle cx="9" cy="9" r="2" />
+</svg>
+
+
+
+                
+                <span>分类｜Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档｜Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链｜Links</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8Eabout/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于｜About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索｜Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#我常用的偷懒结论先记这几句">我常用的偷懒结论（先记这几句）</a></li>
+    <li><a href="#1-icio把需求写清楚的最小集合">1) ICIO：把需求写清楚的最小集合</a>
+      <ol>
+        <li><a href="#核心要素">核心要素</a></li>
+        <li><a href="#适用场景">适用场景</a></li>
+        <li><a href="#案例生成会议纪要">案例：生成会议纪要</a></li>
+      </ol>
+    </li>
+    <li><a href="#2-broke把问题当项目做目标交付迭代">2) BROKE：把问题当项目做（目标、交付、迭代）</a>
+      <ol>
+        <li><a href="#核心要素-1">核心要素</a></li>
+        <li><a href="#适用场景-1">适用场景</a></li>
+        <li><a href="#案例制定客户留存方案">案例：制定客户留存方案</a></li>
+      </ol>
+    </li>
+    <li><a href="#3-crispe同名不同配方我分两种用">3) CRISPE：同名不同配方（我分两种用）</a>
+      <ol>
+        <li><a href="#版本-a经典版-crispe偏创意与发散">版本 A：经典版 CRISPE（偏创意与发散）</a></li>
+        <li><a href="#版本-b改良版-crispe偏精准与工程">版本 B：改良版 CRISPE（偏精准与工程）</a></li>
+      </ol>
+    </li>
+    <li><a href="#4-rascef改良版-crispe--明确步骤更工程化">4) RASCEF：改良版 CRISPE + 明确步骤（更工程化）</a>
+      <ol>
+        <li><a href="#核心要素-2">核心要素</a></li>
+        <li><a href="#演变关系从改良版-crispe-到-rascef">演变关系：从改良版 CRISPE 到 RASCEF</a></li>
+        <li><a href="#适用场景-2">适用场景</a></li>
+        <li><a href="#案例编写-python-数据处理脚本">案例：编写 Python 数据处理脚本</a></li>
+      </ol>
+    </li>
+    <li><a href="#5-框架-vs-口语化我一般怎么选">5) 框架 vs 口语化：我一般怎么选</a>
+      <ol>
+        <li><a href="#什么时候我会用框架或半框架">什么时候我会用框架（或半框架）</a></li>
+        <li><a href="#什么时候口语化更划算">什么时候口语化更划算</a></li>
+        <li><a href="#不写框架也能稳一点口语化的最小结构">不写框架也能稳一点：口语化的最小结构</a></li>
+        <li><a href="#我常用的几种提问套路比较口语但更稳定">我常用的几种提问套路（比较口语，但更稳定）</a></li>
+        <li><a href="#几句常用问法我会直接复制改一改">几句常用问法（我会直接复制改一改）</a></li>
+      </ol>
+    </li>
+    <li><a href="#6-用-ai-辅助生成-prompt我更常把它当提示词编辑器">6) 用 AI 辅助生成 prompt（我更常把它当“提示词编辑器”）</a>
+      <ol>
+        <li><a href="#一个顺手的流程">一个顺手的流程</a></li>
+        <li><a href="#让它先当提示词编辑">让它先当“提示词编辑”</a></li>
+        <li><a href="#把我这段话变成-prompt的例子">“把我这段话变成 prompt”的例子</a></li>
+        <li><a href="#加边界别让它乱编">加边界：别让它乱编</a></li>
+        <li><a href="#反向用法拿一段好答案反推-prompt">反向用法：拿一段好答案，反推 prompt</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结四个框架怎么选我自己的对照表">总结：四个框架怎么选（我自己的对照表）</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/technology/" style="background-color: #2a9d8f; color: #fff;">
+                技术分享
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/llm-prompt-framework/">记录一下LLM提示词工程框架</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            ICIO、CRISPE、BROKE、RASCEF 四个提示词框架
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <!--
+tags: [monthly-calendar, month-view, date-month, monthly-schedule, timeframe, calendar-grid, month, month-planner, monthly, date-grid]
+version: "2.41"
+unicode: "fd2f"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#000000"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+  <path d="M16 3v4" />
+  <path d="M8 3v4" />
+  <path d="M4 11h16" />
+  <path d="M7 14h.013" />
+  <path d="M10.01 14h.005" />
+  <path d="M13.01 14h.005" />
+  <path d="M16.015 14h.005" />
+  <path d="M13.015 17h.005" />
+  <path d="M7.01 17h.005" />
+  <path d="M10.01 17h.005" />
+</svg>
+
+                <time class="article-time--published">
+                    发布时间: 2026-01-25
+                </time>
+            </div>
+        
+
+        
+            <div>
+                <!--
+category: Design
+tags: [pencil, change, update]
+version: "1.0"
+unicode: "ea98"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#000000"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+  <path d="M16 5l3 3" />
+</svg>
+
+                <time class="article-time--lastmod">
+                    最后更新: 2026-03-14
+                </time>
+            </div>
+        
+
+        
+            <div>
+                <!--
+tags: [time, hour, work, alarm, on]
+category: System
+version: "1.105"
+unicode: "f549"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#000000"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v5l2 2" />
+  <path d="M17 22l5 -3l-5 -3z" />
+  <path d="M13.017 20.943a9 9 0 1 1 7.831 -7.292" />
+</svg>
+
+                <time class="article-time--reading">
+                    阅读时长: 12 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="记录一下-llm-提示词工程框架">记录一下 LLM 提示词工程框架
+</h1><p>我平时更常用的方式其实是“口语化提问 + 追问迭代”。但这种方式有个问题：同一个问题，模型有时能给到我想要的答案，有时就开始跑题、堆概念，甚至自己编设定。很多时候不是模型不会，是我没把「要交付什么」说清楚。</p>
+<p>这篇笔记就把几个我觉得常见、也确实用得上的提示词框架记一下：ICIO、BROKE、CRISPE、RASCEF。我更倾向把它们当成一组检查项：当输出总是答不到点上，通常是少写了某个关键要素。</p>
+<hr>
+<h2 id="我常用的偷懒结论先记这几句">我常用的偷懒结论（先记这几句）
+</h2><ul>
+<li>只要把交付写清楚：用 <strong>ICIO</strong></li>
+<li>需要目标、交付物、还能迭代收敛：用 <strong>BROKE</strong></li>
+<li>需要强约束、稳定格式：用 <strong>改良版 CRISPE</strong></li>
+<li>需要按步骤执行、最怕漏步骤/跳步骤：用 <strong>RASCEF</strong></li>
+</ul>
+<hr>
+<h2 id="1-icio把需求写清楚的最小集合">1) ICIO：把需求写清楚的最小集合
+</h2><p>ICIO 基本就是“把需求写清楚”的最小集合，特别适合翻译、摘要、信息提取这种标准任务。它解决的往往不是“模型不会”，而是“我没说清楚它要怎么交付”——尤其是输出格式。</p>
+<p>我自己也会拿它当自检：输出不稳定时，先看是不是少了 Output Indicator（比如我想要表格/清单/分点结论，但我只说了“总结一下”）。</p>
+<h3 id="核心要素">核心要素
+</h3><ul>
+<li><strong>Instruction (指令)</strong>: 明确告诉 AI 需要执行的具体操作。</li>
+<li><strong>Context (背景)</strong>: 提供任务的背景信息，帮助 AI 理解语境，减少歧义。</li>
+<li><strong>Input Data (输入数据)</strong>: 明确需要处理的具体内容。</li>
+<li><strong>Output Indicator (输出指引)</strong>: 规定输出的格式和限制。</li>
+</ul>
+<h3 id="适用场景">适用场景
+</h3><ul>
+<li><strong>文本处理</strong>: 翻译、润色、摘要、改写。</li>
+<li><strong>信息提取</strong>: 从长文中提取关键数据。</li>
+<li><strong>格式转换</strong>: 将文本转换为表格、JSON 等。</li>
+</ul>
+<h3 id="案例生成会议纪要">案例：生成会议纪要
+</h3><blockquote>
+<p><strong>Instruction</strong>: 请总结以下会议记录，提炼出核心观点和待办事项。<br>
+<strong>Context</strong>: 这是一次关于公司年度营销策略的内部讨论会议，参会人员包括市场部全体成员。<br>
+<strong>Input Data</strong>:<br>
+[此处粘贴会议录音转文字稿&hellip;]<br>
+<strong>Output Indicator</strong>: 请用 Markdown 列表输出，分为“核心观点”和“Action Items”两部分，尽量短句，不要复述细节。</p>
+</blockquote>
+<p>我偷懒时就用一句话概括：<strong>“基于【背景】，把【输入】按【格式】做【动作】。”</strong></p>
+<hr>
+<h2 id="2-broke把问题当项目做目标交付迭代">2) BROKE：把问题当项目做（目标、交付、迭代）
+</h2><p>BROKE 更像“按项目思路把问题写清楚”，强调目标、交付物和可落地性，适合商业分析、策略方案这种需要对齐口径的场景。</p>
+<p>它最有用的一点是 <strong>Evolve</strong>：我可以把第一次回答当草稿，然后继续追问它“怎么更能落地”。我更常用的方式是先让它给一个可用框架，再沿着 KR 和 Evolve 把细节补全。</p>
+<h3 id="核心要素-1">核心要素
+</h3><ul>
+<li><strong>Background (背景)</strong>: 阐述任务的起因、环境及现状。</li>
+<li><strong>Role (角色)</strong>: 设定 AI 的身份。</li>
+<li><strong>Objectives (目标)</strong>: 明确希望达成的目标。</li>
+<li><strong>Key Results (关键结果)</strong>: 定义成功的标准或具体的交付物。</li>
+<li><strong>Evolve (演进/改进)</strong>: 允许在对话中根据 AI 的回答进行迭代和优化，或者要求 AI 自我反思并给出改进建议。</li>
+</ul>
+<h3 id="适用场景-1">适用场景
+</h3><ul>
+<li><strong>商业分析</strong>: 市场调研、竞品分析。</li>
+<li><strong>策略制定</strong>: 运营计划、危机公关方案。</li>
+<li><strong>问题解决</strong>: 针对具体痛点寻求解决方案。</li>
+</ul>
+<h3 id="案例制定客户留存方案">案例：制定客户留存方案
+</h3><blockquote>
+<p><strong>Background</strong>: 我们的 SaaS 产品在用户注册后的第一个月内流失率高达 40%，主要反馈是“上手太难”。<br>
+<strong>Role</strong>: 请扮演一位专注于用户增长（Growth Hacker）的产品运营专家。<br>
+<strong>Objectives</strong>: 我们需要制定一个针对新用户的“30天引导计划”，旨在将首月流失率降低至20%以内。<br>
+<strong>Key Results</strong>: 请产出一份包含5个具体触达节点（邮件或应用内弹窗）的执行方案，说明每个节点的内容和预期效果。<br>
+<strong>Evolve</strong>: 在给出方案后，请列出该方案可能面临的3个最大执行障碍，并给出预案。</p>
+</blockquote>
+<p>我自己对 BROKE 的印象是：如果方案“看起来很完整，但执行细节不够”，BROKE 往往能把交付物和迭代点补齐。</p>
+<p>偷懒写法：<strong>“背景是【…】；目标是【…】；交付物要长这样【…】；先给方案，再自我挑 3 个最大风险并补预案。”</strong></p>
+<hr>
+<h2 id="3-crispe同名不同配方我分两种用">3) CRISPE：同名不同配方（我分两种用）
+</h2><p>CRISPE 很常见，但不同文章里经常定义不一致。我这里按两种主流用法拆开记：<strong>经典版（偏创意发散）</strong> 和 <strong>改良版（偏工程精准）</strong>。我不纠结哪个更“正宗”，只关心什么时候好用。</p>
+<h3 id="版本-a经典版-crispe偏创意与发散">版本 A：经典版 CRISPE（偏创意与发散）
+</h3><p>这个版本的关键是先给角色、给语气，再让它多试几次。它的目标是“多给候选”，不是“一次到位”。</p>
+<p><strong>核心要素</strong>：</p>
+<ul>
+<li><strong>C</strong>apacity and Role (能力与角色): 定义 AI 应扮演的角色。</li>
+<li><strong>I</strong>nsight (洞察/背景): 提供详细的背景信息和上下文。</li>
+<li><strong>S</strong>tatement (陈述/指令): 明确具体的任务指令。</li>
+<li><strong>P</strong>ersonality (个性): 设定 AI 的语气和风格（例如：幽默、严谨）。</li>
+<li><strong>E</strong>xperiment (实验/尝试): 要求 AI 提供多个不同的选项或方案（例如：“给我三个不同的标题”）。</li>
+</ul>
+<p><strong>适用场景</strong>：创意写作、头脑风暴、市场营销文案。</p>
+<hr>
+<h3 id="版本-b改良版-crispe偏精准与工程">版本 B：改良版 CRISPE（偏精准与工程）
+</h3><p>改良版对我更实用：少强调语气设定，多讲“边界”。它把不稳定的部分（个性/发散）弱化掉，换成两件更可靠的东西：<strong>限制条件（Parameters）</strong> 和 <strong>示例（Examples）</strong>。我想要固定格式输出，或者需要严格按既定口径来，通常就会用这个版本。</p>
+<p>偷懒写法：<strong>“角色设为【…】。在【上下文】里完成【任务】。输出风格是【…】。限制是【…】。参考示例【…】。”</strong></p>
+<p><strong>核心要素</strong>：</p>
+<ul>
+<li><strong>C</strong>apacity and Role (能力与角色): 定义 AI 的身份。</li>
+<li><strong>R</strong>elevant Context (相关背景): 提供任务背景。</li>
+<li><strong>I</strong>nstruction (指令): 核心任务指令。</li>
+<li><strong>S</strong>tyle (风格): 定义输出的风格或结构（例如：正式报告、JSON格式）。</li>
+<li><strong>P</strong>arameters (参数/限制): 设定具体的约束条件（例如：字数限制、语言、必选词汇）。</li>
+<li><strong>E</strong>xamples (示例): 提供 Few-shot examples（少样本提示）来引导 AI 输出。</li>
+</ul>
+<p><strong>适用场景</strong>：代码生成、数据格式化、技术文档编写。</p>
+<hr>
+<h2 id="4-rascef改良版-crispe--明确步骤更工程化">4) RASCEF：改良版 CRISPE + 明确步骤（更工程化）
+</h2><p>RASCEF 我会理解成“改良版 CRISPE + 明确步骤”。它最关键的是 <strong>Steps</strong>：先把任务拆成一串明确动作，再让模型照着走。</p>
+<p>这套对编程、排障、流程设计这类任务很有效，因为这些任务最怕的不是写不出来，而是漏步骤、跳步骤、偷换前提。把 Steps 写清楚，能明显减少“看起来写了很多，但关键一步没做”。</p>
+<h3 id="核心要素-2">核心要素
+</h3><ul>
+<li><strong>Role (角色)</strong>: 指定 AI 的角色。</li>
+<li><strong>Action (动作)</strong>: 明确具体的动作。</li>
+<li><strong>Steps (步骤)</strong>: 列出完成任务所需的具体步骤。很多复杂任务能不能做对，就卡在这里。</li>
+<li><strong>Context (背景)</strong>: 提供必要的上下文。</li>
+<li><strong>Examples (示例)</strong>: 提供示例（Few-shot prompting）来引导 AI 的输出风格或格式。</li>
+<li><strong>Format (格式)</strong>: 指定最终输出的格式。</li>
+</ul>
+<h3 id="演变关系从改良版-crispe-到-rascef">演变关系：从改良版 CRISPE 到 RASCEF
+</h3><ul>
+<li><strong>继承</strong>: RASCEF 继承了改良版 CRISPE 的核心逻辑（Role, Context, Examples）。</li>
+<li><strong>强化</strong>: 把 <code>Instruction</code> 拆成 <code>Action</code> + <code>Steps</code>，先把“要做哪些动作、按什么顺序做”说明白。</li>
+<li><strong>结论</strong>: 当结果需要更可控、更接近“照着操作就能跑起来”，RASCEF 往往比一句大而全的指令更靠谱。</li>
+</ul>
+<h3 id="适用场景-2">适用场景
+</h3><ul>
+<li><strong>编程开发</strong>: 代码生成、Code Review。</li>
+<li><strong>技术文档</strong>: 编写操作手册、API 文档。</li>
+<li><strong>复杂流程执行</strong>: 需要严格按顺序执行的任务。</li>
+</ul>
+<h3 id="案例编写-python-数据处理脚本">案例：编写 Python 数据处理脚本
+</h3><blockquote>
+<p><strong>Role</strong>: 请扮演一位资深 Python 数据工程师。<br>
+<strong>Action</strong>: 编写一个 Python 脚本，用于清洗 CSV 数据。<br>
+<strong>Context</strong>: 数据文件名为 <code>data.csv</code>，包含 &lsquo;date&rsquo;, &lsquo;sales&rsquo;, &lsquo;region&rsquo; 三列。部分 &lsquo;sales&rsquo; 数据缺失或格式错误。<br>
+<strong>Steps</strong>:</p>
+<ol>
+<li>读取 CSV 文件。</li>
+<li>将 &lsquo;date&rsquo; 列转换为 datetime 对象。</li>
+<li>填充 &lsquo;sales&rsquo; 列的缺失值为 0，并剔除负数。</li>
+<li>按 &lsquo;region&rsquo; 分组统计总销售额。</li>
+<li>将结果保存为 <code>summary.csv</code>。<br>
+<strong>Examples</strong>:<br>
+代码风格参考：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Good</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;col&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;col&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Bad</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span> <span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Format</strong>: 输出完整的、可执行的 Python 代码块，并附带详细的中文注释。</p>
+</blockquote>
+<p>偷懒写法：<strong>“角色设为【…】。要做【动作】。按这几步做【步骤 1/2/3】。输入背景是【…】。输出格式必须是【…】。”</strong></p>
+<hr>
+<h2 id="5-框架-vs-口语化我一般怎么选">5) 框架 vs 口语化：我一般怎么选
+</h2><p>现实里更常见的确实是用对话式的方式去问，而不是每次都把 ICIO/RASCEF 写满。我也一样。框架的意义不是格式本身，而是把那些容易被默认掉的条件补全：受众是谁、要什么形式、哪些不能写、怎么才算做完。</p>
+<h3 id="什么时候我会用框架或半框架">什么时候我会用框架（或半框架）
+</h3><p>下面这些场景，结构化输入的收益通常非常高：</p>
+<ul>
+<li><strong>高风险/高成本</strong>：对外发布、对客户交付、写代码要直接进仓库、写合同/公告等，错一次代价大。</li>
+<li><strong>复杂任务</strong>：需要拆步骤、需要多轮迭代、需要同时满足多约束（受众、格式、口径、合规）。</li>
+<li><strong>强格式输出</strong>：要表格/JSON/接口文档/测试用例/清单，或者要脚本、命令、配置这种“拿过去就能跑”的东西。</li>
+<li><strong>长上下文</strong>：资料很多（会议纪要、PRD、日志、论文），不结构化很容易丢重点。</li>
+<li><strong>可复用/可交接</strong>：同一类任务会反复做，或需要团队复用；框架就是可复制的“工作流”。</li>
+<li><strong>需要可衡量结果</strong>：比如 BROKE 的 KR，明确“什么叫成功”，能减少来回扯皮。</li>
+</ul>
+<p>我自己常用的“半框架”最低标准是把三件事说清楚：<strong>要做什么（任务）/ 基于什么（关键上下文）/ 怎么才算好（输出要求与约束）</strong>。很多时候到这一步就够稳了。</p>
+<h3 id="什么时候口语化更划算">什么时候口语化更划算
+</h3><p>口语化对话更适合这些情况：</p>
+<ul>
+<li><strong>探索与发散</strong>：先找方向、要灵感、要候选方案（“给我 10 个思路我再挑”）。</li>
+<li><strong>低成本小任务</strong>：简单解释、快速润色、列要点、起标题、翻译几句话。</li>
+<li><strong>需求还不确定</strong>：还在“想清楚要什么”的阶段，框架反而会限制探索。</li>
+<li><strong>可以接受迭代</strong>：先要个草稿，再通过追问把它收敛到可用版本。</li>
+</ul>
+<h3 id="不写框架也能稳一点口语化的最小结构">不写框架也能稳一点：口语化的最小结构
+</h3><p>我发现口语化问题里最容易缺的几类信息，补齐之后输出会稳定很多：</p>
+<ul>
+<li><strong>目标</strong>：最终用途是什么（发邮件、写汇报、做决策、写代码、做 PPT）。</li>
+<li><strong>受众与语气</strong>：给谁看、希望什么风格（面试官/老板/客户/同事；正式/口语/简洁）。</li>
+<li><strong>输入材料</strong>：已有的事实、数据、原文、约束条件（哪怕只有几条也很有用）。</li>
+<li><strong>输出边界</strong>：字数、结构、是否给多方案、是否要引用来源、是否要可执行步骤。</li>
+<li><strong>缺信息时的策略</strong>：明确约定“如果信息不足，先提出最多 3 个问题再继续”。</li>
+</ul>
+<p>本质上，这些要素就是框架的核心，只是换成更自然的表达方式。</p>
+<h3 id="我常用的几种提问套路比较口语但更稳定">我常用的几种提问套路（比较口语，但更稳定）
+</h3><ol>
+<li><strong>先要“草稿”，再要“改稿”</strong><br>
+第一句只求快速覆盖面，第二句再加约束收敛质量。比如：</li>
+</ol>
+<ul>
+<li>“帮我写一份产品周报，先给一个结构和要点。”</li>
+<li>“把语气改得更专业一些，控制在 300 字以内，突出本周结果和下周风险。”</li>
+</ul>
+<ol start="2">
+<li><strong>用“反例/禁区”减少跑偏</strong></li>
+</ol>
+<ul>
+<li>“不要写空话套话（如‘持续优化’、‘赋能’），尽量用可量化的描述。”</li>
+<li>“不要引入我没给的事实，如果需要数据请先问我。”</li>
+</ul>
+<ol start="3">
+<li><strong>把难点点出来，让模型重点处理</strong></li>
+</ol>
+<ul>
+<li>“我最拿不准的是 A 和 B 的取舍，请对比它们的利弊，并给出推荐与理由。”</li>
+</ul>
+<ol start="4">
+<li><strong>要求输出可验证的东西</strong></li>
+</ol>
+<ul>
+<li>“给我一份检查清单，让我能自查这份内容是否达标。”</li>
+<li>“列出这些判断依赖的前提条件/假设。”</li>
+</ul>
+<h3 id="几句常用问法我会直接复制改一改">几句常用问法（我会直接复制改一改）
+</h3><ul>
+<li><strong>通用问答</strong>：<br>
+“目标是【目标】。现有信息是【要点 1/2/3】。请按【输出形式】输出。如果信息不够，请先提出最多 3 个问题再继续。”</li>
+<li><strong>写作/汇报</strong>：<br>
+“请撰写【文种】，给【对象】看，语气【风格】，控制在【字数】。必须包含【要点】，避免【禁区】。先给一个版本，再给 3 条修改建议。”</li>
+<li><strong>方案/决策</strong>：<br>
+“背景是【背景】，需要做【决策】。约束是【预算/时间/资源】。请给 3 个方案：每个方案写清步骤、成本、收益、风险、适用条件，最后给出推荐与理由。”</li>
+<li><strong>编程/工程问题</strong>：<br>
+“环境是【环境/语言/框架】，遇到的问题是【问题】。报错/日志如下：【粘贴】。期望结果是【期望】。请先按排查顺序列可能原因，再给一个最小可行的修复方案。”</li>
+</ul>
+<hr>
+<h2 id="6-用-ai-辅助生成-prompt我更常把它当提示词编辑器">6) 用 AI 辅助生成 prompt（我更常把它当“提示词编辑器”）
+</h2><p>这一节是我日常最常用的小技巧：把 AI 当“提示词整理器”。很多时候任务本身不难，难的是需求描述太散，关键约束没说全。先让模型把口语化需求整理成结构化 prompt，再拿这个 prompt 去跑任务，稳定性通常会好很多。</p>
+<p>我比较推荐分两步：<strong>先写 prompt，再执行任务</strong>。第一步只做整理（不输出答案），第二步再按整理后的 prompt 去生成结果。这样能避免它一边组织提示词一边提前开始回答，导致结构跑偏。</p>
+<h3 id="一个顺手的流程">一个顺手的流程
+</h3><ol>
+<li>先用口语把需求说清楚（不用很完整）。</li>
+<li>让模型反问几个关键信息（一般 3 个就够）。</li>
+<li>让它按某个框架输出“最终 prompt”（只输出提示词，不要输出答案）。</li>
+<li>把最终 prompt 原封不动贴回去，让模型开始执行任务。</li>
+</ol>
+<h3 id="让它先当提示词编辑">让它先当“提示词编辑”
+</h3><p>例如我会这样写：</p>
+<blockquote>
+<p>请先不要回答任务内容，先把需求整理成一个提示词。<br>
+按【ICIO / 改良版 CRISPE / RASCEF】格式输出。<br>
+如果信息不够，先提出最多 3 个问题。<br>
+输出只要提示词本身，不要附加解释。</p>
+</blockquote>
+<p>一般来说：</p>
+<ul>
+<li>文字处理、摘要、提取信息：用 ICIO 就够了。</li>
+<li>要求固定格式、要遵守口径：用改良版 CRISPE。</li>
+<li>需要按步骤做、需要可执行结果：用 RASCEF。</li>
+</ul>
+<h3 id="把我这段话变成-prompt的例子">“把我这段话变成 prompt”的例子
+</h3><p>比如我随口写：</p>
+<blockquote>
+<p>我想写一封邮件给老板说下这个月做了啥，别太啰嗦，重点写结果。</p>
+</blockquote>
+<p>让它输出成 ICIO 风格的提示词，大概会长这样（示意）：</p>
+<blockquote>
+<p>Instruction: 写一封月度工作总结邮件<br>
+Context: 收件人是直属老板，语气专业但不生硬<br>
+Input Data: 本月完成的事情如下（后续补充列表）<br>
+Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下月计划和风险点，避免空话</p>
+</blockquote>
+<p>再把“本月完成的事情”补进去，就能直接用了。</p>
+<h3 id="加边界别让它乱编">加边界：别让它乱编
+</h3><p>如果我经常遇到“写得很顺，但事实不对”，会把下面两句塞进提示词里：</p>
+<ul>
+<li>“不要补充未提供的事实或数据，缺的部分先提问确认。”</li>
+<li>“如有任何假设，请单独列出来并等待确认。”</li>
+</ul>
+<h3 id="反向用法拿一段好答案反推-prompt">反向用法：拿一段好答案，反推 prompt
+</h3><p>有时候我手上已经有一段“风格很符合预期”的文本（比如同事的周报、以前写过的文案），也可以把它当示例，让模型反推一个可复用的提示词：</p>
+<blockquote>
+<p>这是一个我满意的输出样例（贴上去）。<br>
+请反推一个提示词，让模型以后也能写出类似风格。<br>
+要求：包含风格约束、结构约束、禁区，最后给一段能直接拿去问的版本。</p>
+</blockquote>
+<p>这个方法对“写作风格”“口径”“输出结构”特别好用。</p>
+<hr>
+<h2 id="总结四个框架怎么选我自己的对照表">总结：四个框架怎么选（我自己的对照表）
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">框架</th>
+          <th style="text-align: left">核心特点</th>
+          <th style="text-align: left">适用场景</th>
+          <th style="text-align: left">记忆口诀</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>ICIO</strong></td>
+          <td style="text-align: left">简单直接，要素少</td>
+          <td style="text-align: left">翻译、摘要、简单任务</td>
+          <td style="text-align: left"><strong>指令+背景+输入+输出</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>BROKE</strong></td>
+          <td style="text-align: left">目标导向，注重迭代</td>
+          <td style="text-align: left">商业策略、解决问题</td>
+          <td style="text-align: left"><strong>背景+角色+目标+结果+演进</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>CRISPE</strong></td>
+          <td style="text-align: left">经典版发散，改良版精准</td>
+          <td style="text-align: left">创意写作 vs 工程任务</td>
+          <td style="text-align: left"><strong>角色+洞察/背景+指令+个性/风格</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>RASCEF</strong></td>
+          <td style="text-align: left">更工程化，强调步骤</td>
+          <td style="text-align: left">编程、复杂流程、高精度任务</td>
+          <td style="text-align: left"><strong>角色+动作+步骤+背景+示例+格式</strong></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>我的经验是：不用为了“写提示词”而写提示词。大多数日常问题，口语化问法 + 一两轮追问就够了；但当结果有明确要求（要可执行、要可复用、要对齐口径），框架能显著减少来回试错。最常用的组合还是 <strong>ICIO（把交付说清）</strong> + <strong>改良版 CRISPE / RASCEF（把边界和步骤说清）</strong>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/llm/">LLM</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>翻箱子还要拿走点东西的时候，记得和主人说一声。</span>
+    </section>
+    
+
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/lag-ticket-binary-clf/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">由卡顿投诉工单引发的二分类问题</h2>
+            
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/rag_flask/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">以flask为基础接入一个RAG系统</h2>
+            
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/create_template_hugo/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">创建一个新的Hugo页面类型</h2>
+            
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/shortcode_hugo/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自定义Hugo简码</h2>
+            
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/customize_hugo/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">自定义你的Hugo页面</h2>
+            
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Syriii
+    </section>
+    
+    <section class="powerby">
+        
+            恭喜你发现这个箱子 <br/>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+
+  
+  <script>
+    const arrowIconBase64 = "iVBORw0KGgoAAAANSUhEUgAAABYAAAAWBAMAAAA2mnEIAAAAGFBMVEUAAABgYGBoaGhlZWVnZ2dmZmZmZmZmZmb\u002bi0kUAAAAB3RSTlMAICBvb3DfipQdkQAAAFRJREFUeJxioAlggtIKDAwM4QJgJmMxAwMDWxKYY5YAItNBbMY0sKxaIlgWzGZOAwkbQEwQS2BgS4SZWsaYpgCzQi0tCW4dM0w1CCiS5WJAAAAA\/\/\/GVAhdRZFiWgAAAABJRU5ErkJggg==";
+    
+    
+    const createButton = (className, isCollapse = false) => {
+      const template = `
+        <div class="${className}">
+          <span class="${isCollapse ? 'collapse-btn-inner' : 'code-more-btn'}">
+            <img 
+              class="${isCollapse ? 'code-collapse-img' : 'code-more-img'}"
+              src="data:image/png;base64,${arrowIconBase64}"
+              alt="${isCollapse ? '收起' : '展开'}"
+            >
+          </span>
+        </div>
+      `;
+      const div = document.createElement('div');
+      div.innerHTML = template.trim();
+      return div.firstElementChild;
+    };
+
+    
+    const scrollToBlock = (element, offset = 100) => {
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset + rect.top - offset;
+      window.scrollTo({
+        top: scrollTop,
+        behavior: 'smooth'
+      });
+    };
+
+    
+    function initCodeMoreBox() {
+      try {
+        const codeBlocks = document.querySelectorAll(".highlight");
+        if (!codeBlocks?.length) {
+          console.log('No code blocks found');
+          return;
+        }
+
+        codeBlocks.forEach(codeBlock => {
+          
+          if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+            return;
+          }
+
+          
+          const expandBox = createButton('code-more-box');
+          const collapseBox = createButton('code-collapse-btn', true);
+
+          
+          expandBox.querySelector('.code-more-btn').addEventListener('click', () => {
+            codeBlock.classList.add('code-show');
+            expandBox.style.display = 'none';
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          collapseBox.querySelector('.collapse-btn-inner').addEventListener('click', () => {
+            codeBlock.classList.remove('code-show');
+            expandBox.style.display = 'block';
+            
+            
+            requestAnimationFrame(() => scrollToBlock(codeBlock));
+            window.dispatchEvent(new Event('resize'));
+          });
+
+          
+          codeBlock.appendChild(expandBox);
+          codeBlock.appendChild(collapseBox);
+        });
+      } catch (error) {
+        console.error('Error initializing code more box:', error);
+      }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+  </script>
+
+
+
+<script>
+  
+  const backToTop = () => {
+    document.documentElement.scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+
+  
+  function initBackToTopBtn() {
+    try {
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (!backToTopBtn) {
+        console.log('Back to top button not found');
+        return;
+      }
+
+      
+      backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        backToTop();
+      });
+
+      
+      const toggleButtonVisibility = () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        backToTopBtn.style.display = scrollTop > 200 ? 'inline' : 'none';
+      };
+
+      
+      toggleButtonVisibility();
+
+      
+      window.addEventListener('scroll', toggleButtonVisibility);
+    } catch (error) {
+      console.error('Error initializing back to top button:', error);
+    }
+  }
+
+  
+  document.addEventListener('DOMContentLoaded', initBackToTopBtn);
+</script>
+
+<a href="#" id="back-to-top" title="返回顶部"></a>
+
+
+
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+  
+  NProgress.configure({ showSpinner: false });
+  NProgress.start();
+  
+  
+  document.addEventListener('readystatechange', () => {
+    if (document.readyState === 'interactive') NProgress.inc(0.8);
+    if (document.readyState === 'complete') NProgress.done();
+  });
+</script>
+
+
+    </body>
+</html>
