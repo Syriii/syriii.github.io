@@ -7,14 +7,13 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Syriii</copyright>
-        <lastBuildDate>Wed, 18 Mar 2026 10:42:01 +0800</lastBuildDate><atom:link href="https://syriii.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 18 Mar 2026 11:04:08 +0800</lastBuildDate><atom:link href="https://syriii.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>记录一下LLM提示词工程框架</title>
         <link>https://syriii.github.io/p/llm-prompt-framework/</link>
         <pubDate>Sun, 25 Jan 2026 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/llm-prompt-framework/</guid>
-        <description>&lt;img src="https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b.webp" alt="Featured image of post 记录一下LLM提示词工程框架" /&gt;&lt;h1 id=&#34;记录一下-llm-提示词工程框架&#34;&gt;记录一下 LLM 提示词工程框架
-&lt;/h1&gt;&lt;p&gt;我平时更常用的方式其实是“口语化提问 + 追问迭代”。但这种方式有个问题：同一个问题，模型有时能给到我想要的答案，有时就开始跑题、堆概念，甚至自己编设定。很多时候不是模型不会，是我没把「要交付什么」说清楚。&lt;/p&gt;
+        <description>&lt;img src="https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b.webp" alt="Featured image of post 记录一下LLM提示词工程框架" /&gt;&lt;p&gt;我平时更常用的方式其实是“口语化提问 + 追问迭代”。但这种方式有个问题：同一个问题，模型有时能给到我想要的答案，有时就开始跑题、堆概念，甚至自己编设定。很多时候不是模型不会，是我没把「要交付什么」说清楚。&lt;/p&gt;
 &lt;p&gt;这篇笔记就把几个我觉得常见、也确实用得上的提示词框架记一下：ICIO、BROKE、CRISPE、RASCEF。我更倾向把它们当成一组检查项：当输出总是答不到点上，通常是少写了某个关键要素。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;简单结论&#34;&gt;简单结论
