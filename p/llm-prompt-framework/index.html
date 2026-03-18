@@ -10,7 +10,7 @@
 <meta property='og:description' content="ICIO、CRISPE、BROKE、RASCEF 四个提示词框架">
 <meta property='og:url' content='https://syriii.github.io/p/llm-prompt-framework/'>
 <meta property='og:site_name' content='纸箱子 | Syriii的藏身处'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2026-01-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-14T20:30:42&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2026-01-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-18T10:35:29&#43;08:00'/>
 <meta name="twitter:title" content="记录一下LLM提示词工程框架">
 <meta name="twitter:description" content="ICIO、CRISPE、BROKE、RASCEF 四个提示词框架">
     <link rel="shortcut icon" href="/favicon.png" />
@@ -323,7 +323,7 @@ unicode: "f6d2"
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#我常用的偷懒结论先记这几句">我常用的偷懒结论（先记这几句）</a></li>
+    <li><a href="#简单结论">简单结论</a></li>
     <li><a href="#1-icio把需求写清楚的最小集合">1) ICIO：把需求写清楚的最小集合</a>
       <ol>
         <li><a href="#核心要素">核心要素</a></li>
@@ -338,7 +338,7 @@ unicode: "f6d2"
         <li><a href="#案例制定客户留存方案">案例：制定客户留存方案</a></li>
       </ol>
     </li>
-    <li><a href="#3-crispe同名不同配方我分两种用">3) CRISPE：同名不同配方（我分两种用）</a>
+    <li><a href="#3-crispe">3) CRISPE</a>
       <ol>
         <li><a href="#版本-a经典版-crispe偏创意与发散">版本 A：经典版 CRISPE（偏创意与发散）</a></li>
         <li><a href="#版本-b改良版-crispe偏精准与工程">版本 B：改良版 CRISPE（偏精准与工程）</a></li>
@@ -352,21 +352,21 @@ unicode: "f6d2"
         <li><a href="#案例编写-python-数据处理脚本">案例：编写 Python 数据处理脚本</a></li>
       </ol>
     </li>
-    <li><a href="#5-框架-vs-口语化我一般怎么选">5) 框架 vs 口语化：我一般怎么选</a>
+    <li><a href="#5-框架-vs-口语化">5) 框架 vs 口语化</a>
       <ol>
-        <li><a href="#什么时候我会用框架或半框架">什么时候我会用框架（或半框架）</a></li>
-        <li><a href="#什么时候口语化更划算">什么时候口语化更划算</a></li>
-        <li><a href="#不写框架也能稳一点口语化的最小结构">不写框架也能稳一点：口语化的最小结构</a></li>
-        <li><a href="#我常用的几种提问套路比较口语但更稳定">我常用的几种提问套路（比较口语，但更稳定）</a></li>
-        <li><a href="#几句常用问法我会直接复制改一改">几句常用问法（我会直接复制改一改）</a></li>
+        <li><a href="#什么时候用框架">什么时候用框架</a></li>
+        <li><a href="#什么时候口语化">什么时候口语化</a></li>
+        <li><a href="#不写框架也可以口语化的最小结构">不写框架也可以：口语化的最小结构</a></li>
+        <li><a href="#常用的几种提问套路">常用的几种提问套路</a></li>
+        <li><a href="#几种常用问法">几种常用问法</a></li>
       </ol>
     </li>
-    <li><a href="#6-用-ai-辅助生成-prompt我更常把它当提示词编辑器">6) 用 AI 辅助生成 prompt（我更常把它当“提示词编辑器”）</a>
+    <li><a href="#6-用-ai-辅助生成-prompt">6) 用 AI 辅助生成 prompt</a>
       <ol>
-        <li><a href="#一个顺手的流程">一个顺手的流程</a></li>
-        <li><a href="#让它先当提示词编辑">让它先当“提示词编辑”</a></li>
-        <li><a href="#把我这段话变成-prompt的例子">“把我这段话变成 prompt”的例子</a></li>
-        <li><a href="#加边界别让它乱编">加边界：别让它乱编</a></li>
+        <li><a href="#简要的流程">简要的流程</a></li>
+        <li><a href="#生成prompt的框架">生成prompt的框架</a></li>
+        <li><a href="#生成prompt的例子">生成prompt的例子</a></li>
+        <li><a href="#注意加边界">注意加边界</a></li>
         <li><a href="#反向用法拿一段好答案反推-prompt">反向用法：拿一段好答案，反推 prompt</a></li>
       </ol>
     </li>
@@ -476,7 +476,7 @@ unicode: "ea98"
 </svg>
 
                 <time class="article-time--lastmod">
-                    最后更新: 2026-03-14
+                    最后更新: 2026-03-18
                 </time>
             </div>
         
@@ -506,7 +506,7 @@ unicode: "f549"
 </svg>
 
                 <time class="article-time--reading">
-                    阅读时长: 12 分钟
+                    阅读时长: 11 分钟
                 </time>
             </div>
         
@@ -521,16 +521,30 @@ unicode: "f549"
     <section class="article-content">
     
     
-    <h1 id="记录一下-llm-提示词工程框架">记录一下 LLM 提示词工程框架
+    <p><img src="/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b.webp"
+	width="928"
+	height="600"
+	srcset="/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b_hu_1d001bd32ccb12ec.webp 480w, /p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b_hu_caf2ea97634f3d66.webp 1024w"
+	loading="lazy"
+	
+		alt="prompt"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="371px"
+	
+></p>
+<h1 id="记录一下-llm-提示词工程框架">记录一下 LLM 提示词工程框架
 </h1><p>我平时更常用的方式其实是“口语化提问 + 追问迭代”。但这种方式有个问题：同一个问题，模型有时能给到我想要的答案，有时就开始跑题、堆概念，甚至自己编设定。很多时候不是模型不会，是我没把「要交付什么」说清楚。</p>
 <p>这篇笔记就把几个我觉得常见、也确实用得上的提示词框架记一下：ICIO、BROKE、CRISPE、RASCEF。我更倾向把它们当成一组检查项：当输出总是答不到点上，通常是少写了某个关键要素。</p>
 <hr>
-<h2 id="我常用的偷懒结论先记这几句">我常用的偷懒结论（先记这几句）
+<h2 id="简单结论">简单结论
 </h2><ul>
-<li>只要把交付写清楚：用 <strong>ICIO</strong></li>
-<li>需要目标、交付物、还能迭代收敛：用 <strong>BROKE</strong></li>
-<li>需要强约束、稳定格式：用 <strong>改良版 CRISPE</strong></li>
-<li>需要按步骤执行、最怕漏步骤/跳步骤：用 <strong>RASCEF</strong></li>
+<li><strong>ICIO</strong>：只要把交付写清楚</li>
+<li><strong>BROKE</strong>：需要目标、交付物、还能迭代收敛</li>
+<li><strong>改良版 CRISPE</strong>：需要强约束、稳定格式</li>
+<li><strong>RASCEF</strong>：需要按步骤执行、最怕漏步骤/跳步骤</li>
 </ul>
 <hr>
 <h2 id="1-icio把需求写清楚的最小集合">1) ICIO：把需求写清楚的最小集合
@@ -584,11 +598,11 @@ unicode: "f549"
 <strong>Key Results</strong>: 请产出一份包含5个具体触达节点（邮件或应用内弹窗）的执行方案，说明每个节点的内容和预期效果。<br>
 <strong>Evolve</strong>: 在给出方案后，请列出该方案可能面临的3个最大执行障碍，并给出预案。</p>
 </blockquote>
-<p>我自己对 BROKE 的印象是：如果方案“看起来很完整，但执行细节不够”，BROKE 往往能把交付物和迭代点补齐。</p>
-<p>偷懒写法：<strong>“背景是【…】；目标是【…】；交付物要长这样【…】；先给方案，再自我挑 3 个最大风险并补预案。”</strong></p>
+<p>如果方案“看起来很完整，但执行细节不够”，BROKE 往往能把交付物和迭代点补齐。</p>
+<p>简单写法：<strong>“背景是【…】；目标是【…】；交付物要长这样【…】；先给方案，再自我挑 3 个最大风险并补预案。”</strong></p>
 <hr>
-<h2 id="3-crispe同名不同配方我分两种用">3) CRISPE：同名不同配方（我分两种用）
-</h2><p>CRISPE 很常见，但不同文章里经常定义不一致。我这里按两种主流用法拆开记：<strong>经典版（偏创意发散）</strong> 和 <strong>改良版（偏工程精准）</strong>。我不纠结哪个更“正宗”，只关心什么时候好用。</p>
+<h2 id="3-crispe">3) CRISPE
+</h2><p>CRISPE 很常见，但不同文章里经常定义不一致。我这里按两种主流用法拆开记：<strong>经典版（偏创意发散）</strong> 和 <strong>改良版（偏工程精准）</strong>。</p>
 <h3 id="版本-a经典版-crispe偏创意与发散">版本 A：经典版 CRISPE（偏创意与发散）
 </h3><p>这个版本的关键是先给角色、给语气，再让它多试几次。它的目标是“多给候选”，不是“一次到位”。</p>
 <p><strong>核心要素</strong>：</p>
@@ -603,7 +617,7 @@ unicode: "f549"
 <hr>
 <h3 id="版本-b改良版-crispe偏精准与工程">版本 B：改良版 CRISPE（偏精准与工程）
 </h3><p>改良版对我更实用：少强调语气设定，多讲“边界”。它把不稳定的部分（个性/发散）弱化掉，换成两件更可靠的东西：<strong>限制条件（Parameters）</strong> 和 <strong>示例（Examples）</strong>。我想要固定格式输出，或者需要严格按既定口径来，通常就会用这个版本。</p>
-<p>偷懒写法：<strong>“角色设为【…】。在【上下文】里完成【任务】。输出风格是【…】。限制是【…】。参考示例【…】。”</strong></p>
+<p>简单写法：<strong>“角色设为【…】。在【上下文】里完成【任务】。输出风格是【…】。限制是【…】。参考示例【…】。”</strong></p>
 <p><strong>核心要素</strong>：</p>
 <ul>
 <li><strong>C</strong>apacity and Role (能力与角色): 定义 AI 的身份。</li>
@@ -616,7 +630,7 @@ unicode: "f549"
 <p><strong>适用场景</strong>：代码生成、数据格式化、技术文档编写。</p>
 <hr>
 <h2 id="4-rascef改良版-crispe--明确步骤更工程化">4) RASCEF：改良版 CRISPE + 明确步骤（更工程化）
-</h2><p>RASCEF 我会理解成“改良版 CRISPE + 明确步骤”。它最关键的是 <strong>Steps</strong>：先把任务拆成一串明确动作，再让模型照着走。</p>
+</h2><p>RASCEF 可以理解成“改良版 CRISPE + 明确步骤”。它最关键的是 <strong>Steps</strong>：先把任务拆成一串明确动作，再让模型照着走。</p>
 <p>这套对编程、排障、流程设计这类任务很有效，因为这些任务最怕的不是写不出来，而是漏步骤、跳步骤、偷换前提。把 Steps 写清楚，能明显减少“看起来写了很多，但关键一步没做”。</p>
 <h3 id="核心要素-2">核心要素
 </h3><ul>
@@ -670,11 +684,11 @@ unicode: "f549"
 </div>
 </div><p><strong>Format</strong>: 输出完整的、可执行的 Python 代码块，并附带详细的中文注释。</p>
 </blockquote>
-<p>偷懒写法：<strong>“角色设为【…】。要做【动作】。按这几步做【步骤 1/2/3】。输入背景是【…】。输出格式必须是【…】。”</strong></p>
+<p>简单写法：<strong>“角色设为【…】。要做【动作】。按这几步做【步骤 1/2/3】。输入背景是【…】。输出格式必须是【…】。”</strong></p>
 <hr>
-<h2 id="5-框架-vs-口语化我一般怎么选">5) 框架 vs 口语化：我一般怎么选
-</h2><p>现实里更常见的确实是用对话式的方式去问，而不是每次都把 ICIO/RASCEF 写满。我也一样。框架的意义不是格式本身，而是把那些容易被默认掉的条件补全：受众是谁、要什么形式、哪些不能写、怎么才算做完。</p>
-<h3 id="什么时候我会用框架或半框架">什么时候我会用框架（或半框架）
+<h2 id="5-框架-vs-口语化">5) 框架 vs 口语化
+</h2><p>现实里更常见的确实是用对话式的方式去问，而不是每次都把 ICIO/RASCEF 写满。框架的意义不是格式本身，而是把那些容易被默认掉的条件补全：<strong>受众是谁、要什么形式、哪些不能写、怎么才算做完</strong>。</p>
+<h3 id="什么时候用框架">什么时候用框架
 </h3><p>下面这些场景，结构化输入的收益通常非常高：</p>
 <ul>
 <li><strong>高风险/高成本</strong>：对外发布、对客户交付、写代码要直接进仓库、写合同/公告等，错一次代价大。</li>
@@ -684,8 +698,8 @@ unicode: "f549"
 <li><strong>可复用/可交接</strong>：同一类任务会反复做，或需要团队复用；框架就是可复制的“工作流”。</li>
 <li><strong>需要可衡量结果</strong>：比如 BROKE 的 KR，明确“什么叫成功”，能减少来回扯皮。</li>
 </ul>
-<p>我自己常用的“半框架”最低标准是把三件事说清楚：<strong>要做什么（任务）/ 基于什么（关键上下文）/ 怎么才算好（输出要求与约束）</strong>。很多时候到这一步就够稳了。</p>
-<h3 id="什么时候口语化更划算">什么时候口语化更划算
+<p>常用的“框架/半框架”最低标准是把三件事说清楚：<strong>要做什么（任务）/ 基于什么（关键上下文）/ 怎么才算好（输出要求与约束）</strong>。</p>
+<h3 id="什么时候口语化">什么时候口语化
 </h3><p>口语化对话更适合这些情况：</p>
 <ul>
 <li><strong>探索与发散</strong>：先找方向、要灵感、要候选方案（“给我 10 个思路我再挑”）。</li>
@@ -693,8 +707,8 @@ unicode: "f549"
 <li><strong>需求还不确定</strong>：还在“想清楚要什么”的阶段，框架反而会限制探索。</li>
 <li><strong>可以接受迭代</strong>：先要个草稿，再通过追问把它收敛到可用版本。</li>
 </ul>
-<h3 id="不写框架也能稳一点口语化的最小结构">不写框架也能稳一点：口语化的最小结构
-</h3><p>我发现口语化问题里最容易缺的几类信息，补齐之后输出会稳定很多：</p>
+<h3 id="不写框架也可以口语化的最小结构">不写框架也可以：口语化的最小结构
+</h3><p>口语化问题里最容易缺的几类信息，补齐之后输出会稳定很多：</p>
 <ul>
 <li><strong>目标</strong>：最终用途是什么（发邮件、写汇报、做决策、写代码、做 PPT）。</li>
 <li><strong>受众与语气</strong>：给谁看、希望什么风格（面试官/老板/客户/同事；正式/口语/简洁）。</li>
@@ -703,10 +717,9 @@ unicode: "f549"
 <li><strong>缺信息时的策略</strong>：明确约定“如果信息不足，先提出最多 3 个问题再继续”。</li>
 </ul>
 <p>本质上，这些要素就是框架的核心，只是换成更自然的表达方式。</p>
-<h3 id="我常用的几种提问套路比较口语但更稳定">我常用的几种提问套路（比较口语，但更稳定）
+<h3 id="常用的几种提问套路">常用的几种提问套路
 </h3><ol>
-<li><strong>先要“草稿”，再要“改稿”</strong><br>
-第一句只求快速覆盖面，第二句再加约束收敛质量。比如：</li>
+<li><strong>先要“草稿”，再要“改稿”</strong>：第一句只求快速覆盖面，第二句再加约束收敛质量。比如：</li>
 </ol>
 <ul>
 <li>“帮我写一份产品周报，先给一个结构和要点。”</li>
@@ -732,7 +745,7 @@ unicode: "f549"
 <li>“给我一份检查清单，让我能自查这份内容是否达标。”</li>
 <li>“列出这些判断依赖的前提条件/假设。”</li>
 </ul>
-<h3 id="几句常用问法我会直接复制改一改">几句常用问法（我会直接复制改一改）
+<h3 id="几种常用问法">几种常用问法
 </h3><ul>
 <li><strong>通用问答</strong>：<br>
 “目标是【目标】。现有信息是【要点 1/2/3】。请按【输出形式】输出。如果信息不够，请先提出最多 3 个问题再继续。”</li>
@@ -744,17 +757,17 @@ unicode: "f549"
 “环境是【环境/语言/框架】，遇到的问题是【问题】。报错/日志如下：【粘贴】。期望结果是【期望】。请先按排查顺序列可能原因，再给一个最小可行的修复方案。”</li>
 </ul>
 <hr>
-<h2 id="6-用-ai-辅助生成-prompt我更常把它当提示词编辑器">6) 用 AI 辅助生成 prompt（我更常把它当“提示词编辑器”）
+<h2 id="6-用-ai-辅助生成-prompt">6) 用 AI 辅助生成 prompt
 </h2><p>这一节是我日常最常用的小技巧：把 AI 当“提示词整理器”。很多时候任务本身不难，难的是需求描述太散，关键约束没说全。先让模型把口语化需求整理成结构化 prompt，再拿这个 prompt 去跑任务，稳定性通常会好很多。</p>
 <p>我比较推荐分两步：<strong>先写 prompt，再执行任务</strong>。第一步只做整理（不输出答案），第二步再按整理后的 prompt 去生成结果。这样能避免它一边组织提示词一边提前开始回答，导致结构跑偏。</p>
-<h3 id="一个顺手的流程">一个顺手的流程
+<h3 id="简要的流程">简要的流程
 </h3><ol>
 <li>先用口语把需求说清楚（不用很完整）。</li>
 <li>让模型反问几个关键信息（一般 3 个就够）。</li>
 <li>让它按某个框架输出“最终 prompt”（只输出提示词，不要输出答案）。</li>
 <li>把最终 prompt 原封不动贴回去，让模型开始执行任务。</li>
 </ol>
-<h3 id="让它先当提示词编辑">让它先当“提示词编辑”
+<h3 id="生成prompt的框架">生成prompt的框架
 </h3><p>例如我会这样写：</p>
 <blockquote>
 <p>请先不要回答任务内容，先把需求整理成一个提示词。<br>
@@ -768,8 +781,8 @@ unicode: "f549"
 <li>要求固定格式、要遵守口径：用改良版 CRISPE。</li>
 <li>需要按步骤做、需要可执行结果：用 RASCEF。</li>
 </ul>
-<h3 id="把我这段话变成-prompt的例子">“把我这段话变成 prompt”的例子
-</h3><p>比如我随口写：</p>
+<h3 id="生成prompt的例子">生成prompt的例子
+</h3><p>比如：</p>
 <blockquote>
 <p>我想写一封邮件给老板说下这个月做了啥，别太啰嗦，重点写结果。</p>
 </blockquote>
@@ -781,14 +794,14 @@ Input Data: 本月完成的事情如下（后续补充列表）<br>
 Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下月计划和风险点，避免空话</p>
 </blockquote>
 <p>再把“本月完成的事情”补进去，就能直接用了。</p>
-<h3 id="加边界别让它乱编">加边界：别让它乱编
-</h3><p>如果我经常遇到“写得很顺，但事实不对”，会把下面两句塞进提示词里：</p>
+<h3 id="注意加边界">注意加边界
+</h3><p>如果经常遇到“写得很顺，但事实不对”，可以把下面两句塞进提示词里：</p>
 <ul>
 <li>“不要补充未提供的事实或数据，缺的部分先提问确认。”</li>
 <li>“如有任何假设，请单独列出来并等待确认。”</li>
 </ul>
 <h3 id="反向用法拿一段好答案反推-prompt">反向用法：拿一段好答案，反推 prompt
-</h3><p>有时候我手上已经有一段“风格很符合预期”的文本（比如同事的周报、以前写过的文案），也可以把它当示例，让模型反推一个可复用的提示词：</p>
+</h3><p>如果手上已经有一段“风格很符合预期”的文本（比如同事的周报、以前写过的文案），可以把它当示例，让模型反推一个可复用的提示词：</p>
 <blockquote>
 <p>这是一个我满意的输出样例（贴上去）。<br>
 请反推一个提示词，让模型以后也能写出类似风格。<br>
@@ -833,7 +846,7 @@ Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下
       </tr>
   </tbody>
 </table></div>
-<p>我的经验是：不用为了“写提示词”而写提示词。大多数日常问题，口语化问法 + 一两轮追问就够了；但当结果有明确要求（要可执行、要可复用、要对齐口径），框架能显著减少来回试错。最常用的组合还是 <strong>ICIO（把交付说清）</strong> + <strong>改良版 CRISPE / RASCEF（把边界和步骤说清）</strong>。</p>
+<p>不用为了“写提示词”而写提示词。大多数日常问题，口语化问法 + 一两轮追问就够了；但当结果有明确要求（要可执行、要可复用、要对齐口径），框架能显著减少来回试错。最常用的组合还是 <strong>ICIO（把交付说清）</strong> + <strong>改良版 CRISPE / RASCEF（把边界和步骤说清）</strong>。</p>
 
 </section>
 
