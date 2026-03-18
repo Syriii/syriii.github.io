@@ -12,21 +12,7 @@
         <pubDate>Sun, 25 Jan 2026 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/llm-prompt-framework/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b.webp&#34;
-	width=&#34;928&#34;
-	height=&#34;600&#34;
-	srcset=&#34;https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b_hu_1d001bd32ccb12ec.webp 480w, https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b_hu_caf2ea97634f3d66.webp 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;prompt&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;154&#34;
-		data-flex-basis=&#34;371px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;记录一下-llm-提示词工程框架&#34;&gt;记录一下 LLM 提示词工程框架
+        <description>&lt;img src="https://syriii.github.io/p/llm-prompt-framework/pic/d2329daa-73cd-485e-8b4b-2dfb087ddd3b.webp" alt="Featured image of post 记录一下LLM提示词工程框架" /&gt;&lt;h1 id=&#34;记录一下-llm-提示词工程框架&#34;&gt;记录一下 LLM 提示词工程框架
 &lt;/h1&gt;&lt;p&gt;我平时更常用的方式其实是“口语化提问 + 追问迭代”。但这种方式有个问题：同一个问题，模型有时能给到我想要的答案，有时就开始跑题、堆概念，甚至自己编设定。很多时候不是模型不会，是我没把「要交付什么」说清楚。&lt;/p&gt;
 &lt;p&gt;这篇笔记就把几个我觉得常见、也确实用得上的提示词框架记一下：ICIO、BROKE、CRISPE、RASCEF。我更倾向把它们当成一组检查项：当输出总是答不到点上，通常是少写了某个关键要素。&lt;/p&gt;
 &lt;hr&gt;
@@ -647,18 +633,7 @@ Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下
         <pubDate>Sun, 14 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/create_template_hugo/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/create_template_hugo/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;创建一个新的hugo页面类型&#34;&gt;创建一个新的Hugo页面类型
-&lt;/h1&gt;&lt;p&gt;想了想还是单开一偏文章记录一下这部分内容，毕竟读完再写完这部分内容后，个人感觉对于hugo的一些修改已经做到了入门。&lt;/p&gt;
+        <description>&lt;img src="https://syriii.github.io/p/create_template_hugo/pic/hugo-logo-wide.svg" alt="Featured image of post 创建一个新的Hugo页面类型" /&gt;&lt;p&gt;想了想还是单开一偏文章记录一下这部分内容，毕竟读完再写完这部分内容后，个人感觉对于hugo的一些修改已经做到了入门。&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-warning&#34;&gt;
     &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;warning&lt;/div&gt;
     &lt;p&gt;个人前端能力有限，部分代码为ai生成。&lt;/p&gt;&lt;/blockquote&gt;
@@ -1569,18 +1544,7 @@ Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下
         <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/shortcode_hugo/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/shortcode_hugo/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;自定义hugo简码&#34;&gt;自定义Hugo简码
-&lt;/h1&gt;&lt;p&gt;Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/writing/shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://syriii.github.io/p/shortcode_hugo/pic/hugo-logo-wide.svg" alt="Featured image of post 自定义Hugo简码" /&gt;&lt;p&gt;Hugo支持简码(shortcode)方式，根据既定存在的规则，将markdown中特定格式的标签转化成html页面中特定的样式。关于官方的一些介绍，可以参考这两个链接：&lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com/writing/shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Stack提供的简码&lt;/a&gt;，&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hugo官方文档&lt;/a&gt;。&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-important&#34;&gt;
@@ -1628,18 +1592,7 @@ Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下
         <pubDate>Thu, 11 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/customize_hugo/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/customize_hugo/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;自定义你的hugo页面&#34;&gt;自定义你的Hugo页面
-&lt;/h1&gt;&lt;p&gt;虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。里面会汇总一些搜罗到的我比较喜欢的改动和一些我自己额外的改动。&lt;/p&gt;
+        <description>&lt;img src="https://syriii.github.io/p/customize_hugo/pic/hugo-logo-wide.svg" alt="Featured image of post 自定义你的Hugo页面" /&gt;&lt;p&gt;虽然已经使用了主题，但是页面上很多内容并非想要的，记录一些页面内容修改的步骤，大部分内容为前端的js和css的修改。里面会汇总一些搜罗到的我比较喜欢的改动和一些我自己额外的改动。&lt;/p&gt;
 &lt;blockquote class=&#34;alert alert-warning&#34;&gt;
     &lt;div class=&#34;alert-prefix&#34;&gt;&lt;i class=&#34;ri-alert-prefix-icon&#34;&gt;&lt;/i&gt;warning&lt;/div&gt;
     &lt;p&gt;个人前端能力有限，部分代码为ai生成。&lt;/p&gt;&lt;/blockquote&gt;
@@ -2884,18 +2837,7 @@ Output Indicator: 200-300 字，先写结果，再写关键过程，最后写下
         <pubDate>Tue, 09 Sep 2025 00:00:00 +0000</pubDate>
         
         <guid>https://syriii.github.io/p/new_hugo/</guid>
-        <description>&lt;p&gt;&lt;img src=&#34;https://syriii.github.io/p/new_hugo/pic/hugo-logo-wide.svg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;hugo-logo&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h1 id=&#34;新建一个hugo博客站&#34;&gt;新建一个Hugo博客站
-&lt;/h1&gt;&lt;p&gt;Hugo是Go语言实现的博客工具，使用Markdown进行文章编辑，使用hugo基础命令就可以生成静态网页。支持主题配置，也支持js自定义。&lt;/p&gt;
+        <description>&lt;img src="https://syriii.github.io/p/new_hugo/pic/hugo-logo-wide.svg" alt="Featured image of post 新建一个hugo博客站" /&gt;&lt;p&gt;Hugo是Go语言实现的博客工具，使用Markdown进行文章编辑，使用hugo基础命令就可以生成静态网页。支持主题配置，也支持js自定义。&lt;/p&gt;
 &lt;h2 id=&#34;安装hugo&#34;&gt;安装Hugo
 &lt;/h2&gt;&lt;h3 id=&#34;macos&#34;&gt;macOS
 &lt;/h3&gt;&lt;p&gt;我其中一台电脑是macOS，使用官方推荐的homebrew方式来进行hugo的安装。&lt;/p&gt;
